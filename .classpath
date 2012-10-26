@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="external-libs/OmicronAPI/library/OmicronAPI.jar"/>
+	<classpathentry kind="lib" path="external-libs/processing-net-libs/library/net.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/glgraphics.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/json4processing.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/libTUIO.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/opengl.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/sqlitejdbc-v056.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/unfolding.0.9.1.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/jogl.jar"/>
+	<classpathentry kind="lib" path="external-libs/unfoldingmaps/lib/core.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
