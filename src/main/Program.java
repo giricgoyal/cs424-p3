@@ -30,17 +30,19 @@ public class Program extends PApplet {
 	public void setup() {
 		
 		if (isWall) {
-			size(8160, 2304);
+			size(8160, 2304,P3D);
 			initOmicron();
 		}
 		else {
-			size(1632, 461);						
+			size(1632, 461,P3D);						
 		}
 		
+		noSmooth();
 		initMap();
 	}
 
-	public void draw() {		
+	public void draw() {
+		
 		map.draw();
 		this.fill(0);
 		this.rectMode(PConstants.CORNERS);
