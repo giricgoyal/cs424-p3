@@ -4,9 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="external-libs/OmicronAPI/library/OmicronAPI.jar"/>
 	<classpathentry kind="lib" path="external-libs/processing-net-libs/library/net.jar"/>
-	<classpathentry kind="lib" path="external-libs/ModestMaps/modestmaps.jar"/>
 	<classpathentry kind="lib" path="external-libs/processing-libs/core.jar"/>
 	<classpathentry kind="lib" path="external-libs/processing-libs/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="external-libs/processing-libs/jogl-all.jar"/>
+	<classpathentry kind="lib" path="external-libs/ModestMaps/modestmaps.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

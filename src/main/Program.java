@@ -64,6 +64,7 @@ public class Program extends PApplet {
 	Location locationIllinois = new Location(40.4298f,  -88.9244f); 
 	Location locationChicago = new Location(41.85f,  -87.65f); 
 	public void initMap() {
+		
 		// OpenStreetMap would be like this:
 		//map = new InteractiveMap(this, new OpenStreetMapProvider());
 		// but it's a free open source project, so don't bother their server too much
@@ -76,16 +77,19 @@ public class Program extends PApplet {
 		mapSize = new PVector( width/2, height );
 		mapOffset = new PVector(0,0);
 		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), mapOffset.x, mapOffset.y, mapSize.x, mapSize.y );
-		map.panTo(locationChicago);
+		map.panTo(locationUSA);
 		map.setZoom(zoomInterState);
 		setMapProvider(currentProvider);
 	}
 	
 	void setMapProvider(int newProviderID){
-		switch( newProviderID ){
-	    	case 0: map.setMapProvider( new Microsoft.RoadProvider() ); break;
+		switch( newProviderID ){		
+    		case 0: map.setMapProvider( new Microsoft.AerialProvider() ); break;
 	    	case 1: map.setMapProvider( new Microsoft.HybridProvider() ); break;
-	    	case 2: map.setMapProvider( new Microsoft.AerialProvider() ); break;
+	    	case 2: map.setMapProvider( new Microsoft.RoadProvider() ); break;
+	    	case 3: map.setMapProvider( new Yahoo.AerialProvider()); break;
+	    	case 4: map.setMapProvider( new Yahoo.RoadProvider() ); break;
+	    	case 5: map.setMapProvider( new OpenStreetMapProvider()); break;
 		}
 	}
 	
@@ -103,6 +107,7 @@ public class Program extends PApplet {
 		touchListener.setThings(this);
 		// Register listener with OmicronAPI
 		omicronManager.setTouchListener(touchListener);
+		
 	}
 	
 	public void keyPressed()
@@ -132,7 +137,7 @@ public class Program extends PApplet {
 	  }
 	
 	  if (key==' ') {
-		  currentProvider=(currentProvider+1)%3;
+		  currentProvider=(currentProvider+1)%6;
 		  setMapProvider(currentProvider);
 	  }		  
 	}
@@ -149,6 +154,10 @@ public class Program extends PApplet {
 //	       using an ID of -1 and an xWidth and yWidth value of 10.
 
 	// Touch position at last frame
+	
+	public boolean clickIn(float mx, float my, float bx, float by, float bw, float bh) {
+		return (bx <= mx && mx <= bx+bw && by <= my && my <= by+bh); }
+	
 	PVector lastTouchPos = new PVector();
 	PVector lastTouchPos2 = new PVector();
 	int touchID1;
@@ -263,5 +272,13 @@ public class Program extends PApplet {
 	  // Remove touch and ID from list
 	  touchList.remove(ID);
 	}// touchUp
+	
+	public void mouseReleased() {
+		//MAP CLICK:
+		if (clickIn(mouseX,mouseY,mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {			
+			
+		}
+	}
+	
 
 }
