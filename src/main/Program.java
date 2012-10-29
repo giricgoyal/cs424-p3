@@ -54,6 +54,8 @@ public class Program extends PApplet {
     	if (isWall) {
     		omicronManager.process();
     	}
+    	
+    	drawState();
     }
 	
 	int currentProvider=0;
@@ -278,6 +280,71 @@ public class Program extends PApplet {
 		if (clickIn(mouseX,mouseY,mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {			
 			
 		}
+	}
+	
+	public void drawState() {
+		noStroke();
+		fill(255,0,0,100);
+		beginShape();
+		vertex(map.locationPoint(new Location(32.441967f,-109.048882f)).x,map.locationPoint(new Location(32.441967f,-109.048882f)).y);
+		vertex(map.locationPoint(new Location(32.779480f,-109.050728f)).x,map.locationPoint(new Location(32.779480f,-109.050728f)).y);
+		vertex(map.locationPoint(new Location(33.205101f,-109.049904f)).x,map.locationPoint(new Location(33.205101f,-109.049904f)).y);
+		vertex(map.locationPoint(new Location(33.783249f,-109.049721f)).x,map.locationPoint(new Location(33.783249f,-109.049721f)).y);
+		vertex(map.locationPoint(new Location(34.591740f,-109.048012f)).x,map.locationPoint(new Location(34.591740f,-109.048012f)).y);
+		vertex(map.locationPoint(new Location(34.954613f,-109.045998f)).x,map.locationPoint(new Location(34.954613f,-109.045998f)).y);
+		vertex(map.locationPoint(new Location(35.996655f,-109.047195f)).x,map.locationPoint(new Location(35.996655f,-109.047195f)).y);
+		vertex(map.locationPoint(new Location(36.996643f,-109.047821f)).x,map.locationPoint(new Location(36.996643f,-109.047821f)).y);
+		vertex(map.locationPoint(new Location(36.999474f,-108.371834f)).x,map.locationPoint(new Location(36.999474f,-108.371834f)).y);
+		vertex(map.locationPoint(new Location(36.998772f,-107.471855f)).x,map.locationPoint(new Location(36.998772f,-107.471855f)).y);
+		vertex(map.locationPoint(new Location(36.997520f,-107.410217f)).x,map.locationPoint(new Location(36.997520f,-107.410217f)).y);
+		vertex(map.locationPoint(new Location(36.999073f,-106.889778f)).x,map.locationPoint(new Location(36.999073f,-106.889778f)).y);
+		vertex(map.locationPoint(new Location(36.989491f,-106.860657f)).x,map.locationPoint(new Location(36.989491f,-106.860657f)).y);
+		vertex(map.locationPoint(new Location(36.991493f,-106.471588f)).x,map.locationPoint(new Location(36.991493f,-106.471588f)).y);
+		vertex(map.locationPoint(new Location(36.992275f,-105.991425f)).x,map.locationPoint(new Location(36.992275f,-105.991425f)).y);
+		vertex(map.locationPoint(new Location(36.994541f,-105.712891f)).x,map.locationPoint(new Location(36.994541f,-105.712891f)).y);
+		vertex(map.locationPoint(new Location(36.992580f,-105.212532f)).x,map.locationPoint(new Location(36.992580f,-105.212532f)).y);
+		vertex(map.locationPoint(new Location(36.993183f,-105.145615f)).x,map.locationPoint(new Location(36.993183f,-105.145615f)).y);
+		vertex(map.locationPoint(new Location(36.994446f,-103.993111f)).x,map.locationPoint(new Location(36.994446f,-103.993111f)).y);
+		vertex(map.locationPoint(new Location(36.999741f,-103.077377f)).x,map.locationPoint(new Location(36.999741f,-103.077377f)).y);
+		vertex(map.locationPoint(new Location(36.998505f,-102.997223f)).x,map.locationPoint(new Location(36.998505f,-102.997223f)).y);
+		vertex(map.locationPoint(new Location(36.492344f,-102.996918f)).x,map.locationPoint(new Location(36.492344f,-102.996918f)).y);
+		vertex(map.locationPoint(new Location(36.491566f,-103.026802f)).x,map.locationPoint(new Location(36.491566f,-103.026802f)).y);
+		vertex(map.locationPoint(new Location(36.056026f,-103.023560f)).x,map.locationPoint(new Location(36.056026f,-103.023560f)).y);
+		vertex(map.locationPoint(new Location(35.742287f,-103.022118f)).x,map.locationPoint(new Location(35.742287f,-103.022118f)).y);
+		vertex(map.locationPoint(new Location(35.623604f,-103.021797f)).x,map.locationPoint(new Location(35.623604f,-103.021797f)).y);
+		vertex(map.locationPoint(new Location(35.177208f,-103.025650f)).x,map.locationPoint(new Location(35.177208f,-103.025650f)).y);
+		vertex(map.locationPoint(new Location(34.964718f,-103.024750f)).x,map.locationPoint(new Location(34.964718f,-103.024750f)).y);
+		vertex(map.locationPoint(new Location(34.745266f,-103.022156f)).x,map.locationPoint(new Location(34.745266f,-103.022156f)).y);
+		vertex(map.locationPoint(new Location(34.307743f,-103.029144f)).x,map.locationPoint(new Location(34.307743f,-103.029144f)).y);
+		vertex(map.locationPoint(new Location(33.826088f,-103.032761f)).x,map.locationPoint(new Location(33.826088f,-103.032761f)).y);
+		vertex(map.locationPoint(new Location(33.565742f,-103.038239f)).x,map.locationPoint(new Location(33.565742f,-103.038239f)).y);
+		vertex(map.locationPoint(new Location(33.377728f,-103.042603f)).x,map.locationPoint(new Location(33.377728f,-103.042603f)).y);
+		vertex(map.locationPoint(new Location(32.953533f,-103.048836f)).x,map.locationPoint(new Location(32.953533f,-103.048836f)).y);
+		vertex(map.locationPoint(new Location(32.515430f,-103.059547f)).x,map.locationPoint(new Location(32.515430f,-103.059547f)).y);
+		vertex(map.locationPoint(new Location(32.084995f,-103.055191f)).x,map.locationPoint(new Location(32.084995f,-103.055191f)).y);
+		vertex(map.locationPoint(new Location(32.001900f,-103.057968f)).x,map.locationPoint(new Location(32.001900f,-103.057968f)).y);
+		vertex(map.locationPoint(new Location(32.004154f,-103.332092f)).x,map.locationPoint(new Location(32.004154f,-103.332092f)).y);
+		vertex(map.locationPoint(new Location(32.006104f,-103.728973f)).x,map.locationPoint(new Location(32.006104f,-103.728973f)).y);
+		vertex(map.locationPoint(new Location(32.005890f,-103.980896f)).x,map.locationPoint(new Location(32.005890f,-103.980896f)).y);
+		vertex(map.locationPoint(new Location(32.007278f,-104.018814f)).x,map.locationPoint(new Location(32.007278f,-104.018814f)).y);
+		vertex(map.locationPoint(new Location(32.003151f,-104.850563f)).x,map.locationPoint(new Location(32.003151f,-104.850563f)).y);
+		vertex(map.locationPoint(new Location(32.004269f,-104.921799f)).x,map.locationPoint(new Location(32.004269f,-104.921799f)).y);
+		vertex(map.locationPoint(new Location(32.001553f,-106.002708f)).x,map.locationPoint(new Location(32.001553f,-106.002708f)).y);
+		vertex(map.locationPoint(new Location(32.000645f,-106.377846f)).x,map.locationPoint(new Location(32.000645f,-106.377846f)).y);
+		vertex(map.locationPoint(new Location(32.000988f,-106.623077f)).x,map.locationPoint(new Location(32.000988f,-106.623077f)).y);
+		vertex(map.locationPoint(new Location(31.980228f,-106.649513f)).x,map.locationPoint(new Location(31.980228f,-106.649513f)).y);
+		vertex(map.locationPoint(new Location(31.972118f,-106.632057f)).x,map.locationPoint(new Location(31.972118f,-106.632057f)).y);
+		vertex(map.locationPoint(new Location(31.913998f,-106.633202f)).x,map.locationPoint(new Location(31.913998f,-106.633202f)).y);
+		vertex(map.locationPoint(new Location(31.895102f,-106.643532f)).x,map.locationPoint(new Location(31.895102f,-106.643532f)).y);
+		vertex(map.locationPoint(new Location(31.844635f,-106.615578f)).x,map.locationPoint(new Location(31.844635f,-106.615578f)).y);
+		vertex(map.locationPoint(new Location(31.817728f,-106.614441f)).x,map.locationPoint(new Location(31.817728f,-106.614441f)).y);
+		vertex(map.locationPoint(new Location(31.786198f,-106.538971f)).x,map.locationPoint(new Location(31.786198f,-106.538971f)).y);
+		vertex(map.locationPoint(new Location(31.784981f,-107.282997f)).x,map.locationPoint(new Location(31.784981f,-107.282997f)).y);
+		vertex(map.locationPoint(new Location(31.786804f,-108.202660f)).x,map.locationPoint(new Location(31.786804f,-108.202660f)).y);
+		vertex(map.locationPoint(new Location(31.343742f,-108.210060f)).x,map.locationPoint(new Location(31.343742f,-108.210060f)).y);
+		vertex(map.locationPoint(new Location(31.343348f,-109.045006f)).x,map.locationPoint(new Location(31.343348f,-109.045006f)).y);
+		vertex(map.locationPoint(new Location(32.441967f,-109.048882f)).x,map.locationPoint(new Location(32.441967f,-109.048882f)).y);
+		endShape();
 	}
 	
 
