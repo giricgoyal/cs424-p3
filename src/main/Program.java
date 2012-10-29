@@ -23,13 +23,11 @@ public class Program extends PApplet {
 	OmicronAPI omicronManager;
 	TouchListener touchListener;
     
-	boolean isWall=false;
-    
 	InteractiveMap map;
 
 	public void setup() {
 		
-		if (isWall) {
+		if (Utilities.isWall) {
 			size(8160, 2304,P3D);
 			initOmicron();
 		}
@@ -51,7 +49,7 @@ public class Program extends PApplet {
 		this.rect(0, mapOffset.y+mapSize.y, width, height);
 		this.rect(mapOffset.x+mapSize.x, 0, width, height);
     	
-    	if (isWall) {
+    	if (Utilities.isWall) {
     		omicronManager.process();
     	}
     	
@@ -62,7 +60,7 @@ public class Program extends PApplet {
 	final int zoomInterState = 4;
 	final int zoomState = 7;
 	final int zoomCity = 11;	
-	Location locationUSA = new Location(38.962f,  -93.928f); 
+	Location locationUSA = new Location(38.962f,  -94.928f); 
 	Location locationIllinois = new Location(40.4298f,  -88.9244f); 
 	Location locationChicago = new Location(41.85f,  -87.65f); 
 	public void initMap() {
@@ -79,8 +77,8 @@ public class Program extends PApplet {
 		mapSize = new PVector( width/2, height );
 		mapOffset = new PVector(0,0);
 		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), mapOffset.x, mapOffset.y, mapSize.x, mapSize.y );
-		map.panTo(locationUSA);
-		map.setZoom(zoomInterState);
+		map.panTo(locationIllinois);
+		map.setZoom(zoomState);
 		setMapProvider(currentProvider);
 	}
 	
@@ -133,6 +131,7 @@ public class Program extends PApplet {
 		  		break;
 		  	case zoomState:
 		  		map.setZoom(zoomInterState);
+		  		map.panTo(locationUSA);
 		  		break;
 		  }
 		  
