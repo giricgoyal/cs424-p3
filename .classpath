@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="external-libs/processing-libs/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="external-libs/processing-libs/jogl-all.jar"/>
 	<classpathentry kind="lib" path="external-libs/ModestMaps/modestmaps.jar"/>
+	<classpathentry kind="lib" path="external-libs/SQLibrary/library/SQLibrary.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
