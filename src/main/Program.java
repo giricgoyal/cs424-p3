@@ -1,10 +1,13 @@
 package main;
 
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import omicronAPI.OmicronAPI;
 import processing.core.*;
 import com.modestmaps.*;
+import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.*;
 import com.modestmaps.providers.*;
 
@@ -25,6 +28,12 @@ public class Program extends PApplet {
     
 	InteractiveMap map;
 
+	ArrayList<Marker> markerList; 
+	
+	public void initApp() {
+		markerList = new ArrayList<Marker>();
+	}
+	
 	public void setup() {
 		
 		if (Utilities.isWall) {
@@ -37,23 +46,31 @@ public class Program extends PApplet {
 		
 		noSmooth();
 		initMap();
+		initApp();
 	}
 
 	public void draw() {
 		
-		map.draw();
+		map.draw();		
 		this.fill(0);
 		this.rectMode(PConstants.CORNERS);
 		this.rect(0, 0, width, mapOffset.y);
 		this.rect(0, 0, mapOffset.x, height);
 		this.rect(0, mapOffset.y+mapSize.y, width, height);
 		this.rect(mapOffset.x+mapSize.x, 0, width, height);
-    	
+		
+		for (Marker m: markerList) {
+			//If the marker requires drawing, draw it
+			Point2f p = map.locationPoint(m.location);
+			if (isIn(p.x, p.y, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {
+				//DRAW
+				m.draw(p.x, p.y);
+			}
+		}
+		
     	if (Utilities.isWall) {
     		omicronManager.process();
     	}
-    	
-    	drawState();
     }
 	
 	int currentProvider=0;
@@ -77,8 +94,8 @@ public class Program extends PApplet {
 		mapSize = new PVector( width/2, height );
 		mapOffset = new PVector(0,0);
 		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), mapOffset.x, mapOffset.y, mapSize.x, mapSize.y );
-		map.panTo(locationIllinois);
-		map.setZoom(zoomState);
+		map.panTo(locationChicago);
+		map.setZoom(zoomInterState);
 		setMapProvider(currentProvider);
 	}
 	
@@ -133,8 +150,7 @@ public class Program extends PApplet {
 		  		map.setZoom(zoomInterState);
 		  		map.panTo(locationUSA);
 		  		break;
-		  }
-		  
+		  }		  
 	  }
 	
 	  if (key==' ') {
@@ -156,7 +172,7 @@ public class Program extends PApplet {
 
 	// Touch position at last frame
 	
-	public boolean clickIn(float mx, float my, float bx, float by, float bw, float bh) {
+	public boolean isIn(float mx, float my, float bx, float by, float bw, float bh) {
 		return (bx <= mx && mx <= bx+bw && by <= my && my <= by+bh); }
 	
 	PVector lastTouchPos = new PVector();
@@ -172,24 +188,9 @@ public class Program extends PApplet {
 
 	// see if we're over any buttons, and respond accordingly:
 	public void mouseClicked() {
-	  /*if (in.mouseOver()) {
-	    map.zoomIn();
+	  if (isIn(mouseX, mouseY, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)){
+		  markerList.add(new Marker(this, map.pointLocation(mouseX, mouseY)));
 	  }
-	  else if (out.mouseOver()) {
-	    map.zoomOut();
-	  }
-	  else if (up.mouseOver()) {
-	    map.panUp();
-	  }
-	  else if (down.mouseOver()) {
-	    map.panDown();
-	  }
-	  else if (left.mouseOver()) {
-	    map.panLeft();
-	  }
-	  else if (right.mouseOver()) {
-	    map.panRight();
-	  }*/
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -276,15 +277,68 @@ public class Program extends PApplet {
 	
 	public void mouseReleased() {
 		//MAP CLICK:
-		if (clickIn(mouseX,mouseY,mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {			
+		if (isIn(mouseX,mouseY,mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {			
 			
 		}
+	}
+	
+	public void drawCookCounty() {
+		noStroke();
+		fill(0,0,255,150);
+		beginShape();
+		vertex(map.locationPoint(new Location(42.154099f,-88.238197f)).x, map.locationPoint(new Location(42.154099f,-88.238197f)).y);
+		vertex(map.locationPoint(new Location(42.154202f, -88.199303f)).x, map.locationPoint(new Location(42.154202f, -88.199303f)).y);
+		vertex(map.locationPoint(new Location(42.153355f, -87.760063f)).x, map.locationPoint(new Location(42.153355f, -87.760063f)).y);
+		vertex(map.locationPoint(new Location(42.128601f, -87.741997f)).x, map.locationPoint(new Location(42.128601f, -87.741997f)).y);
+		vertex(map.locationPoint(new Location(42.107700f, -87.724602f)).x, map.locationPoint(new Location(42.107700f, -87.724602f)).y);
+		vertex(map.locationPoint(new Location(42.075699f, -87.682304f)).x, map.locationPoint(new Location(42.075699f, -87.682304f)).y);
+		vertex(map.locationPoint(new Location(42.067001f, -87.676506f)).x, map.locationPoint(new Location(42.067001f, -87.676506f)).y);
+		vertex(map.locationPoint(new Location(42.034302f, -87.669800f)).x, map.locationPoint(new Location(42.034302f, -87.669800f)).y);
+		vertex(map.locationPoint(new Location(42.006302f, -87.657303f)).x, map.locationPoint(new Location(42.006302f, -87.657303f)).y);
+		vertex(map.locationPoint(new Location(41.918598f, -87.628197f)).x, map.locationPoint(new Location(41.918598f, -87.628197f)).y);
+		vertex(map.locationPoint(new Location(41.893612f, -87.613976f)).x, map.locationPoint(new Location(41.893612f, -87.613976f)).y);
+		vertex(map.locationPoint(new Location(41.868900f, -87.616203f)).x, map.locationPoint(new Location(41.868900f, -87.616203f)).y);
+		vertex(map.locationPoint(new Location(41.845200f, -87.609398f)).x, map.locationPoint(new Location(41.845200f, -87.609398f)).y);
+		vertex(map.locationPoint(new Location(41.824402f, -87.598503f)).x, map.locationPoint(new Location(41.824402f, -87.598503f)).y);
+		vertex(map.locationPoint(new Location(41.799599f, -87.580101f)).x, map.locationPoint(new Location(41.799599f, -87.580101f)).y);
+		vertex(map.locationPoint(new Location(41.785999f, -87.576302f)).x, map.locationPoint(new Location(41.785999f, -87.576302f)).y);
+		vertex(map.locationPoint(new Location(41.765999f, -87.560600f)).x, map.locationPoint(new Location(41.765999f, -87.560600f)).y);
+		vertex(map.locationPoint(new Location(41.748199f, -87.530701f)).x, map.locationPoint(new Location(41.748199f, -87.530701f)).y);
+		vertex(map.locationPoint(new Location(41.715168f, -87.528160f)).x, map.locationPoint(new Location(41.715168f, -87.528160f)).y);
+		vertex(map.locationPoint(new Location(41.708302f, -87.524002f)).x, map.locationPoint(new Location(41.708302f, -87.524002f)).y);
+		vertex(map.locationPoint(new Location(41.708279f, -87.523972f)).x, map.locationPoint(new Location(41.708279f, -87.523972f)).y);
+		vertex(map.locationPoint(new Location(41.470081f, -87.525635f)).x, map.locationPoint(new Location(41.470081f, -87.525635f)).y);
+		vertex(map.locationPoint(new Location(41.469898f, -87.790398f)).x, map.locationPoint(new Location(41.469898f, -87.790398f)).y);
+		vertex(map.locationPoint(new Location(41.539799f, -87.790199f)).x, map.locationPoint(new Location(41.539799f, -87.790199f)).y);
+		vertex(map.locationPoint(new Location(41.538300f, -87.792198f)).x, map.locationPoint(new Location(41.538300f, -87.792198f)).y);
+		vertex(map.locationPoint(new Location(41.558601f, -87.792702f)).x, map.locationPoint(new Location(41.558601f, -87.792702f)).y);
+		vertex(map.locationPoint(new Location(41.556702f, -87.909401f)).x, map.locationPoint(new Location(41.556702f, -87.909401f)).y);
+		vertex(map.locationPoint(new Location(41.643902f, -87.912003f)).x, map.locationPoint(new Location(41.643902f, -87.912003f)).y);
+		vertex(map.locationPoint(new Location(41.641499f, -88.027603f)).x, map.locationPoint(new Location(41.641499f, -88.027603f)).y);
+		vertex(map.locationPoint(new Location(41.685501f, -88.029106f)).x, map.locationPoint(new Location(41.685501f, -88.029106f)).y);
+		vertex(map.locationPoint(new Location(41.686798f, -87.966705f)).x, map.locationPoint(new Location(41.686798f, -87.966705f)).y);
+		vertex(map.locationPoint(new Location(41.693600f, -87.955505f)).x, map.locationPoint(new Location(41.693600f, -87.955505f)).y);
+		vertex(map.locationPoint(new Location(41.694801f, -87.948997f)).x, map.locationPoint(new Location(41.694801f, -87.948997f)).y);
+		vertex(map.locationPoint(new Location(41.699200f, -87.942398f)).x, map.locationPoint(new Location(41.699200f, -87.942398f)).y);
+		vertex(map.locationPoint(new Location(41.702999f, -87.942200f)).x, map.locationPoint(new Location(41.702999f, -87.942200f)).y);
+		vertex(map.locationPoint(new Location(41.702301f, -87.940102f)).x, map.locationPoint(new Location(41.702301f, -87.940102f)).y);
+		vertex(map.locationPoint(new Location(41.714802f, -87.914200f)).x, map.locationPoint(new Location(41.714802f, -87.914200f)).y);
+		vertex(map.locationPoint(new Location(41.873001f, -87.920403f)).x, map.locationPoint(new Location(41.873001f, -87.920403f)).y);
+		vertex(map.locationPoint(new Location(41.993999f, -87.920601f)).x, map.locationPoint(new Location(41.993999f, -87.920601f)).y);
+		vertex(map.locationPoint(new Location(41.986198f, -88.262802f)).x, map.locationPoint(new Location(41.986198f, -88.262802f)).y);
+		vertex(map.locationPoint(new Location(42.066601f, -88.263306f)).x, map.locationPoint(new Location(42.066601f, -88.263306f)).y);
+		vertex(map.locationPoint(new Location(42.066898f, -88.237907f)).x, map.locationPoint(new Location(42.066898f, -88.237907f)).y);
+		endShape();
+
+	
+
 	}
 	
 	public void drawState() {
 		noStroke();
 		fill(255,0,0,100);
 		beginShape();
+	
 		vertex(map.locationPoint(new Location(32.441967f,-109.048882f)).x,map.locationPoint(new Location(32.441967f,-109.048882f)).y);
 		vertex(map.locationPoint(new Location(32.779480f,-109.050728f)).x,map.locationPoint(new Location(32.779480f,-109.050728f)).y);
 		vertex(map.locationPoint(new Location(33.205101f,-109.049904f)).x,map.locationPoint(new Location(33.205101f,-109.049904f)).y);
