@@ -54,7 +54,7 @@ public class DatabaseManager {
 	private ArrayList<DataTriple> createArrayFromQuery(ArrayList<DataTriple> array,
 			MySQL msql) {
 		while (msql.next()) {
-			array.add(new DataTriple(msql.getString(1), msql.getInt(2), msql
+			array.add(new DataTriple(msql.getInt(1), msql.getInt(2), msql
 					.getString(3)));
 		}
 		return array;
