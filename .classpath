@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="external-libs/processing-libs/jogl-all.jar"/>
 	<classpathentry kind="lib" path="external-libs/ModestMaps/modestmaps.jar"/>
 	<classpathentry kind="lib" path="external-libs/SQLibrary/library/SQLibrary.jar"/>
+	<classpathentry kind="lib" path="external-libs/SQLibrary/library/mysql-connector-java-3.1.14-bin.jar"/>
+	<classpathentry kind="lib" path="external-libs/SQLibrary/library/postgresql-8.3-604.jdbc3.jar"/>
+	<classpathentry kind="lib" path="external-libs/SQLibrary/library/sqlitejdbc-v053-pure.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
