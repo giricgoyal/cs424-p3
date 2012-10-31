@@ -11,6 +11,9 @@ import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.*;
 import com.modestmaps.providers.*;
 
+import db.DataTriple;
+import db.DatabaseManager;
+
 @SuppressWarnings("serial")
 public class Program extends PApplet {
 	
@@ -30,8 +33,16 @@ public class Program extends PApplet {
 
 	ArrayList<Marker> markerList; 
 	
+	DatabaseManager db;
+	ArrayList<DataTriple> results;
+	int year;
+	
 	public void initApp() {
 		markerList = new ArrayList<Marker>();
+		db = new DatabaseManager(this);
+		results=db.get();
+		
+		year = 2005;
 	}
 	
 	public void setup() {
@@ -71,6 +82,8 @@ public class Program extends PApplet {
     	if (Utilities.isWall) {
     		omicronManager.process();
     	}
+    	
+    	drawNewMexico();
     }
 	
 	int currentProvider=0;
@@ -131,6 +144,8 @@ public class Program extends PApplet {
 	{
 	  if (key=='+')
 	  {
+		  if (year<2010) year++;
+		  /*
 		  switch(map.getZoom()) {
 		  	case zoomInterState:
 		  		map.setZoom(zoomState);
@@ -138,10 +153,12 @@ public class Program extends PApplet {
 		  	case zoomState:
 		  		map.setZoom(zoomCity);
 		  		break;
-		  }
+		  }*/
 	  }
 	  if (key=='-')
 	  {
+		  if (year>2001) year--;
+		  /*
 		  switch(map.getZoom()) {
 		  	case zoomCity:
 		  		map.setZoom(zoomState);
@@ -150,13 +167,15 @@ public class Program extends PApplet {
 		  		map.setZoom(zoomInterState);
 		  		map.panTo(locationUSA);
 		  		break;
-		  }		  
+		  }*/	  
 	  }
 	
 	  if (key==' ') {
 		  currentProvider=(currentProvider+1)%6;
 		  setMapProvider(currentProvider);
 	  }		  
+	  
+	  
 	}
 	//***********************************
 	//--> HERE BEGINS THE MOUSE STUFF <--
@@ -334,9 +353,22 @@ public class Program extends PApplet {
 
 	}
 	
-	public void drawState() {
+	public void drawNewMexico() {
 		noStroke();
-		fill(255,0,0,100);
+		float color = 0;
+		int min = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
+		for (DataTriple t : results) {
+			if (t.getState().equals("35")) {
+				int count = Integer.parseInt(t.getCount());
+				if (t.getYear()==year)
+					color = count;
+				
+				if (count>max) max=count;
+			}		
+		}
+		color = color * 255 / (float)(max);
+		fill(color,0,0,100);
 		beginShape();
 	
 		vertex(map.locationPoint(new Location(32.441967f,-109.048882f)).x,map.locationPoint(new Location(32.441967f,-109.048882f)).y);
