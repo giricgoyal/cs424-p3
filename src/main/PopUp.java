@@ -9,6 +9,9 @@ import processing.core.PApplet;
  * @author giric
  *
  */
+
+
+//CHANGE ALL THE CONSTANTS TO Utilities.Converter(constant)  !!!
 public class PopUp {
 
 	public PApplet parent;

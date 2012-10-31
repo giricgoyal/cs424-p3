@@ -8,6 +8,8 @@ public class Colors {
 	public static int light;	
 	public static int white;
 	
+	public static int windowBackground; 
+	
 	
 	public static int map1;
 	public static int map2;

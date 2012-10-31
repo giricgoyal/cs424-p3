@@ -3,8 +3,6 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import de.bezier.data.sql.*;
-import java.sql.*;
-
 /**
  * Database class. To use it just create an instance and call query method you
  * are interested in.

@@ -11,4 +11,6 @@ public class Utilities {
 			return pixel;
 	}
 	
+	public static float markerWidth = Converter(10);
+	public static float markerHeight = Converter(10);
 }

@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -41,14 +40,14 @@ public class Program extends PApplet {
 	/**
 	 * added by: giric 
 	 * trial markers
-	 */
+	 *
 	Marker marker1, marker2;
 	PopUp popUp;
 	float markerX, markerY;
 	int markerColor;
 	public boolean checkPopUp = false;
 
-	/**
+	**
 	 * uptil here
 	 */
 	
@@ -61,8 +60,8 @@ public class Program extends PApplet {
 		year = 2005;
 	}
 	
-	public void setup() {
-		
+	public void setup() {		
+		//SET SIZE
 		if (Utilities.isWall) {
 			size(8160, 2304,P3D);
 			initOmicron();
@@ -71,87 +70,58 @@ public class Program extends PApplet {
 			size(1632, 461,P3D);						
 		}
 		
+		//CALLING NOSMOOTH IS IMPORTANT FOR THE MAP WIT P3D
 		noSmooth();
+		//CREATE MAP
 		initMap();
+		//CREATE SUPPORT VARS
 		initApp();
-		
-		
-		/**
-		 * added by: giric
-		 * trial markers
-		 */
-		markerX = 400;
-		markerY = 300;
-		markerColor = 0x9035FF45;
-		marker1 = new Marker(this, markerX, markerY, markerColor);
-		popUp = new PopUp(this, markerX, markerY-marker1.getHeight(), markerColor);
-		/**
-		 * uptil here
-		 */
-		
+
+		//MARKER TESTING
+		markerList.add(new Marker(this,(locationChicago)));
 		
 	}
 
 	public void draw() {
-		
+		//DRAW MAP + CONTOUR
 		map.draw();		
-		this.fill(0);
+		this.fill(Colors.windowBackground);
 		this.rectMode(PConstants.CORNERS);
 		this.rect(0, 0, width, mapOffset.y);
 		this.rect(0, 0, mapOffset.x, height);
 		this.rect(0, mapOffset.y+mapSize.y, width, height);
 		this.rect(mapOffset.x+mapSize.x, 0, width, height);
 		
+		//UPDATE MARKERS POSITIONS AND DRAW
 		for (Marker m: markerList) {
-			//If the marker requires drawing, draw it
 			Point2f p = map.locationPoint(m.location);
 			if (isIn(p.x, p.y, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {
-				//DRAW
-				m.draw(p.x, p.y);
+				m.x=p.x;
+				m.y=p.y;
+				m.draw();
 			}
 		}
 		
+		//PROCESS OMICRON
     	if (Utilities.isWall) {
     		omicronManager.process();
     	}
     	
-    	drawNewMexico();
-    	
-    	
-    	/**
-    	 * added by: giric
-    	 * trial markers. 
-    	 */
-    	
-    	marker1.draw();
-    	if (checkPopUp){
-			popUp.draw();
-		}
-    	
-    	/**
-    	 * uptil here
-    	 */
-    	
+    	drawNewMexico();    	
     }
 	
+	//INITIAL CONFIGURATION OF THE MAP
 	int currentProvider=0;
+	// zoom 0 is the whole world, 19 is street level
 	final int zoomInterState = 4;
 	final int zoomState = 7;
 	final int zoomCity = 11;	
 	Location locationUSA = new Location(38.962f,  -94.928f); 
 	Location locationIllinois = new Location(40.4298f,  -88.9244f); 
-	Location locationChicago = new Location(41.85f,  -87.65f); 
+	Location locationChicago = new Location(41.85f,  -87.65f);
+	
+	//INIT MAP SIZE AND POSITION
 	public void initMap() {
-		
-		// OpenStreetMap would be like this:
-		//map = new InteractiveMap(this, new OpenStreetMapProvider());
-		// but it's a free open source project, so don't bother their server too much
-  
-		// AOL/MapQuest provides open tiles too
-		// see http://developer.mapquest.com/web/products/open/map for terms
-		// and this is how to use them:
-		
-		// zoom 0 is the whole world, 19 is street level
 		mapSize = new PVector( width/2, height );
 		mapOffset = new PVector(0,0);
 		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), mapOffset.x, mapOffset.y, mapSize.x, mapSize.y );
@@ -160,6 +130,7 @@ public class Program extends PApplet {
 		setMapProvider(currentProvider);
 	}
 	
+	//SELECT PROVIDER
 	void setMapProvider(int newProviderID){
 		switch( newProviderID ){		
     		case 0: map.setMapProvider( new Microsoft.AerialProvider() ); break;
@@ -242,6 +213,9 @@ public class Program extends PApplet {
 	public boolean isIn(float mx, float my, float bx, float by, float bw, float bh) {
 		return (bx <= mx && mx <= bx+bw && by <= my && my <= by+bh); }
 	
+	public boolean isIn(float mx, float my, float bx, float by, float bw, float bh, float tolerance) {
+		return (bx*(1-tolerance) <= mx && mx <= bx+bw*(1+tolerance) && by*(1-tolerance) <= my && my <= by+bh*(1+tolerance)); }
+	
 	PVector lastTouchPos = new PVector();
 	PVector lastTouchPos2 = new PVector();
 	int touchID1;
@@ -255,36 +229,17 @@ public class Program extends PApplet {
 
 	// see if we're over any buttons, and respond accordingly:
 	public void mouseClicked() {
+		
+	//CLICK ON THE MAP: if we are clicking on the map, check if we are clicking on a marker.
+	//IF so, toggle its opening.
 	  if (isIn(mouseX, mouseY, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)){
-		  
-		  markerList.add(new Marker(this, map.pointLocation(mouseX, mouseY)));
-	  }
-	  
-	  /**
-	  * added by: Giric
-	  * 
-	  * mouse click event for marker and popup. testing
-	  * click on marker to bring up popup
-	  * click anywhere on the popup to make it go away
-	  */
-		
-		if (isIn(mouseX,mouseY,400-marker1.getWidth()/2,300-marker1.getHeight(),marker1.getWidth(),marker1.getHeight())){
-			System.out.println("open popUp");
-			checkPopUp = true;	
-		}
-		
-		if (checkPopUp == true) {
-			if (isIn(mouseX, mouseY, popUp.getX(), popUp.getY(), popUp.getWidth(), popUp.getHeight())) {
-				System.out.println("close popUp");
-				checkPopUp = false;
-			}
-		}
-		
-		
-		/**
-		 * uptil here
-		 */
-		  
+		  for (Marker m: markerList) {
+			  if (isIn(mouseX, mouseY, m.x, m.y, Utilities.markerWidth, Utilities.markerHeight, 0.1f)) {
+				  m.isOpen=!m.isOpen;
+			  }
+		  }
+		  //markerList.add(new Marker(this, map.pointLocation(mouseX, mouseY)));
+	  }		  
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -313,6 +268,7 @@ public class Program extends PApplet {
 	  }
 	}// touchDown
 
+	@SuppressWarnings("unchecked")
 	public void touchMove(int ID, float xPos, float yPos, float xWidth, float yWidth){
 	  noFill();
 	  stroke(0,255,0);
