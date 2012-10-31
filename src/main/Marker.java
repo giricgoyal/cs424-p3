@@ -2,12 +2,7 @@
  * Class to create markers on the map
  * @author giric
  */
-
-
 package main;
-
-import java.io.File;
-import java.util.Properties;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -51,8 +46,6 @@ public class Marker{
 			parent.fill(color);
 			parent.shapeMode(PConstants.CENTER);
 			parent.shape(shape, x-Utilities.markerWidth/2, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
-			//parent.fill(Colors.black);
-			//parent.shape(shapeBorderLayer,x,y, Utilities.markerWidth, Utilities.markerHeight);
 			
 			if (isOpen) {
 				popUp = new PopUp(parent, x,y,color);
