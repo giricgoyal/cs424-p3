@@ -360,7 +360,7 @@ public class Program extends PApplet {
 		int max = Integer.MIN_VALUE;
 		for (DataTriple t : results) {
 			if (t.getState().equals("35")) {
-				int count = Integer.parseInt(t.getCount());
+				int count = t.getCount();
 				if (t.getYear()==year)
 					color = count;
 				

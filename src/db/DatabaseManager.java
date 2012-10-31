@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import de.bezier.data.sql.*;
+import java.sql.*;
 
 /**
  * Database class. To use it just create an instance and call query method you
@@ -22,8 +23,20 @@ public class DatabaseManager {
 	public DatabaseManager(PApplet context) {
 		String user = "root";
 		String pass = "root";
-		String database = "car-crash";
+		String database = "crash";
 		msql = new MySQL(context, "localhost", database, user, pass);
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
