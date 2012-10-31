@@ -72,6 +72,11 @@ public class PopUp {
 		this.check = true;
 		this.upper = this.lower = this.left = this.right = false;
 		
+		Utilities.popUpWidth = this.width;
+		Utilities.popUpHeight = this.height;
+		Utilities.popUpX = this.upperLeftX;
+		Utilities.popUpY = this.upperLeftY;
+		
 		/**
 		 * check if popUp is intersected by the top side of the window
 		 * if yes, translate the popUp
@@ -85,6 +90,7 @@ public class PopUp {
 			this.lowerLeftY = lowerRightY;
 			this.triangleLeftY = upperLeftY - height;
 			this.triangleRightY = upperLeftY - height;
+			Utilities.popUpY = this.lowerLeftY;
 			
 		}
 		
@@ -101,6 +107,7 @@ public class PopUp {
 			this.upperRightX = upperLeftX + width;
 			this.lowerLeftX = upperLeftX;
 			this.lowerRightX = upperRightX;
+			Utilities.popUpX = this.upperLeftX;
 			
 		}
 		
@@ -118,13 +125,12 @@ public class PopUp {
 			this.upperRightX = upperLeftX + width;
 			this.lowerLeftX = upperLeftX;
 			this.lowerRightX = upperRightX;
+			Utilities.popUpX = this.upperLeftX;
 			
 		}
 		
-		Utilities.popUpWidth = this.width;
-		Utilities.popUpHeight = this.height;
-		Utilities.popUpX = this.upperLeftX;
-		Utilities.popUpY = this.upperLeftY;
+
+		
 	}
 	
 	private void displayText() {
