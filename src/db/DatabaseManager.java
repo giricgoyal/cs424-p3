@@ -35,7 +35,7 @@ public class DatabaseManager {
 		ArrayList<DataTriple> array = new ArrayList<DataTriple>();
 		String query;
 		if (msql.connect()) {
-			query = "SELECT count(distinct istatenum), iaccyr, istatenum from crashes "
+			query = "SELECT count(distinct icasenum), iaccyr, istatenum from crashes "
 					+ "group by iaccyr, istatenum";
 			msql.query(query);
 			array = createArrayFromQuery(array, msql);
