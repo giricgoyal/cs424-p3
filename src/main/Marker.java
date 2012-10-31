@@ -41,9 +41,9 @@ public class Marker{
 		shape.disableStyle();
 		parent.fill(color);
 		parent.shapeMode(PConstants.CORNER);
-		parent.shape(shape, coordX - shape.width/50,coordY - shape.height/50, shape.width/50, shape.height/50);
+		parent.shape(shape, coordX - Utilities.Converter(shape.width/50),coordY - Utilities.Converter(shape.height/50), Utilities.Converter(shape.width/50), Utilities.Converter(shape.height/50));
 		parent.fill(0);
-		parent.shape(layer1, coordX - shape.width/50,coordY - shape.height/50, layer1.width/50, layer1.height/50);
+		parent.shape(layer1, coordX - Utilities.Converter(shape.width/50),coordY - Utilities.Converter(shape.height/50),  Utilities.Converter(layer1.width/50),  Utilities.Converter(layer1.height/50));
 	}
 
 	public void draw() {
@@ -52,11 +52,11 @@ public class Marker{
 	}
 	
 	public float getWidth() {
-		return shape.width/50;
+		return  Utilities.Converter(shape.width/50);
 	}
 	
 	public float getHeight() {
-		return shape.height/50;
+		return  Utilities.Converter(shape.height/50);
 	}
 	
 	/**

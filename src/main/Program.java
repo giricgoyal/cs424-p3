@@ -81,10 +81,10 @@ public class Program extends PApplet {
 		 * trial markers
 		 */
 		markerX = 400;
-		markerY = 300;
+		markerY = 100;
 		markerColor = 0x9035FF45;
 		marker1 = new Marker(this, markerX, markerY, markerColor);
-		popUp = new PopUp(this, markerX, markerY-marker1.getHeight(), markerColor);
+		popUp = new PopUp(this, markerX, markerY-marker1.getHeight(), mapSize, markerColor);
 		/**
 		 * uptil here
 		 */
@@ -268,13 +268,13 @@ public class Program extends PApplet {
 	  * click anywhere on the popup to make it go away
 	  */
 		
-		if (isIn(mouseX,mouseY,400-marker1.getWidth()/2,300-marker1.getHeight(),marker1.getWidth(),marker1.getHeight())){
+	  if (clickIn(mouseX,mouseY,markerX-marker1.getWidth()/2,markerY-marker1.getHeight(),marker1.getWidth(),marker1.getHeight())){
 			System.out.println("open popUp");
 			checkPopUp = true;	
 		}
 		
 		if (checkPopUp == true) {
-			if (isIn(mouseX, mouseY, popUp.getX(), popUp.getY(), popUp.getWidth(), popUp.getHeight())) {
+			if (clickIn(mouseX, mouseY, popUp.getX(), popUp.getY(), popUp.getWidth(), popUp.getHeight())) {
 				System.out.println("close popUp");
 				checkPopUp = false;
 			}

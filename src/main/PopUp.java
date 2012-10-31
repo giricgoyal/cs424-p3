@@ -4,33 +4,101 @@
 package main;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * @author giric
  *
  */
+
+
 public class PopUp {
 
 	public PApplet parent;
 	float coordX;
 	float coordY;
 	int color;
-	float upperX;
-	float upperY;
+	float upperLeftX;
+	float upperLeftY;
+	float upperRightX;
+	float upperRightY;
+	float lowerRightX;
+	float lowerRightY;
+	float lowerLeftX;
+	float lowerLeftY;
 	float height;
 	float width;
-	boolean check;
+	float triangleLeftX;
+	float triangleLeftY;
+	float triangleRightX;
+	float triangleRightY;
 	
-	public PopUp(PApplet p, float x, float y, int color) {
+	PVector mapSize;
+	
+	boolean check;
+	boolean upper;
+	boolean lower;
+	boolean left;
+	boolean right;
+	
+	public PopUp(PApplet p, float x, float y,PVector mapSize, int color) {
+		
 		this.parent = p;
+		this.color  = color;
 		this.coordX = x;
 		this.coordY = y;
-		this.color  = color;
-		upperX = coordX - 50;
-		upperY = coordY - 250;
-		width = 300;
-		height = 200;
-		check = true;
+		
+		this.mapSize = mapSize;
+		
+		this.width =  Utilities.Converter(300);
+		this.height =  Utilities.Converter(200);
+		
+		this.upperLeftX = coordX -  Utilities.Converter(50);
+		this.upperLeftY = coordY -  Utilities.Converter(250);
+		
+		this.upperRightX = upperLeftX + width;
+		this.upperRightY = upperLeftY;
+		
+		this.lowerRightX = upperRightX;
+		this.lowerRightY = upperRightY + height;
+		
+		this.lowerLeftX = upperLeftX;
+		this.lowerLeftY = upperLeftY + height;
+		
+		this.triangleLeftX = coordX +  Utilities.Converter(10);
+		this.triangleLeftY = upperLeftY + height;
+		
+		this.triangleRightX = coordX +  Utilities.Converter(25);
+		this.triangleRightY = upperLeftY + height;
+		
+		this.check = true;
+		this.upper = this.lower = this.left = this.right = false;
+		
+		/**
+		 * check if popUp is intersected by the top side of the window
+		 * if yes, translate the popUp
+		 */
+		if (upperLeftY < 0) {
+			
+			this.upper = true;
+			this.upperLeftY = coordY + Utilities.Converter(250);
+			this.upperRightY = upperLeftY;
+			this.lowerRightY = upperRightY - height;
+			this.lowerLeftY = lowerRightY;
+			this.triangleLeftY = upperLeftY - height;
+			this.triangleRightY = upperLeftY - height;
+			
+		}
+		
+		/**
+		 * check if popUp is intersected by the right side of the window
+		 * if yes, translate the popUp
+		 */
+		
+		if (upperRightX > mapSize.x) {
+			this.right = true;
+			
+		}
 	}
 	
 	private void createShape() {
@@ -38,15 +106,18 @@ public class PopUp {
 		parent.fill(color);
 		parent.beginShape();
 			parent.vertex(coordX, coordY);
-			parent.vertex(coordX + 10, upperY + height);
-			parent.vertex(coordX + 25, upperY + height);
-		parent.endShape();
-		parent.beginShape();
-			parent.vertex(upperX,upperY);
-			parent.vertex(upperX + width, upperY);
-			parent.vertex(upperX + width, upperY + height);
-			parent.vertex(upperX, upperY + height);
+			parent.vertex(triangleLeftX, triangleLeftY);
+			parent.vertex(lowerLeftX, lowerLeftY);
+			parent.vertex(upperLeftX,upperLeftY);
+			parent.vertex(upperRightX, upperRightY);
+			parent.vertex(lowerRightX, lowerRightY);
+			parent.vertex(triangleRightX, triangleRightY);
 		parent.endShape();		
+		displayText();
+	}
+	
+	private void displayText() {
+		
 	}
 	
 	public void invertCheck() {
@@ -58,11 +129,11 @@ public class PopUp {
 	}
 	
 	public float getX() {
-		return upperX;
+		return upperLeftX;
 	}
 	
 	public float getY() {
-		return upperY;
+		return upperLeftY;
 	}
 	
 	public float getWidth() {
