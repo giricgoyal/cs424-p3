@@ -14,7 +14,13 @@ public class Utilities {
 	}
 	
 	public static float markerWidth = Converter(30);
-	public static float markerHeight = Converter(30);
+	public static float markerHeight = Converter(40);
+	
+	public static float popUpWidth;
+	public static float popUpHeight;
+	
+	public static float popUpX;
+	public static float popUpY;
 	
 	public static PVector mapSize;
     public static PVector mapOffset;

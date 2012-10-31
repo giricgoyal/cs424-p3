@@ -4,6 +4,7 @@
 package main;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 /**
  * @author giric
@@ -30,6 +31,9 @@ public class PopUp {
 	float triangleRightX;
 	float triangleRightY;
 	
+	float totalHeight;
+	float totalWidth;
+	
 	boolean check;
 	boolean upper;
 	boolean lower;
@@ -43,11 +47,12 @@ public class PopUp {
 		this.coordX = x;
 		this.coordY = y;
 		
+		
 		this.width =  Utilities.Converter(300);
-		this.height =  Utilities.Converter(200);
+		this.height =  Utilities.Converter(170);		
 		
 		this.upperLeftX = coordX -  Utilities.Converter(50);
-		this.upperLeftY = coordY -  Utilities.Converter(250);
+		this.upperLeftY = coordY -  Utilities.Converter(225);
 		
 		this.upperRightX = upperLeftX + width;
 		this.upperRightY = upperLeftY;
@@ -71,10 +76,10 @@ public class PopUp {
 		 * check if popUp is intersected by the top side of the window
 		 * if yes, translate the popUp
 		 */
-		if (upperLeftY < 0) {
+		if (upperLeftY < Utilities.mapOffset.y) {
 			
 			this.upper = true;
-			this.upperLeftY = coordY + Utilities.Converter(250);
+			this.upperLeftY = coordY + Utilities.Converter(230);
 			this.upperRightY = upperLeftY;
 			this.lowerRightY = upperRightY - height;
 			this.lowerLeftY = lowerRightY;
@@ -90,11 +95,43 @@ public class PopUp {
 		
 		if (upperRightX > Utilities.mapSize.x+Utilities.mapOffset.x) {
 			this.right = true;
+			this.triangleLeftX = coordX - Utilities.Converter(10);
+			this.triangleRightX = coordX - Utilities.Converter(25);
+			this.upperLeftX = coordX - width;
+			this.upperRightX = upperLeftX + width;
+			this.lowerLeftX = upperLeftX;
+			this.lowerRightX = upperRightX;
 			
 		}
+		
+
+		/**
+		 * check if popUp is intersected by the left side of the window
+		 * if yes, translate the popUp;
+		 */
+		
+		if(upperLeftX < 0) {
+			this.left = true;
+			this.triangleLeftX = coordX + Utilities.Converter(10);
+			this.triangleRightX = coordX + Utilities.Converter(25);
+			this.upperLeftX = coordX + Utilities.Converter(5);
+			this.upperRightX = upperLeftX + width;
+			this.lowerLeftX = upperLeftX;
+			this.lowerRightX = upperRightX;
+			
+		}
+		
+		Utilities.popUpWidth = this.width;
+		Utilities.popUpHeight = this.height;
+		Utilities.popUpX = this.upperLeftX;
+		Utilities.popUpY = this.upperLeftY;
 	}
 	
 	private void displayText() {
+		parent.textSize(Utilities.Converter(14));
+		parent.fill(0);
+		parent.textAlign(PConstants.LEFT, PConstants.TOP);
+		parent.text("sampleText\nTesting\nCheck\nCheck\n\n**Information goes here**", Utilities.popUpX, Utilities.popUpY);
 		
 	}
 	

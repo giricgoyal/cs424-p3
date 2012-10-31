@@ -46,11 +46,11 @@ public class Marker{
 
 	public void draw() {
 		if (shape!=null)  {
-			//shape.disableStyle();
+			shape.disableStyle();
 			//DRAW THE MARKER
 			parent.fill(color);
 			parent.shapeMode(PConstants.CENTER);
-			parent.shape(shape, x-Utilities.markerWidth/2, y-Utilities.markerHeight, Utilities.markerWidth, Utilities.markerHeight);
+			parent.shape(shape, x-Utilities.markerWidth/2, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
 			//parent.fill(Colors.black);
 			//parent.shape(shapeBorderLayer,x,y, Utilities.markerWidth, Utilities.markerHeight);
 			
