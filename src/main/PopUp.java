@@ -134,11 +134,11 @@ public class PopUp {
 	}
 	
 	private void displayText() {
-		parent.textSize(Utilities.Converter(14));
-		parent.fill(0);
+		parent.textFont(Utilities.font, Utilities.Converter(14));
+		parent.fill(Colors.white);
 		parent.textAlign(PConstants.LEFT, PConstants.TOP);
 		parent.text("sampleText\nTesting\nCheck\nCheck\n\n**Information goes here**", Utilities.popUpX, Utilities.popUpY);
-		
+		System.out.println("TEXT PRINTED");
 	}
 	
 	public void invertCheck() {
@@ -149,14 +149,15 @@ public class PopUp {
 		parent.noStroke();
 		parent.fill(color);
 		parent.beginShape();
-			parent.vertex(coordX, coordY);
-			parent.vertex(triangleLeftX, triangleLeftY);
-			parent.vertex(lowerLeftX, lowerLeftY);
-			parent.vertex(upperLeftX,upperLeftY);
-			parent.vertex(upperRightX, upperRightY);
-			parent.vertex(lowerRightX, lowerRightY);
-			parent.vertex(triangleRightX, triangleRightY);
+		parent.vertex(coordX, coordY);
+		parent.vertex(triangleLeftX, triangleLeftY);
+		parent.vertex(lowerLeftX, lowerLeftY);
+		parent.vertex(upperLeftX,upperLeftY);
+		parent.vertex(upperRightX, upperRightY);
+		parent.vertex(lowerRightX, lowerRightY);
+		parent.vertex(triangleRightX, triangleRightY);
 		parent.endShape();		
+		System.out.println("ABOUT TO PRINT TEXT");
 		displayText();
 	}
 	

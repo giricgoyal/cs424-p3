@@ -1,5 +1,6 @@
 package main;
 
+import processing.core.PFont;
 import processing.core.PVector;
 
 public class Utilities {
@@ -13,6 +14,9 @@ public class Utilities {
 			return pixel;
 	}
 	
+	public static float width = Converter(1632);
+	public static float height = Converter(461);
+	
 	public static float markerWidth = Converter(30);
 	public static float markerHeight = Converter(40);
 	
@@ -24,4 +28,6 @@ public class Utilities {
 	
 	public static PVector mapSize;
     public static PVector mapOffset;
+    
+    public static PFont font;
 }

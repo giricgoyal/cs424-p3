@@ -29,6 +29,8 @@ public class Program extends PApplet {
 
 	ArrayList<Marker> markerList; 
 	
+	ArrayList<BasicControl> controls;
+	
 	DatabaseManager db;
 	ArrayList<DataTriple> results;
 	int year;
@@ -53,18 +55,22 @@ public class Program extends PApplet {
 		markerList = new ArrayList<Marker>();
 		db = new DatabaseManager(this);
 		results=db.get();
-		
 		year = 2005;
+		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
+	}
+	
+	public void initControls() {
+		controls=new ArrayList<BasicControl>();
+		
+		Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
+		controls.add(keyboard);
 	}
 	
 	public void setup() {		
 		//SET SIZE
+		size((int)Utilities.width,(int)Utilities.height, JAVA2D);
 		if (Utilities.isWall) {
-			size(8160, 2304,P3D);
 			initOmicron();
-		}
-		else {
-			size(1632, 461,P3D);						
 		}
 		
 		//CALLING NOSMOOTH IS IMPORTANT FOR THE MAP WIT P3D
@@ -73,6 +79,8 @@ public class Program extends PApplet {
 		initMap();
 		//CREATE SUPPORT VARS
 		initApp();
+		//CONTROLS
+		initControls();
 
 		//MARKER TESTING
 		markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
@@ -80,6 +88,7 @@ public class Program extends PApplet {
 	}
 
 	public void draw() {
+		noStroke();
 		//DRAW MAP + CONTOUR
 		map.draw();		
 		this.fill(Colors.windowBackground);
@@ -90,7 +99,7 @@ public class Program extends PApplet {
 		this.rect(Utilities.mapOffset.x+Utilities.mapSize.x, 0, width, height);
 		
 		//UPDATE MARKERS POSITIONS AND DRAW
-		for (Marker m: markerList) {
+		for (Marker m: markerList) {			  
 			Point2f p = map.locationPoint(m.location);
 			if (isIn(p.x, p.y, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {
 				m.x=p.x;
@@ -99,12 +108,18 @@ public class Program extends PApplet {
 			}
 		}
 		
+		//DRAW CONTROLS
+		for (BasicControl bc: controls) {
+			bc.draw();
+		}
+		
+		
 		//PROCESS OMICRON
     	if (Utilities.isWall) {
     		omicronManager.process();
     	}
     	
-    	drawNewMexico();    	
+    	//drawNewMexico();    	
     }
 	
 	//INITIAL CONFIGURATION OF THE MAP
@@ -230,8 +245,9 @@ public class Program extends PApplet {
 	//CLICK ON THE MAP: if we are clicking on the map, check if we are clicking on a marker.
 	//IF so, toggle its opening.
 	  if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)){
+		  
 		  for (Marker m: markerList) {
-			  if (isIn(mouseX, mouseY, m.x, m.y, Utilities.markerWidth, Utilities.markerHeight, 0.15f)) {
+			  if (isIn(mouseX, mouseY, m.x-Utilities.markerWidth/2, m.y-Utilities.markerHeight, Utilities.markerWidth, Utilities.markerHeight, 0.15f)) {
 				  m.isOpen=!m.isOpen;
 			  }
 		  }
