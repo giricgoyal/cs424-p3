@@ -1,5 +1,7 @@
 package main;
 
+import processing.core.PVector;
+
 public class Utilities {
 
 	public static boolean isWall = false;
@@ -11,6 +13,9 @@ public class Utilities {
 			return pixel;
 	}
 	
-	public static float markerWidth = Converter(10);
-	public static float markerHeight = Converter(10);
+	public static float markerWidth = Converter(30);
+	public static float markerHeight = Converter(30);
+	
+	public static PVector mapSize;
+    public static PVector mapOffset;
 }

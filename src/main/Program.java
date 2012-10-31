@@ -21,9 +21,6 @@ public class Program extends PApplet {
 	    PApplet.main(new String[] { "main.Program" });
 	    System.out.println("postmain");
     }
-    
-    PVector mapSize;
-    PVector mapOffset;
    	
 	OmicronAPI omicronManager;
 	TouchListener touchListener;
@@ -87,15 +84,15 @@ public class Program extends PApplet {
 		map.draw();		
 		this.fill(Colors.windowBackground);
 		this.rectMode(PConstants.CORNERS);
-		this.rect(0, 0, width, mapOffset.y);
-		this.rect(0, 0, mapOffset.x, height);
-		this.rect(0, mapOffset.y+mapSize.y, width, height);
-		this.rect(mapOffset.x+mapSize.x, 0, width, height);
+		this.rect(0, 0, width, Utilities.mapOffset.y);
+		this.rect(0, 0, Utilities.mapOffset.x, height);
+		this.rect(0, Utilities.mapOffset.y+Utilities.mapSize.y, width, height);
+		this.rect(Utilities.mapOffset.x+Utilities.mapSize.x, 0, width, height);
 		
 		//UPDATE MARKERS POSITIONS AND DRAW
 		for (Marker m: markerList) {
 			Point2f p = map.locationPoint(m.location);
-			if (isIn(p.x, p.y, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {
+			if (isIn(p.x, p.y, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {
 				m.x=p.x;
 				m.y=p.y;
 				m.draw();
@@ -122,9 +119,9 @@ public class Program extends PApplet {
 	
 	//INIT MAP SIZE AND POSITION
 	public void initMap() {
-		mapSize = new PVector( width/2, height );
-		mapOffset = new PVector(0,0);
-		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), mapOffset.x, mapOffset.y, mapSize.x, mapSize.y );
+		Utilities.mapSize = new PVector( width/2, height );
+		Utilities.mapOffset = new PVector(0,0);
+		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y );
 		map.panTo(locationChicago);
 		map.setZoom(zoomInterState);
 		setMapProvider(currentProvider);
@@ -229,10 +226,10 @@ public class Program extends PApplet {
 
 	// see if we're over any buttons, and respond accordingly:
 	public void mouseClicked() {
-		
+
 	//CLICK ON THE MAP: if we are clicking on the map, check if we are clicking on a marker.
 	//IF so, toggle its opening.
-	  if (isIn(mouseX, mouseY, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)){
+	  if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)){
 		  for (Marker m: markerList) {
 			  if (isIn(mouseX, mouseY, m.x, m.y, Utilities.markerWidth, Utilities.markerHeight, 0.1f)) {
 				  m.isOpen=!m.isOpen;
@@ -289,8 +286,8 @@ public class Program extends PApplet {
 	    sc /= 5000;
 	    sc += 1;
 	    //println(sc);
-	    float mx = (midpoint.x - mapOffset.x) - mapSize.x/2;
-	    float my = (midpoint.y - mapOffset.y) - mapSize.y/2;
+	    float mx = (midpoint.x - Utilities.mapOffset.x) - Utilities.mapSize.x/2;
+	    float my = (midpoint.y - Utilities.mapOffset.y) - Utilities.mapSize.y/2;
 	    map.tx -= mx/map.sc;
 	    map.ty -= my/map.sc;
 	    map.sc *= sc;
@@ -327,7 +324,7 @@ public class Program extends PApplet {
 	
 	public void mouseReleased() {
 		//MAP CLICK:
-		if (isIn(mouseX,mouseY,mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)) {			
+		if (isIn(mouseX,mouseY,Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {			
 			
 		}
 	}

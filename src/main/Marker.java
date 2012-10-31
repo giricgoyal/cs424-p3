@@ -6,6 +6,7 @@
 
 package main;
 
+import java.io.File;
 import java.util.Properties;
 
 import processing.core.PApplet;
@@ -41,28 +42,30 @@ public class Marker{
 		this.color = color;
 		this.coordX = cx;
 		this.coordY = cy;
-		String sep = System.getProperty("path.separator");
-		String markerPath = "img"+sep+"marker.svg";
-		System.out.println(markerPath);
-		this.shape = parent.loadShape(markerPath);
+		this.shape = parent.loadShape("marker.svg");
 		this.shapeBorderLayer = shape.getChild("svg_4");
 		this.isOpen=false;
 	}
 
+
 	public void draw() {
-		shape.disableStyle();
-		//DRAW THE MARKER
-		parent.fill(color);
-		parent.shapeMode(PConstants.CORNER);
-		parent.shape(shape, x, y, Utilities.markerWidth, Utilities.markerHeight);
-		parent.fill(Colors.black);
-		parent.shape(shapeBorderLayer, x, y, Utilities.markerWidth, Utilities.markerHeight);
-		
-		if (isOpen) {
-			popUp = new PopUp(parent, x,y,color);
-			popUp.draw();
+		if (shape!=null)  {
+			shape.disableStyle();
+			//DRAW THE MARKER
+			parent.fill(color);
+			parent.shapeMode(PConstants.CORNER);
+			parent.shape(shape, x, y, Utilities.markerWidth, Utilities.markerHeight);
+			parent.fill(Colors.black);
+			parent.shape(shapeBorderLayer, x, y, Utilities.markerWidth, Utilities.markerHeight);
+			
+			if (isOpen) {
+				popUp = new PopUp(parent, x,y,color);
+				popUp.draw();
+			}
 		}
 	}
+
+
 	
 	public Marker(PApplet p, Location l) {this.parent=p; this.location=l;}
 	
