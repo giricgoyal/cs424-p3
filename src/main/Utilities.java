@@ -1,6 +1,7 @@
 package main;
 
 import processing.core.PFont;
+import processing.core.PShape;
 import processing.core.PVector;
 
 public class Utilities {
@@ -30,4 +31,6 @@ public class Utilities {
     public static PVector mapOffset;
     
     public static PFont font;
+    
+    public static PShape markerShape;
 }

@@ -25,7 +25,7 @@ public class DataQuad {
 	public int getYear() {
 		return year;
 	}
-	public int get_case() {
+	public int getCase() {
 		return _case;
 	}
 	

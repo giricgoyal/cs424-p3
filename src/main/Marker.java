@@ -33,8 +33,8 @@ public class Marker{
 		this.parent = p;
 		this.color = color;
 		this.location=l;
-		this.shape = parent.loadShape("marker.svg");
-		this.shapeBorderLayer = shape.getChild("svg_4");
+		this.shape = Utilities.markerShape;
+		
 		this.isOpen=false;
 	}
 

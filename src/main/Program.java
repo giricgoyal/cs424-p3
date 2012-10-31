@@ -55,13 +55,15 @@ public class Program extends PApplet {
 	public void initApp() {
 		markerList = new ArrayList<Marker>();
 		db = new DatabaseManager(this);
-		results=db.getCrashes(Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		Utilities.markerShape=loadShape("marker.svg");
+		
+		System.out.println(System.currentTimeMillis());
+		results=db.getCrashes(2, 200, -200, -50, 2006);
+		System.out.println(System.currentTimeMillis());
 		for (DataQuad dq: results) {
-			System.out.println(dq.getYear());
-			if (dq.getYear()==2005)
-			markerList.add(new Marker(this, new Location(dq.getLongitude(),dq.getLatitude()),color(0,0,255)));
+			markerList.add(new Marker(this, new Location(dq.getLongitude(),dq.getLatitude()),0xFF0000FF));
 		}
-		year = 2005;
+		System.out.println(System.currentTimeMillis());
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
 	}
 	
@@ -105,7 +107,6 @@ public class Program extends PApplet {
 		this.rect(Utilities.mapOffset.x+Utilities.mapSize.x, 0, width, height);
 		
 		//UPDATE MARKERS POSITIONS AND DRAW+
-		int i=0;
 		for (Marker m: markerList) {	
 			Point2f p = map.locationPoint(m.location);
 			if (isIn(p.x, p.y, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {
