@@ -356,8 +356,8 @@ public class Program extends PApplet {
 	public void drawNewMexico() {
 		noStroke();
 		float color = 0;
-		int min = Integer.MAX_VALUE;
-		int max = Integer.MIN_VALUE;
+		float min = Integer.MAX_VALUE;
+		float max = Integer.MIN_VALUE;
 		for (DataTriple t : results) {
 			if (t.getState().equals("35")) {
 				int count = t.getCount();
@@ -365,9 +365,10 @@ public class Program extends PApplet {
 					color = count;
 				
 				if (count>max) max=count;
+				if (count<min) min=count;
 			}		
 		}
-		color = color * 255 / (float)(max);
+		color = map(color, min, max, 0, 255);
 		fill(color,0,0,100);
 		beginShape();
 	
