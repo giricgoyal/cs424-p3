@@ -6,17 +6,17 @@ package db;
  *
  */
 public class DataTriple{
-	String count;
+	int count;
 	int year;
 	String state;
 	
-	public DataTriple(String count, int year, String state){
+	public DataTriple(int count, int year, String state){
 		this.count=count;
 		this.year=year;
 		this.state=state;
 	}
 	
-	public String getCount(){
+	public int getCount(){
 		return count;
 	}
 	
@@ -28,7 +28,7 @@ public class DataTriple{
 		return state;
 	}
 
-	public void setCount(String count) {
+	public void setCount(int count) {
 		this.count = count;
 	}
 
