@@ -37,6 +37,22 @@ public class Program extends PApplet {
 	ArrayList<DataTriple> results;
 	int year;
 	
+	
+	/**
+	 * added by: giric 
+	 * trial markers
+	 */
+	Marker marker1, marker2;
+	PopUp popUp;
+	float markerX, markerY;
+	int markerColor;
+	public boolean checkPopUp = false;
+
+	/**
+	 * uptil here
+	 */
+	
+	
 	public void initApp() {
 		markerList = new ArrayList<Marker>();
 		db = new DatabaseManager(this);
@@ -58,6 +74,22 @@ public class Program extends PApplet {
 		noSmooth();
 		initMap();
 		initApp();
+		
+		
+		/**
+		 * added by: giric
+		 * trial markers
+		 */
+		markerX = 400;
+		markerY = 300;
+		markerColor = 0x9035FF45;
+		marker1 = new Marker(this, markerX, markerY, markerColor);
+		popUp = new PopUp(this, markerX, markerY-marker1.getHeight(), markerColor);
+		/**
+		 * uptil here
+		 */
+		
+		
 	}
 
 	public void draw() {
@@ -84,6 +116,22 @@ public class Program extends PApplet {
     	}
     	
     	drawNewMexico();
+    	
+    	
+    	/**
+    	 * added by: giric
+    	 * trial markers. 
+    	 */
+    	
+    	marker1.draw();
+    	if (checkPopUp){
+			popUp.draw();
+		}
+    	
+    	/**
+    	 * uptil here
+    	 */
+    	
     }
 	
 	int currentProvider=0;
@@ -208,8 +256,35 @@ public class Program extends PApplet {
 	// see if we're over any buttons, and respond accordingly:
 	public void mouseClicked() {
 	  if (isIn(mouseX, mouseY, mapOffset.x, mapOffset.y, mapSize.x, mapSize.y)){
+		  
 		  markerList.add(new Marker(this, map.pointLocation(mouseX, mouseY)));
 	  }
+	  
+	  /**
+	  * added by: Giric
+	  * 
+	  * mouse click event for marker and popup. testing
+	  * click on marker to bring up popup
+	  * click anywhere on the popup to make it go away
+	  */
+		
+		if (isIn(mouseX,mouseY,400-marker1.getWidth()/2,300-marker1.getHeight(),marker1.getWidth(),marker1.getHeight())){
+			System.out.println("open popUp");
+			checkPopUp = true;	
+		}
+		
+		if (checkPopUp == true) {
+			if (isIn(mouseX, mouseY, popUp.getX(), popUp.getY(), popUp.getWidth(), popUp.getHeight())) {
+				System.out.println("close popUp");
+				checkPopUp = false;
+			}
+		}
+		
+		
+		/**
+		 * uptil here
+		 */
+		  
 	}
 	
 	@SuppressWarnings("unchecked")
