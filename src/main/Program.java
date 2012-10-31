@@ -75,7 +75,7 @@ public class Program extends PApplet {
 		initApp();
 
 		//MARKER TESTING
-		markerList.add(new Marker(this,(locationChicago)));
+		markerList.add(new Marker(this,(locationChicago),this.color(255,0,0)));
 		
 	}
 
@@ -160,8 +160,8 @@ public class Program extends PApplet {
 	{
 	  if (key=='+')
 	  {
-		  if (year<2010) year++;
-		  /*
+		  //if (year<2010) year++;
+		  
 		  switch(map.getZoom()) {
 		  	case zoomInterState:
 		  		map.setZoom(zoomState);
@@ -169,12 +169,12 @@ public class Program extends PApplet {
 		  	case zoomState:
 		  		map.setZoom(zoomCity);
 		  		break;
-		  }*/
+		  }
 	  }
 	  if (key=='-')
 	  {
-		  if (year>2001) year--;
-		  /*
+		  //if (year>2001) year--;
+		  
 		  switch(map.getZoom()) {
 		  	case zoomCity:
 		  		map.setZoom(zoomState);
@@ -183,7 +183,7 @@ public class Program extends PApplet {
 		  		map.setZoom(zoomInterState);
 		  		map.panTo(locationUSA);
 		  		break;
-		  }*/	  
+		  }	  
 	  }
 	
 	  if (key==' ') {
@@ -231,7 +231,7 @@ public class Program extends PApplet {
 	//IF so, toggle its opening.
 	  if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)){
 		  for (Marker m: markerList) {
-			  if (isIn(mouseX, mouseY, m.x, m.y, Utilities.markerWidth, Utilities.markerHeight, 0.1f)) {
+			  if (isIn(mouseX, mouseY, m.x, m.y, Utilities.markerWidth, Utilities.markerHeight, 0.15f)) {
 				  m.isOpen=!m.isOpen;
 			  }
 		  }

@@ -94,7 +94,15 @@ public class PopUp {
 		}
 	}
 	
-	private void createShape() {
+	private void displayText() {
+		
+	}
+	
+	public void invertCheck() {
+		check = !check;
+	}
+	
+	public void draw() {
 		parent.noStroke();
 		parent.fill(color);
 		parent.beginShape();
@@ -107,18 +115,6 @@ public class PopUp {
 			parent.vertex(triangleRightX, triangleRightY);
 		parent.endShape();		
 		displayText();
-	}
-	
-	private void displayText() {
-		
-	}
-	
-	public void invertCheck() {
-		check = !check;
-	}
-	
-	public void draw() {
-		createShape();
 	}
 	
 	public float getX() {
