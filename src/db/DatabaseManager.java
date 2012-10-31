@@ -40,14 +40,14 @@ public class DatabaseManager {
 		String query;
 		if (msql.connect()) {
 			query = "select latitude, longitude, _case, _year" +
-					"from crashes " +
-					"where latitude>"+
+					" from crashes" +
+					" where latitude>"+
 					latitude_min+" and latitude<" +
 					latitude_max+" and longitude>"+
 					longitude_min+" and longitude<"+
 					longitude_max+ " "+ 
 					"group by _case" +
-					"order by _year";
+					" order by _year";
 			System.out.println(query);
 			msql.query(query);
 			createArrayFromQueryQ(array, msql);

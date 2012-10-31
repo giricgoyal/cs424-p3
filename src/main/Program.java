@@ -10,6 +10,7 @@ import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.*;
 import com.modestmaps.providers.*;
 
+import db.DataQuad;
 import db.DataTriple;
 import db.DatabaseManager;
 
@@ -32,7 +33,7 @@ public class Program extends PApplet {
 	ArrayList<BasicControl> controls;
 	
 	DatabaseManager db;
-	ArrayList<DataTriple> results;
+	ArrayList<DataQuad> results;
 	int year;
 	
 	
@@ -54,7 +55,12 @@ public class Program extends PApplet {
 	public void initApp() {
 		markerList = new ArrayList<Marker>();
 		db = new DatabaseManager(this);
-		results=db.get();
+		results=db.getCrashes(Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		for (DataQuad dq: results) {
+			System.out.println(dq.getYear());
+			if (dq.getYear()==2005)
+			markerList.add(new Marker(this, new Location(dq.getLongitude(),dq.getLatitude()),color(0,0,255)));
+		}
 		year = 2005;
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
 	}
@@ -98,8 +104,9 @@ public class Program extends PApplet {
 		this.rect(0, Utilities.mapOffset.y+Utilities.mapSize.y, width, height);
 		this.rect(Utilities.mapOffset.x+Utilities.mapSize.x, 0, width, height);
 		
-		//UPDATE MARKERS POSITIONS AND DRAW
-		for (Marker m: markerList) {			  
+		//UPDATE MARKERS POSITIONS AND DRAW+
+		int i=0;
+		for (Marker m: markerList) {	
 			Point2f p = map.locationPoint(m.location);
 			if (isIn(p.x, p.y, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {
 				m.x=p.x;
@@ -127,7 +134,8 @@ public class Program extends PApplet {
 	// zoom 0 is the whole world, 19 is street level
 	final int zoomInterState = 4;
 	final int zoomState = 7;
-	final int zoomCity = 11;	
+	final int zoomCity = 11;
+	
 	Location locationUSA = new Location(38.962f,  -94.928f); 
 	Location locationIllinois = new Location(40.4298f,  -88.9244f); 
 	Location locationChicago = new Location(41.85f,  -87.65f);
@@ -137,7 +145,7 @@ public class Program extends PApplet {
 		Utilities.mapSize = new PVector( width/2, height );
 		Utilities.mapOffset = new PVector(0,0);
 		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y );
-		map.panTo(locationChicago);
+		map.panTo(locationUSA);
 		map.setZoom(zoomInterState);
 		setMapProvider(currentProvider);
 	}
@@ -247,7 +255,7 @@ public class Program extends PApplet {
 	  if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)){
 		  
 		  for (Marker m: markerList) {
-			  if (isIn(mouseX, mouseY, m.x-Utilities.markerWidth/2, m.y-Utilities.markerHeight, Utilities.markerWidth, Utilities.markerHeight, 0.15f)) {
+			  if (isIn(mouseX, mouseY, m.x-Utilities.markerWidth/2, m.y-Utilities.markerHeight, Utilities.markerWidth, Utilities.markerHeight, 0.05f)) {
 				  m.isOpen=!m.isOpen;
 			  }
 		  }
@@ -397,7 +405,7 @@ public class Program extends PApplet {
 
 	}
 	
-	public void drawNewMexico() {
+	/*public void drawNewMexico() {
 		noStroke();
 		float color = 0;
 		float min = Integer.MAX_VALUE;
@@ -476,6 +484,7 @@ public class Program extends PApplet {
 		vertex(map.locationPoint(new Location(32.441967f,-109.048882f)).x,map.locationPoint(new Location(32.441967f,-109.048882f)).y);
 		endShape();
 	}
+	*/
 	
 
 }

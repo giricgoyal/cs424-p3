@@ -138,7 +138,6 @@ public class PopUp {
 		parent.fill(Colors.white);
 		parent.textAlign(PConstants.LEFT, PConstants.TOP);
 		parent.text("sampleText\nTesting\nCheck\nCheck\n\n**Information goes here**", Utilities.popUpX, Utilities.popUpY);
-		System.out.println("TEXT PRINTED");
 	}
 	
 	public void invertCheck() {
@@ -157,7 +156,6 @@ public class PopUp {
 		parent.vertex(lowerRightX, lowerRightY);
 		parent.vertex(triangleRightX, triangleRightY);
 		parent.endShape();		
-		System.out.println("ABOUT TO PRINT TEXT");
 		displayText();
 	}
 	
