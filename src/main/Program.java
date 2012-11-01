@@ -15,7 +15,7 @@ import com.modestmaps.providers.Microsoft;
 import com.modestmaps.providers.OpenStreetMapProvider;
 import com.modestmaps.providers.Yahoo;
 
-import data.DataQuad;
+import db.DataQuad;
 import db.DatabaseManager;
 
 @SuppressWarnings("serial")

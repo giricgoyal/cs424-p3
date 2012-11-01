@@ -1,4 +1,4 @@
-package data;
+package db;
 /**
  * Data Triple is a data sample retrieved from the database.
  * It contains 3 values.
