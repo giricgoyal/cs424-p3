@@ -45,8 +45,8 @@ public class DatabaseManager {
 					latitude_min+" and latitude<" +
 					latitude_max+" and longitude>"+
 					longitude_min+" and longitude<"+
-					longitude_max+//" and _year=2008"+
-					" group by _case, _state" +
+					longitude_max+//" and _year=2005"+
+					" group by _case, _state, id" +
 					" order by _year";
 			System.out.println(query);
 			msql.query(query);

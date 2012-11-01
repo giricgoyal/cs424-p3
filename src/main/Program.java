@@ -60,10 +60,15 @@ public class Program extends PApplet {
 		markerList = new ArrayList<Marker>();
 		db = new DatabaseManager(this);
 		Utilities.markerShape=loadShape("marker.svg");
+		long timer= System.currentTimeMillis();
 		results=db.getCrashes(2,200,-200,0);
+		System.out.println(System.currentTimeMillis()-timer);
+		timer=System.currentTimeMillis();
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
 		gm = new GridManager(this,map,results);
-		gm.computeGridValues(year);
+		gm.computeGridValues();
+		System.out.println(System.currentTimeMillis()-timer);
+		timer=System.currentTimeMillis();
 	}	
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
@@ -131,7 +136,7 @@ public class Program extends PApplet {
     	
     	//drawNewMexico();
     	gm.drawGrid();
-    	gm.drawCircles();
+    	gm.drawCircles(year);
     	
     	textFont(Utilities.font, 30);
     	fill(Colors.white);
@@ -193,31 +198,40 @@ public class Program extends PApplet {
 	public void keyPressed()
 	{
 	  if (key=='+')
-	  {
-		  if (year<2010) {year++;gm.computeGridValues(year);}
-		  
-		  /*switch(map.getZoom()) {
+	  {		  
+		  switch(map.getZoom()) {
 		  	case zoomInterState:
 		  		map.setZoom(zoomState);
+		  		map.panTo(locationIllinois);
 		  		break;
 		  	case zoomState:
 		  		map.setZoom(zoomCity);
+		  		map.panTo(locationChicago);
 		  		break;
-		  }*/
+		  }
+		  gm.computeGridValues();
 	  }
 	  if (key=='-')
 	  {
-		  if (year>2001) {year--;gm.computeGridValues(year);}
-		  
-		  /*switch(map.getZoom()) {
+		  switch(map.getZoom()) {
 		  	case zoomCity:
 		  		map.setZoom(zoomState);
+		  		map.panTo(locationIllinois);
 		  		break;
 		  	case zoomState:
 		  		map.setZoom(zoomInterState);
 		  		map.panTo(locationUSA);
 		  		break;
-		  }	*/  
+		  }
+		  gm.computeGridValues();
+	  }
+	  
+	  if (keyCode==RIGHT) {
+		  if (year<2010) {year++;}
+	  }
+	  
+	  if (keyCode==LEFT) {
+		  if (year>2001) {year--;}
 	  }
 	
 	  if (key==' ') {

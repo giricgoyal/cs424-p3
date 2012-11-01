@@ -13,13 +13,11 @@ import db.DataQuad;
 public class GridManager {
 	
 	//GRID
-	public int gridVLine=10;
-	public int gridHLine=5;
+	public int gridVLine=20;
+	public int gridHLine=10;
 	public float gridVStep=Utilities.mapSize.y / (gridHLine-1);
 	public float gridHStep=Utilities.mapSize.x / (gridVLine-1);;
-	public int[] gridValues;
-	public int minGridValue;
-	public int maxGridValue;
+	public int[][][] gridValues; //i, j, year
 	
 	public PApplet parent;
 	public InteractiveMap map;
@@ -31,66 +29,65 @@ public class GridManager {
 		results=res;
 	}
 
-	public void computeGridValues(int year) {
-		gridValues  = new int[(gridVLine-1)*(gridHLine-1)];
-		
-		maxGridValue=Integer.MIN_VALUE;
-		minGridValue=Integer.MAX_VALUE;
-		/*
-		 * Location[][][] locs = new Location[gridVLine-1][gridHLine-1][2];
-		for (int i=0;i<locs.length; i++){
-			for (int j=0; j<locs[0].length;j++) {
-				locs[i][j][0]=map.pointLocation(Utilities.mapOffset.x+i*gridHStep, Utilities.mapOffset.y+j*gridVStep);
-				locs[i][j][1]=map.pointLocation(Utilities.mapOffset.x+(i+1)*gridHStep, Utilities.mapOffset.y+(j+1)*gridVStep);
+	public void computeGridValues() {
+		gridValues  = new int[gridHLine-1][gridVLine-1][10];
+		for (int i=0;i<gridValues.length;i++) {
+			for (int j=0;j<gridValues[i].length;j++) {
+				for (int k=0;k<gridValues[i][j].length;k++) {
+					gridValues[i][j][k]=0;
+				}
 			}
 		}
 		
+		Location[][] locs = new Location[gridHLine][gridVLine];
+		for (int i=0;i<locs.length; i++){
+			for (int j=0; j<locs[0].length;j++) {
+				locs[i][j]=map.pointLocation(Utilities.mapOffset.x+j*gridHStep, Utilities.mapOffset.y+i*gridVStep);
+			}
+		}
+		
+
+		System.out.println("Looking at "+locs[0][0].lat+" "+locs[0][0].lon+" up to "+locs[locs.length-1][locs[0].length-1].lat+" "+locs[locs.length-1][locs[0].length-1].lon);;
+		
+		
 		for(DataQuad dq : results) {
-			if (dq.getYear()==year) {
-				int i;
-				for (i=0;i<locs.length;i++) {
-					if (locs[i][0][1].lat <= dq.getLatitude() && locs[i+1][0][1].lat >= dq.getLatitude())
-						break;
-				}
-				int j;
-				for (int j=0;j<locs[0].length;j++) {
-					if (locs[i][j][0].lon <= dq.getLatitude() && locs[i+1][0][1].lat >= dq.getLatitude())
-						break;
-				}
+			//LOCATE THE CORRECT ROW:
+			int r;
+			for (r=0;r<locs.length-1;r++) {
+				if (locs[r+1][0].lat <= dq.getLatitude() &&  dq.getLatitude() <= locs[r][0].lat)
+					break;
 			}
 			
-		}*/
-		
-		for (int i=0;i<gridVLine-1;i++) {
-			for (int j=0;j<gridHLine-1;j++) {
-				Location a =map.pointLocation(Utilities.mapOffset.x+i*gridHStep, Utilities.mapOffset.y+j*gridVStep);
-				Location b =map.pointLocation(Utilities.mapOffset.x+(i+1)*gridHStep, Utilities.mapOffset.y+(j+1)*gridVStep);
-				int count = 0;
-				for (DataQuad dq : results) {
-					//WATCH THE SIGNS OF THE COMPARISONS!!!
-					if (dq.getYear()==year && b.lat<=dq.getLatitude() && dq.getLatitude() <= a.lat && a.lon<=dq.getLongitude() && dq.getLongitude() <= b.lon) {
-						count++;
-					}
-						
-				}				
-				if (count > maxGridValue) maxGridValue=count;
-				if (count < minGridValue) minGridValue=count;
-				gridValues[i*(gridHLine-1)+j]=count;
+			int c;
+			for (c=0;c<locs[r].length-1;c++) {
+				if (locs[r][c].lon <= dq.getLongitude() && dq.getLongitude() <= locs[r][c+1].lon)
+					break;
 			}
+			
+			//CHECK FOR GARBAGE OF OUTER STATES
+			if ((r!=locs.length-1)&&(c!=locs[r].length-1))			
+				//INCREMENT
+				gridValues[r][c][dq.getYear()-2001]++;
 		}
 	}
 	
-	public void drawCircles() {
+	public void drawCircles(int year) {
 		parent.textFont(Utilities.font, Utilities.Converter(15));
 		parent.fill(Colors.white);		
 		float maxDiam = Math.min(gridHStep, gridVStep);
+		float maxGridValue = Integer.MIN_VALUE;
+		int yearIndex = year-2001;
+		for (int i=0;i<gridValues.length;i++)
+			for (int j=0;j<gridValues[i].length;j++)
+				if (gridValues[i][j][yearIndex]>maxGridValue) maxGridValue=gridValues[i][j][yearIndex];
+		
 		parent.ellipseMode(PConstants.CENTER);
 		parent.strokeWeight(Utilities.Converter(1));
-		parent.fill(0x88FFFFFF);
-		for (int i=0;i<gridVLine-1;i++) {
-			for (int j=0;j<gridHLine-1;j++) {
-				float diameter= maxDiam * gridValues[i*(gridHLine-1)+j] / maxGridValue;
-				parent.ellipse((float)(Utilities.mapOffset.x+(i+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(j+0.5)*gridVStep), diameter, diameter);
+		parent.fill(0x77EE1010);
+		for (int i=0;i<gridValues.length;i++) {
+			for (int j=0;j<gridValues[i].length;j++) {
+				float diameter= maxDiam * gridValues[i][j][year-2001] / maxGridValue;
+				parent.ellipse((float)(Utilities.mapOffset.x+(j+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(i+0.5)*gridVStep), diameter, diameter);
 			}
 		}
 	}
