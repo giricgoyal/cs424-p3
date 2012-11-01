@@ -2,6 +2,8 @@ package db;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import data.DataQuad;
+import data.DataTriple;
 import de.bezier.data.sql.*;
 /**
  * Database class. To use it just create an instance and call query method you
@@ -110,6 +112,8 @@ public class DatabaseManager {
 		}
 		return out.substring(0, out.length() - separator.length());
 	}
+	
+	
 
 	
 }

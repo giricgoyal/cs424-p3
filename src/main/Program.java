@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import omicronAPI.OmicronAPI;
-import processing.core.*;
-import com.modestmaps.*;
-import com.modestmaps.core.Point2f;
-import com.modestmaps.geo.*;
-import com.modestmaps.providers.*;
+import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PVector;
 
-import db.DataQuad;
-import db.DataTriple;
+import com.modestmaps.InteractiveMap;
+import com.modestmaps.core.Point2f;
+import com.modestmaps.geo.Location;
+import com.modestmaps.providers.Microsoft;
+import com.modestmaps.providers.OpenStreetMapProvider;
+import com.modestmaps.providers.Yahoo;
+
+import data.DataQuad;
 import db.DatabaseManager;
 
 @SuppressWarnings("serial")
