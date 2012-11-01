@@ -95,7 +95,7 @@ public class Program extends PApplet {
 		controls.add(keyboard);
 		
 		//SuggestionBox sb = new SuggestionBox(this, Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
-		sb = new SuggestionBox(this, Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
+		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY, Positions.textBoxWidth, Positions.textBoxHeight);
 		controls.add(sb);
 	}
 	
@@ -306,9 +306,11 @@ public class Program extends PApplet {
 	  }		 
 	  
 	  if (isIn(mouseX,mouseY,Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight)) {
-			 
 		  sb.updateTextBox(keyboard.Click(mouseX, mouseY));
-		  
+	  }
+	  
+	  if (isIn(mouseX, mouseY, Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight)) {
+		  sb.Click(mouseX, mouseY);
 	  }
 	  
 	}

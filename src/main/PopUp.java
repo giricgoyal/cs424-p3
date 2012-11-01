@@ -1,15 +1,12 @@
 /**
- * 
+ * class to implement popUp 
+ * @author giric
  */
 package main;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-/**
- * @author giric
- *
- */
 public class PopUp {
 
 	public PApplet parent;
