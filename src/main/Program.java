@@ -38,8 +38,8 @@ public class Program extends PApplet {
 	
 	DatabaseManager db;
 	ArrayList<DataQuad> results;
-	int year;
-	
+	int year=2005;
+	GridManager gm;
 	
 	/**
 	 * added by: giric 
@@ -60,19 +60,17 @@ public class Program extends PApplet {
 		markerList = new ArrayList<Marker>();
 		db = new DatabaseManager(this);
 		Utilities.markerShape=loadShape("marker.svg");
-		
-		System.out.println(System.currentTimeMillis());
-		results=db.getCrashes(2, 200, -200, -50, 2006);
-		System.out.println(System.currentTimeMillis());
-		for (DataQuad dq: results) {
-			markerList.add(new Marker(this, new Location(dq.getLongitude(),dq.getLatitude()),0xFF0000FF));
-		}
-		System.out.println(System.currentTimeMillis());
+		results=db.getCrashes(2,200,-200,0);
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
-	}
-	
+		gm = new GridManager(this,map,results);
+		gm.computeGridValues(year);
+	}	
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
+		
+		Piechart p = new Piechart(this,100,1000,300);
+		p.values=new int[] {30, 20, 50};
+		controls.add(p);
 		
 		Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
 		controls.add(keyboard);
@@ -131,8 +129,16 @@ public class Program extends PApplet {
     		omicronManager.process();
     	}
     	
-    	//drawNewMexico();    	
+    	//drawNewMexico();
+    	gm.drawGrid();
+    	gm.drawCircles();
+    	
+    	textFont(Utilities.font, 30);
+    	fill(Colors.white);
+    	text(year, Utilities.width*0.7f, Utilities.height*0.1f);
     }
+	
+	
 	
 	//INITIAL CONFIGURATION OF THE MAP
 	int currentProvider=0;
@@ -188,22 +194,22 @@ public class Program extends PApplet {
 	{
 	  if (key=='+')
 	  {
-		  //if (year<2010) year++;
+		  if (year<2010) {year++;gm.computeGridValues(year);}
 		  
-		  switch(map.getZoom()) {
+		  /*switch(map.getZoom()) {
 		  	case zoomInterState:
 		  		map.setZoom(zoomState);
 		  		break;
 		  	case zoomState:
 		  		map.setZoom(zoomCity);
 		  		break;
-		  }
+		  }*/
 	  }
 	  if (key=='-')
 	  {
-		  //if (year>2001) year--;
+		  if (year>2001) {year--;gm.computeGridValues(year);}
 		  
-		  switch(map.getZoom()) {
+		  /*switch(map.getZoom()) {
 		  	case zoomCity:
 		  		map.setZoom(zoomState);
 		  		break;
@@ -211,7 +217,7 @@ public class Program extends PApplet {
 		  		map.setZoom(zoomInterState);
 		  		map.panTo(locationUSA);
 		  		break;
-		  }	  
+		  }	*/  
 	  }
 	
 	  if (key==' ') {

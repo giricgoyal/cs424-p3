@@ -10,7 +10,7 @@ public class DataQuad {
 	int year;
 	int _case;
 	
-	public DataQuad(float longitude, float latitude, int _case, int year) {
+	public DataQuad(float latitude, float longitude, int _case, int year) {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.year = year;
