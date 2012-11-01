@@ -36,6 +36,9 @@ public class Marker{
 		this.shape = Utilities.markerShape;
 		
 		this.isOpen=false;
+		
+		Utilities.markerWidth = Utilities.Converter(shape.width/50);
+		Utilities.markerHeight = Utilities.Converter(shape.height/50);
 	}
 
 
@@ -45,7 +48,7 @@ public class Marker{
 			//DRAW THE MARKER
 			parent.fill(color);
 			parent.shapeMode(PConstants.CENTER);
-			parent.shape(shape, x-Utilities.markerWidth/2, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
+			parent.shape(shape, x, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
 			
 			if (isOpen) {
 				popUp = new PopUp(parent, x,y,color);

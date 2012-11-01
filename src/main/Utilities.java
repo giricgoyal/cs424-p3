@@ -18,8 +18,8 @@ public class Utilities {
 	public static float width = Converter(1632);
 	public static float height = Converter(461);
 	
-	public static float markerWidth = Converter(30);
-	public static float markerHeight = Converter(40);
+	public static float markerWidth ;
+	public static float markerHeight;
 	
 	public static float popUpWidth;
 	public static float popUpHeight;

@@ -93,7 +93,7 @@ public class Program extends PApplet {
 		initControls();
 
 		//MARKER TESTING
-		markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
+		//markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
 		
 	}
 
