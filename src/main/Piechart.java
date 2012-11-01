@@ -22,7 +22,8 @@ public class Piechart extends BasicControl{
 		this.diameter = diameter;
 		this.X = X;
 		this.Y = Y;
-		this.colors=new int[] {0xFFFF0000, 0xFF00FFFF, 0xFF0000FF};
+		this.colors=new int[] {0x77EE1010, 0x7710EE10, 0x771010EE};
+		this.values=new int[0];
 	}
 
 	public void draw() {

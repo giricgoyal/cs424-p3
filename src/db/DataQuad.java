@@ -9,12 +9,14 @@ public class DataQuad {
 	float latitude;
 	int year;
 	int _case;
+	int dow;
 	
-	public DataQuad(float latitude, float longitude, int _case, int year) {
+	public DataQuad(float latitude, float longitude, int _case, int year, int dow) {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.year = year;
 		this._case = _case;
+		this.dow=dow;
 	}
 	public float getLongitude() {
 		return longitude;
@@ -27,6 +29,9 @@ public class DataQuad {
 	}
 	public int getCase() {
 		return _case;
+	}
+	public int getDOW() {
+		return dow;
 	}
 	
 }

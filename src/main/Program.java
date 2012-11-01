@@ -77,6 +77,9 @@ public class Program extends PApplet {
 		p.values=new int[] {30, 20, 50};
 		controls.add(p);
 		
+		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},1400, 100, 200);
+		controls.add(ms);
+		
 		Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
 		controls.add(keyboard);
 	}

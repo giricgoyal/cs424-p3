@@ -23,13 +23,24 @@ public class GridManager {
 	public InteractiveMap map;
 	public ArrayList<DataQuad> results;
 	
+	Piechart [][][] pies;
+	
 	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res) {
 		parent=p;
 		map=m;
 		results=res;
+		pies=new Piechart[gridHLine-1][gridVLine-1][10];
+		for (int i=0;i<pies.length;i++) {
+			for (int j=0;j<pies[i].length;j++) {
+				for (int k=0;k<pies[i][j].length;k++) {
+					pies[i][j][k]=new Piechart(parent, Utilities.Converter(20), (float)(Utilities.mapOffset.x+(j+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(i+0.5)*gridVStep));
+					pies[i][j][k].values=new int[]{0,0,0,0,0,0,0};
+				}
+			}
+		}
 	}
 
-	public void computeGridValues() {
+	public void computeGridValues() {		
 		gridValues  = new int[gridHLine-1][gridVLine-1][10];
 		for (int i=0;i<gridValues.length;i++) {
 			for (int j=0;j<gridValues[i].length;j++) {
@@ -65,9 +76,12 @@ public class GridManager {
 			}
 			
 			//CHECK FOR GARBAGE OF OUTER STATES
-			if ((r!=locs.length-1)&&(c!=locs[r].length-1))			
+			if ((r!=locs.length-1)&&(c!=locs[r].length-1)) {			
 				//INCREMENT
 				gridValues[r][c][dq.getYear()-2001]++;
+				if (dq.getDOW()>=1 && dq.getDOW()<=7)
+					pies[r][c][dq.getYear()-2001].values[dq.getDOW()-1] ++ ;
+			}
 		}
 	}
 	
@@ -83,11 +97,13 @@ public class GridManager {
 		
 		parent.ellipseMode(PConstants.CENTER);
 		parent.strokeWeight(Utilities.Converter(1));
-		parent.fill(0x77EE1010);
 		for (int i=0;i<gridValues.length;i++) {
 			for (int j=0;j<gridValues[i].length;j++) {
-				float diameter= maxDiam * gridValues[i][j][year-2001] / maxGridValue;
-				parent.ellipse((float)(Utilities.mapOffset.x+(j+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(i+0.5)*gridVStep), diameter, diameter);
+				float diameter= maxDiam * gridValues[i][j][yearIndex] / maxGridValue;
+				pies[i][j][yearIndex].diameter=diameter;
+				//parent.fill(0x77EE1010);
+				//parent.ellipse((float)(Utilities.mapOffset.x+(j+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(i+0.5)*gridVStep), diameter, diameter);
+				pies[i][j][yearIndex].draw();
 			}
 		}
 	}

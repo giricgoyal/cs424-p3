@@ -39,7 +39,7 @@ public class DatabaseManager {
 		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
 		String query;
 		if (msql.connect()) {
-			query = "select latitude, longitude, _case, _year" +
+			query = "select latitude, longitude, _case, _year, day_of_week" +
 					" from crashes" +
 					" where latitude>"+
 					latitude_min+" and latitude<" +
@@ -86,7 +86,7 @@ public class DatabaseManager {
 	private void createArrayFromQueryQ(ArrayList<DataQuad> array,
 			MySQL msql) {
 		while (msql.next()) {
-			array.add(new DataQuad(msql.getFloat(1), msql.getFloat(2), msql.getInt(3), msql.getInt(4)));
+			array.add(new DataQuad(msql.getFloat(1), msql.getFloat(2), msql.getInt(3), msql.getInt(4),msql.getInt(5)));
 		}
 	}
 	
