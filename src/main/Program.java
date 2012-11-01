@@ -41,6 +41,16 @@ public class Program extends PApplet {
 	int year=2005;
 	GridManager gm;
 	
+	
+	/**
+	 * temp addition
+	 */
+	Keyboard keyboard;
+	SuggestionBox sb;
+	
+	
+	
+	
 	/**
 	 * added by: giric 
 	 * trial markers
@@ -80,8 +90,13 @@ public class Program extends PApplet {
 		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},1400, 100, 200);
 		controls.add(ms);
 		
-		Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
+		//Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
+		keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
 		controls.add(keyboard);
+		
+		//SuggestionBox sb = new SuggestionBox(this, Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
+		sb = new SuggestionBox(this, Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
+		controls.add(sb);
 	}
 	
 	public void setup() {		
@@ -288,7 +303,14 @@ public class Program extends PApplet {
 			  }
 		  }
 		  //markerList.add(new Marker(this, map.pointLocation(mouseX, mouseY)));
-	  }		  
+	  }		 
+	  
+	  if (isIn(mouseX,mouseY,Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight)) {
+			 
+		  sb.updateTextBox(keyboard.Click(mouseX, mouseY));
+		  
+	  }
+	  
 	}
 	
 	@SuppressWarnings("unchecked")

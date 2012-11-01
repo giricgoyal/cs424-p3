@@ -5,7 +5,7 @@ public class Colors {
 	public static int black = 0xFF101010;
 	public static int dark;
 	public static int medium;
-	public static int light;	
+	public static int light = 0xFFDDDDDD;	
 	public static int white = 0xFFEEEEEE;
 	
 	public static int windowBackground; 
