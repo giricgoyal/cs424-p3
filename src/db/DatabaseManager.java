@@ -35,7 +35,7 @@ public class DatabaseManager {
 	 * 
 	 * @return
 	 */
-	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max, int year) {
+	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max) {
 		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
 		String query;
 		if (msql.connect()) {
@@ -45,8 +45,7 @@ public class DatabaseManager {
 					latitude_min+" and latitude<" +
 					latitude_max+" and longitude>"+
 					longitude_min+" and longitude<"+
-					longitude_max+ " and _year="+
-					year+
+					longitude_max+//" and _year=2008"+
 					" group by _case, _state" +
 					" order by _year";
 			System.out.println(query);
