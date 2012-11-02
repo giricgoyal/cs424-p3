@@ -22,4 +22,12 @@ public class Positions {
 	public static float suggestionBoxY;
 	public static float suggestionBoxWidth;
 	public static float suggestionBoxHeight;
+	
+	public static float histographWidth = Utilities.width/4 - Utilities.Converter(80);
+	public static float histographHeight = Utilities.height/3 - Utilities.Converter(40);
+	public static float histograph1X = Utilities.width/2 + Utilities.width/8 + Utilities.Converter(20);
+	public static float histograph1Y = Utilities.height/6;
+	
+	public static float histograph2X = Utilities.width/2 + Utilities.width/4 + Utilities.width/8 + Utilities.Converter(20);
+	public static float histograph2Y = Utilities.height/6;
 }

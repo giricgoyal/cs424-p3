@@ -56,21 +56,22 @@ public class SuggestionBox extends BasicControl {
 	
 	public void draw() {
 		
-		parent.strokeWeight(Utilities.Converter(1));
-		parent.stroke(textBoxBorderColor);
-		parent.fill(textBoxBackgroundColor);
-		parent.rectMode(PConstants.CORNER);
-		parent.rect(myX, myY, myWidth, myHeight);
-		parent.rect(Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
-		parent.textAlign(PConstants.LEFT, PConstants.CENTER);
-		parent.textSize((float) myHeight*0.6f);
-		parent.fill(textBoxTextColor);
-		parent.text(textBoxText, Positions.textBoxX, Positions.textBoxY + Positions.textBoxHeight/2);
 		
 		int count = 0;
 		int matchCount = 0;
 		
 		if (!textBoxText.isEmpty()) {
+			parent.strokeWeight(Utilities.Converter(1));
+			parent.stroke(textBoxBorderColor);
+			parent.fill(textBoxBackgroundColor);
+			parent.rectMode(PConstants.CORNER);
+			parent.rect(myX, myY, myWidth, myHeight);
+			parent.rect(Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
+			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
+			parent.textSize((float) myHeight*0.6f);
+			parent.fill(textBoxTextColor);
+			parent.text(textBoxText, Positions.textBoxX, Positions.textBoxY + Positions.textBoxHeight/2);
+			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.6f);
 			parent.fill(Colors.black);
@@ -85,6 +86,7 @@ public class SuggestionBox extends BasicControl {
 			count++;
 			}
 		}
+		/*
 		else {
 			while(count<5&&states.size()>0) {
 				parent.text(states.get(count).getName(), Positions.suggestionBoxX, Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
@@ -92,6 +94,7 @@ public class SuggestionBox extends BasicControl {
 			count++;
 			}
 		}
+		*/
 	}
 	
 	/**
@@ -140,6 +143,7 @@ public class SuggestionBox extends BasicControl {
 			count++;
 			}
 		}
+		/*
 		else {
 			while(count<5) {
 				if(states.get(count).getName().contains(textBoxText)){
@@ -154,6 +158,7 @@ public class SuggestionBox extends BasicControl {
 			count++;
 			}
 		}
+		*/
 		
 		/**
 		 * get the name of the string upon click

@@ -48,6 +48,8 @@ public class Program extends PApplet {
 	 */
 	Keyboard keyboard;
 	SuggestionBox sb;
+	Histograph h1, h2;
+	
 	
 	
 	
@@ -98,6 +100,12 @@ public class Program extends PApplet {
 		//SuggestionBox sb = new SuggestionBox(this, Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
 		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY, Positions.textBoxWidth, Positions.textBoxHeight);
 		controls.add(sb);
+		
+		h1 = new Histograph(this, Positions.histograph1X, Positions.histograph1Y, Positions.histographWidth, Positions.histographHeight);
+		controls.add(h1);
+		
+		h2 = new Histograph(this, Positions.histograph2X, Positions.histograph2Y, Positions.histographWidth, Positions.histographHeight);
+		controls.add(h2);
 	}
 	
 	public void setup() {		

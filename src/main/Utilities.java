@@ -33,4 +33,9 @@ public class Utilities {
     public static PFont font;
     
     public static PShape markerShape;
+    
+    public static int yearMin = 2001;
+    public static int yearMax = 2010;
+    
+    public static int barWidth = (int)(Positions.histographWidth/10 - Utilities.Converter(5));
 }
