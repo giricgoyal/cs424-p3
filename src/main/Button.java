@@ -3,23 +3,37 @@ package main;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
+/**
+ * Button class. Create a button and assign a name to it.
+ * If you want the button change color while selected call setShowClicked()
+ * @author Claudio
+ *
+ */
 public class Button extends BasicControl {
 	private boolean selected;
+	private boolean showClicked;
+	private boolean addStroke;
 	private String name;
 
 	public Button(PApplet parent, float x, float y, float width, float height) {
-		super(parent, x, y, width, height);
+		super(parent, Utilities.Converter(x), Utilities.Converter(y), Utilities.Converter(width), Utilities.Converter(height));
 	}
 	
 	@Override
 	public void draw() {
 		parent.pushStyle();
-		parent.fill(Colors.dark);
+		if(showClicked) parent.fill(selected?Colors.medium:Colors.dark);
+		else parent.fill(Colors.medium);
+		if(addStroke) {
+			parent.stroke(Colors.medium);
+			parent.strokeWeight(Utilities.Converter(2));
+		}
 		parent.rectMode(PConstants.CORNER);
 		parent.rect(myX, myY, myWidth, myHeight);
-		float offset = name.contains("\n")?0:(parent.textDescent()/2);
+		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 		parent.fill(Colors.light);
-		parent.text(name, (myWidth)/2+myX-parent.textWidth(name)/2, (myHeight)/2+myY+offset);
+		parent.textSize(Utilities.Converter(parent.textAscent()));
+		parent.text(name, (myWidth)/2+myX, (myHeight)/2+myY);
 		parent.popStyle();
 	}
 	
@@ -39,4 +53,11 @@ public class Button extends BasicControl {
 		this.name=name;
 	}
 	
+	public void setShowClick(){
+		this.showClicked=true;
+	}
+	
+	public void setStroke(){
+		this.addStroke=true;
+	}
 }

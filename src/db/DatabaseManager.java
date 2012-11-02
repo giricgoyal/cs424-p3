@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import types.DataQuad;
+import types.DataState;
 import types.DataTriple;
 import de.bezier.data.sql.MySQL;
 /**
@@ -57,6 +58,25 @@ public class DatabaseManager {
 		}
 		return array;
 	}
+	/**
+	 * Retreive 
+	 * 
+	 * @return
+	 */
+	public ArrayList<DataState> getStates(String word) {
+		ArrayList<DataState> array = new ArrayList<DataState>();
+		String query;
+		if (msql.connect()) {
+			query = " select name, lat, lon " +
+					" from states " +
+					" where name like \"%"+word+"%\"";
+			msql.query(query);
+			createArrayFromQueryState(array, msql);
+		} else {
+		}
+		return array;
+	}
+	
 	
 	/**
 	 * Retreive 
@@ -89,6 +109,13 @@ public class DatabaseManager {
 			MySQL msql) {
 		while (msql.next()) {
 			array.add(new DataQuad(msql.getFloat(1), msql.getFloat(2), msql.getInt(3), msql.getInt(4),msql.getInt(5)));
+		}
+	}
+	
+	private void createArrayFromQueryState(ArrayList<DataState> array,
+			MySQL msql) {
+		while (msql.next()) {
+			array.add(new DataState(msql.getString("name"),msql.getFloat("lat"),msql.getFloat("lon")));
 		}
 	}
 	

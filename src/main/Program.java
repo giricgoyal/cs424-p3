@@ -20,7 +20,6 @@ import db.DatabaseManager;
 
 @SuppressWarnings("serial")
 public class Program extends PApplet {
-	
     static public void main(String args[]) {
     	System.out.println("premain");
 	    PApplet.main(new String[] { "main.Program" });
@@ -40,6 +39,8 @@ public class Program extends PApplet {
 	ArrayList<DataQuad> results;
 	int year=2005;
 	GridManager gm;
+	
+	Button buttonPlus, buttonMinus;
 	
 	
 	/**
@@ -114,6 +115,12 @@ public class Program extends PApplet {
 		initApp();
 		//CONTROLS
 		initControls();
+		
+		//BUTTON TEST
+		buttonPlus = new Button(this, Utilities.width/2,Utilities.height-40,100,40);
+		buttonPlus.setName("+");
+		buttonMinus  = new Button(this, Utilities.width/2,Utilities.height-80,100,40);
+		buttonMinus.setName("-");
 
 		//MARKER TESTING
 		//markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
@@ -159,6 +166,9 @@ public class Program extends PApplet {
     	textFont(Utilities.font, 30);
     	fill(Colors.white);
     	text(year, Utilities.width*0.7f, Utilities.height*0.1f);
+    	buttonPlus.draw();
+    	buttonMinus.draw();
+
     }
 	
 	
@@ -313,6 +323,14 @@ public class Program extends PApplet {
 		  sb.Click(mouseX, mouseY);
 	  }
 	  
+	  if(buttonPlus.isInRectangle(mouseX, mouseY)){
+		  buttonPlus.setSelected(!buttonPlus.isSelected());
+		  if (year<2010) {year++;}
+	  }
+	  if(buttonMinus.isInRectangle(mouseX, mouseY)){
+		  buttonMinus.setSelected(!buttonMinus.isSelected());
+		  if (year>2001) {year--;}
+	  }
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -339,6 +357,7 @@ public class Program extends PApplet {
 	    initTouchPos2.x = xPos;
 	    initTouchPos2.y = yPos;
 	  }
+
 	}// touchDown
 
 	@SuppressWarnings("unchecked")
