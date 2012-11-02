@@ -40,17 +40,19 @@ public class DatabaseManager {
 	 */
 	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max) {
 		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
+		String _pie_chart = "day_of_week";
+		String pie_chart = "";
+		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
 		String query;
 		if (msql.connect()) {
-			query = "select latitude, longitude, _case, _year, day_of_week" +
-					" from crashes" +
+			query = "select latitude, longitude, _year, id, day_of_week "+
+					" from krashes" +
 					" where latitude>"+
 					latitude_min+" and latitude<" +
 					latitude_max+" and longitude>"+
 					longitude_min+" and longitude<"+
-					longitude_max+//" and _year=2005"+
-					" group by _case, _state, id" +
-					" order by _year";
+					longitude_max;
+							//and _year=2005"+
 			System.out.println(query);
 			msql.query(query);
 			createArrayFromQueryQ(array, msql);
@@ -108,7 +110,7 @@ public class DatabaseManager {
 	private void createArrayFromQueryQ(ArrayList<DataQuad> array,
 			MySQL msql) {
 		while (msql.next()) {
-			array.add(new DataQuad(msql.getFloat(1), msql.getFloat(2), msql.getInt(3), msql.getInt(4),msql.getInt(5)));
+			array.add(new DataQuad(msql.getFloat("latitude"), msql.getFloat("longitude"), msql.getInt("id"), msql.getInt("_year"),msql.getInt(5)));
 		}
 	}
 	

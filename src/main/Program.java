@@ -158,7 +158,6 @@ public class Program extends PApplet {
     	if (Utilities.isWall) {
     		omicronManager.process();
     	}
-    	
     	//drawNewMexico();
     	gm.drawGrid();
     	gm.drawCircles(year);
