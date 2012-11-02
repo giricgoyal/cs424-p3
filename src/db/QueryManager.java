@@ -2,6 +2,8 @@ package db;
 
 import java.util.ArrayList;
 
+import types.DataQuad;
+
 import main.FilterValues;
 
 public class QueryManager {

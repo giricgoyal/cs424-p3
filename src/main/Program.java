@@ -7,6 +7,7 @@ import omicronAPI.OmicronAPI;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
+import types.DataQuad;
 
 import com.modestmaps.InteractiveMap;
 import com.modestmaps.core.Point2f;
@@ -15,7 +16,6 @@ import com.modestmaps.providers.Microsoft;
 import com.modestmaps.providers.OpenStreetMapProvider;
 import com.modestmaps.providers.Yahoo;
 
-import db.DataQuad;
 import db.DatabaseManager;
 
 @SuppressWarnings("serial")

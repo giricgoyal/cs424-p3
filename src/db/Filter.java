@@ -2,6 +2,8 @@ package db;
 
 import java.util.ArrayList;
 
+import types.DataFilter;
+
 
 public class Filter {
 	ArrayList<DataFilter> filters;

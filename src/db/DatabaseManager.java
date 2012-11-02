@@ -2,7 +2,9 @@ package db;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import de.bezier.data.sql.*;
+import types.DataQuad;
+import types.DataTriple;
+import de.bezier.data.sql.MySQL;
 /**
  * Database class. To use it just create an instance and call query method you
  * are interested in.

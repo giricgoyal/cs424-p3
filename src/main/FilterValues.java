@@ -1,5 +1,5 @@
 package main;
-import db.DataCrash;
+import types.DataCrash;
 
 public class FilterValues {
 	

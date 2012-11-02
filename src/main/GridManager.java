@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import types.DataQuad;
 
 import com.modestmaps.InteractiveMap;
 import com.modestmaps.geo.Location;
 
-import db.DataQuad;
 
 public class GridManager {
 	
