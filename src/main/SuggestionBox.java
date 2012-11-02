@@ -68,15 +68,15 @@ public class SuggestionBox extends BasicControl {
 			parent.rect(myX, myY, myWidth, myHeight);
 			parent.rect(Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
-			parent.textSize((float) myHeight*0.6f);
+			parent.textSize((float) myHeight*0.5f);
 			parent.fill(textBoxTextColor);
 			parent.text(textBoxText, Positions.textBoxX, Positions.textBoxY + Positions.textBoxHeight/2);
 			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
-			parent.textSize(Positions.suggestionBoxHeight/5*0.6f);
+			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
 			while(count<states.size()) {
-				if(states.get(count).getName().contains(textBoxText)){
+				if(states.get(count).getName().toLowerCase().contains(textBoxText)){
 					parent.text(states.get(count).getName(), Positions.suggestionBoxX, Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
 					matchCount++;
 				}
@@ -115,6 +115,8 @@ public class SuggestionBox extends BasicControl {
 		}
 		else {
 			textBoxText = textBoxText.concat(String.valueOf((char)charNum));
+			//String a = String.valueOf(textBoxText.charAt(0));
+			//textBoxText = a.toUpperCase() + textBoxText.substring(1);
 		}
 		System.out.println(textBoxText);
 	}
@@ -130,6 +132,7 @@ public class SuggestionBox extends BasicControl {
 		int count = 0;
 		int matchCount = 0;
 		String clickedString = "";
+		String checkName = "";
 		if (!textBoxText.isEmpty()) {
 			while(count<states.size()) {
 				if(states.get(count).getName().contains(textBoxText)){
