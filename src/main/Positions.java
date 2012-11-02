@@ -19,9 +19,9 @@ public class Positions {
 	//public static float keyboardWidth = Utilities.width*0.22f;
 	//public static float keyboardHeight = Utilities.height*0.25f;
 	
-	public static float textBoxX = Utilities.width/2 + Utilities.width/4 + Utilities.Converter(40);
-	public static float textBoxY = Utilities.height/3*2 - Utilities.Converter(1);
-	public static float textBoxWidth = Utilities.width/4 - Utilities.Converter(50);
+	public static float textBoxX = Utilities.width/2 + Utilities.width/4 + Utilities.Converter(44);
+	public static float textBoxY = Utilities.height/3*2;
+	public static float textBoxWidth = Utilities.width/4 - Utilities.Converter(58);
 	public static float textBoxHeight = Utilities.height*0.05f;
 	
 	public static float suggestionBoxX;

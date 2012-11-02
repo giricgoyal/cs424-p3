@@ -70,14 +70,18 @@ public class SuggestionBox extends BasicControl {
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize((float) myHeight*0.5f);
 			parent.fill(textBoxTextColor);
-			parent.text(textBoxText, Positions.textBoxX, Positions.textBoxY + Positions.textBoxHeight/2);
+			
+			String a = String.valueOf(textBoxText.charAt(0));
+			String textBoxTextTemp = a.toUpperCase() + textBoxText.substring(1);
+			
+			parent.text(textBoxTextTemp, Positions.textBoxX + Utilities.Converter(2), Positions.textBoxY + Positions.textBoxHeight/2);
 			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
 			while(count<states.size()) {
 				if(states.get(count).getName().toLowerCase().contains(textBoxText)){
-					parent.text(states.get(count).getName(), Positions.suggestionBoxX, Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
+					parent.text(states.get(count).getName(), Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
 					matchCount++;
 				}
 				if (matchCount == 5) {
@@ -135,7 +139,7 @@ public class SuggestionBox extends BasicControl {
 		String checkName = "";
 		if (!textBoxText.isEmpty()) {
 			while(count<states.size()) {
-				if(states.get(count).getName().contains(textBoxText)){
+				if(states.get(count).getName().toLowerCase().contains(textBoxText)){
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
 						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) && y < Positions.suggestionBoxY + myHeight*(5-matchCount)) {
 							clickedString = states.get(count).getName();

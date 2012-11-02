@@ -96,8 +96,8 @@ public class Keyboard extends BasicControl {
 		this.verticalSpacing = Utilities.Converter(5);
 
 		// Set the color of the buttons
-		this.buttonsBackgroundColor = Colors.black;
-		this.buttonsTextColor = Colors.white;
+		this.buttonsBackgroundColor = Colors.white;
+		this.buttonsTextColor = Colors.black;
 		this.buttonsBorderColor = Colors.white;
 
 		// Set the initial state of the UpperCasing
@@ -127,6 +127,7 @@ public class Keyboard extends BasicControl {
 
 	public void draw() {
 		parent.stroke(buttonsBorderColor);
+		parent.fill(buttonsBackgroundColor);
 		parent.strokeWeight(1);
 		parent.rectMode(PConstants.CORNER);
 		parent.textAlign(PConstants.LEFT,PConstants.CENTER);
