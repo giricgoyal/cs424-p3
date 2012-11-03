@@ -27,6 +27,7 @@ public class SuggestionBox extends BasicControl {
 	String textBoxText;
 	DatabaseManager db;
 	
+	
 	/**
 	 * temp test string
 	 */
@@ -136,13 +137,13 @@ public class SuggestionBox extends BasicControl {
 		int count = 0;
 		int matchCount = 0;
 		String clickedString = "";
-		String checkName = "";
 		if (!textBoxText.isEmpty()) {
 			while(count<states.size()) {
 				if(states.get(count).getName().toLowerCase().contains(textBoxText)){
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
 						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) && y < Positions.suggestionBoxY + myHeight*(5-matchCount)) {
 							clickedString = states.get(count).getName();
+							textBoxText = "";
 						}
 					}
 					matchCount++;
