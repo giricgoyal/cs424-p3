@@ -29,7 +29,9 @@ public class Button extends BasicControl {
 			parent.strokeWeight(Utilities.Converter(2));
 		}
 		parent.rectMode(PConstants.CORNER);
-		parent.rect(myX, myY, myWidth, myHeight);
+		parent.ellipseMode(PConstants.CORNER);
+		parent.ellipse(myX, myY, myWidth, myHeight);
+		//parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 		parent.fill(Colors.light);
 		parent.textSize(Utilities.Converter(parent.textAscent()));

@@ -399,11 +399,11 @@ public class Program extends PApplet {
 	  }
 	  if (buttonDecYear.isInRectangle(mouseX, mouseY)){
 		  buttonDecYear.setSelected(!buttonDecYear.isSelected());
-		  if(year>2001) {year--;}
+		  prevYear();
 	  }
 	  if  (buttonIncYear.isInRectangle(mouseX, mouseY)){
 		  buttonIncYear.setSelected(!buttonIncYear.isSelected());
-		  if(year<2010) {year++;}
+		  nextYear();
 	  }
 	}
 	
