@@ -1,4 +1,7 @@
 package main;
+import java.util.HashMap;
+import java.util.Map;
+
 import types.DataCrash;
 
 public class FilterValues {
@@ -142,4 +145,17 @@ public class FilterValues {
 			"Hour",
 			"Weather"
 	};
+	
+	@SuppressWarnings("serial")
+	static final Map<String, Integer> attributesHasMap = new HashMap<String , Integer>() {{
+	    put("Month",1);
+	    put("Day of Week",2);
+	    put("Age",3);
+		put("Light Condition",4);
+		put("Alchol Involved",5);
+		put("Vehicle Type",6);
+		put("Sex",7);
+		put("Hour",8);
+		put("Weather",9);
+	}};
 }
