@@ -14,6 +14,7 @@ import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.AbstractMapProvider;
 import com.modestmaps.providers.Microsoft;
+//import com.sun.medialib.mlib.mediaLibException;
 
 import db.QueryManager;
 
@@ -112,6 +113,12 @@ public class Program extends PApplet {
 		
 		h1.setData(queryManager.getHisogramCrashes(2, 200, -200, 0));
 		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
+		
+		h1.setBounds();
+		h2.setBounds();
+		
+		h1.setString("Crashes (#)","Year");
+		h2.setString("Fatalities (#)","Year");
 		
 		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20, ms);
 		controls.add(dropUpMenu);
@@ -442,6 +449,7 @@ public class Program extends PApplet {
 	  }
 	  if (updateQueryButton.isInRectangle(mouseX, mouseY)){
 		  updateQueryButton.setSelected(!updateQueryButton.isSelected());
+		  ms.pushFilters();
 		  results = queryManager.getCrashes(2, 200, -200, 0);
 		  gm = new GridManager(this, map, results);
 		  gm.computeGridValues();
