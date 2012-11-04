@@ -51,7 +51,8 @@ public class DropUpMenu extends BasicControl {
 	}
 	
 	public boolean isInRectangle(float posX,float posY){
-		return (myX<posX && posX<myX+myWidth && myY<posY && posY<myY+myHeight) ? true: false;
+		boolean isin = (myX<posX && posX<myX+myWidth && myY<posY && posY<myY+myHeight);
+		return  isin ? true: false;
 	}
 	
 	public void setSelected(boolean selected){
@@ -59,13 +60,16 @@ public class DropUpMenu extends BasicControl {
 	}
 	
 	public boolean isSelected(){
+		System.out.println(selected);
 		return selected;
 	}
 
 	public int selected(float posX, float posY){
 		for(int i=1; i<=FilterValues.attributes.length; i++){
-			if(myX<posX && posX<myX+myWidth && myY-(i)*myHeight<posY && posY<myY-(i+1)*myHeight)
+			if(myX<posX && posX<myX+myWidth && myY-(i)*myHeight<posY && posY<myY-(i-1)*myHeight){
+				System.out.println(i);
 				return i;
+			}
 		}
 		return -1;
 	}

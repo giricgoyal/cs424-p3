@@ -31,6 +31,10 @@ public class QueryManager {
 		return db.getHistogramFatalities(latitude_min, latitude_max, longitude_min, longitude_max, getFiltersWhere());
 	}
 	
+	public ArrayList<DataQuad> getCrashesALL(){
+		return db.getCrashesALL(getFiltersWhere());
+	}
+	
 	//Filters
 	private String getFiltersWhere(){
 		FilterValues filter = new FilterValues();

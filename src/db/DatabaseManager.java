@@ -62,6 +62,32 @@ public class DatabaseManager {
 		}
 		return array;
 	}
+	
+	/**
+	 * Retreive 
+	 * 
+	 * @return
+	 */
+	public ArrayList<DataQuad> getCrashesALL(String filters) {
+		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
+		if(filters.length()>1)  filters = " and "+filters;
+		String _pie_chart = "day_of_week";
+		String pie_chart = "";
+		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
+		String query;
+		if (msql.connect()) {
+			query = "select latitude, longitude, _year, id, day_of_week "+
+					" from krashes" +
+					" where 1=1 "
+					+filters;
+							//and _year=2005"+
+			System.out.println(query);
+			msql.query(query);
+			createArrayFromQueryQ(array, msql);
+		} else {
+		}
+		return array;
+	}
 	/**
 	 * Retreive 
 	 * 

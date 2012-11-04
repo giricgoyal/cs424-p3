@@ -27,7 +27,6 @@ public class Program extends PApplet {
    	
 	OmicronAPI omicronManager;
 	TouchListener touchListener;
-    
 	InteractiveMap map;
 
 	ArrayList<Marker> markerList; 
@@ -49,6 +48,7 @@ public class Program extends PApplet {
 	Keyboard keyboard;
 	SuggestionBox sb;
 	Histograph h1, h2;
+	DropUpMenu dropUpMenu;
 	
 	
 	
@@ -74,7 +74,7 @@ public class Program extends PApplet {
 		queryManager = new QueryManager(this);
 		Utilities.markerShape=loadShape("marker.svg");
 		long timer= System.currentTimeMillis();
-		results=queryManager.getCrashes(2, 200, -200, 0);
+		results=queryManager.getCrashesALL();
 		System.out.println(System.currentTimeMillis()-timer);
 		timer=System.currentTimeMillis();
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
@@ -106,10 +106,10 @@ public class Program extends PApplet {
 		h1.setData(queryManager.getHisogramCrashes(2, 200, -200, 0));
 		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
 		
+		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20);
 	}
 	
 	public void setup() {		
-		//SET SIZE
 		size((int)Utilities.width,(int)Utilities.height, JAVA2D);
 		if (Utilities.isWall) {
 			initOmicron();
@@ -137,7 +137,6 @@ public class Program extends PApplet {
 		buttonIncYear = new Button(this, Positions.buttonIncX,Positions.buttonIncY, Positions.buttonIncWidth,Positions.buttonIncHeight);
 		buttonIncYear.setName(">");
 		
-
 		//MARKER TESTING
 		//markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
 		
@@ -185,6 +184,7 @@ public class Program extends PApplet {
     	buttonMinus.draw();
     	buttonDecYear.draw();
     	buttonIncYear.draw();
+		dropUpMenu.draw();
 
     }
 	
@@ -408,6 +408,12 @@ public class Program extends PApplet {
 	  if  (buttonIncYear.isInRectangle(mouseX, mouseY)){
 		  buttonIncYear.setSelected(!buttonIncYear.isSelected());
 		  nextYear();
+	  }
+	  if  (dropUpMenu.isInRectangle(mouseX, mouseY)){
+		  dropUpMenu.setSelected(!dropUpMenu.isSelected());
+	  }
+	  if (dropUpMenu.isSelected()){
+		  dropUpMenu.setSelectedName(dropUpMenu.selected(mouseX, mouseY));
 	  }
 	}
 	
