@@ -29,7 +29,7 @@ public class Piechart extends BasicControl{
 	public void draw() {
 		// Draw Outline
 		parent.stroke(Colors.black);
-		parent.strokeWeight(Utilities.Converter(3));
+		parent.strokeWeight(Utilities.Converter(1));
 		parent.noFill();
 		parent.arc(X, Y, diameter, diameter, PApplet.radians(0), PApplet.radians(360));
 

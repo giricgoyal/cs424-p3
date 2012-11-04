@@ -59,10 +59,10 @@ public class MedallionSelector extends BasicControl {
 
 	private Position[] positions;
 
-	public MedallionSelector(PApplet p, String key, String[] options, int X,
-			int Y, int side) {
+	public MedallionSelector(PApplet p, String key, String[] options, float medallionX,
+			float medallionY, float medallionSide) {
 
-		super(p, X, Y, side, side);
+		super(p, medallionX, medallionY, medallionSide, medallionSide);
 
 		this.key = key;
 		this.options = options;

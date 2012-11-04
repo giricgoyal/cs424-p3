@@ -88,11 +88,7 @@ public class Program extends PApplet {
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
 		
-		Piechart p = new Piechart(this,100,1000,300);
-		p.values=new int[] {30, 20, 50};
-		controls.add(p);
-		
-		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},1000, 100, 200);
+		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 		
 		//Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);

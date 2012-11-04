@@ -51,7 +51,7 @@ public class DatabaseManager {
 					latitude_min+" and latitude<" +
 					latitude_max+" and longitude>"+
 					longitude_min+" and longitude<"+
-					longitude_max+" and _state=2";
+					longitude_max+" and id%200=0";
 
 			System.out.println(query);
 			msql.query(query);

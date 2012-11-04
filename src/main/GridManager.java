@@ -109,7 +109,7 @@ public class GridManager {
 	}
 	
 	public void drawGrid() {
-		parent.fill(Colors.white);
+		parent.fill(Colors.transparentWhite);
 		parent.strokeWeight(Utilities.Converter(1));
 		parent.stroke(Colors.white);
 		for (int i=0;i<gridVLine;i++) {

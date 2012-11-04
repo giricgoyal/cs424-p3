@@ -4,9 +4,11 @@ public class Colors {
 
 	public static int black = 0xFF101010;
 	public static int dark;
-	public static int medium = 0xFF2e4174;
+	public static int medium = 0xFF2E4174;
 	public static int light = 0xFFDDDDDD;	
 	public static int white = 0xFFEEEEEE;
+	
+	public static int transparentWhite = 0x77EEEEEE;
 	
 	public static int windowBackground; 
 	
