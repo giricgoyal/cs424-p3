@@ -107,6 +107,24 @@ public class Program extends PApplet {
 		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
 		
 		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20);
+		controls.add(dropUpMenu);
+		
+		//BUTTON TEST
+		buttonPlus = new Button(this, Positions.buttonPlusX,Positions.buttonPlusY,Positions.buttonPlusWidth,Positions.buttonPlusHeight);
+		//buttonPlus = new Button(this, Utilities.width/2,Utilities.height-40,100,40);
+		buttonPlus.setName("+");
+		buttonMinus  = new Button(this, Positions.buttonMinusX,Positions.buttonMinusY,Positions.buttonMinusWidth,Positions.buttonMinusHeight);
+		//buttonMinus  = new Button(this, Utilities.width/2,Utilities.height-80,100,40);
+		buttonMinus.setName("-");
+		
+		buttonDecYear = new Button(this, Positions.buttonDecX, Positions.buttonDecY, Positions.buttonDecWidth, Positions.buttonDecHeight);
+		buttonDecYear.setName("<");
+		buttonIncYear = new Button(this, Positions.buttonIncX,Positions.buttonIncY, Positions.buttonIncWidth,Positions.buttonIncHeight);
+		buttonIncYear.setName(">");		
+		controls.add(buttonPlus);
+		controls.add(buttonMinus);
+		controls.add(buttonIncYear);
+		controls.add(buttonDecYear);
 	}
 	
 	public void setup() {		
@@ -123,20 +141,7 @@ public class Program extends PApplet {
 		initApp();
 		//CONTROLS
 		initControls();
-		
-		//BUTTON TEST
-		buttonPlus = new Button(this, Positions.buttonPlusX,Positions.buttonPlusY,Positions.buttonPlusWidth,Positions.buttonPlusHeight);
-		//buttonPlus = new Button(this, Utilities.width/2,Utilities.height-40,100,40);
-		buttonPlus.setName("+");
-		buttonMinus  = new Button(this, Positions.buttonMinusX,Positions.buttonMinusY,Positions.buttonMinusWidth,Positions.buttonMinusHeight);
-		//buttonMinus  = new Button(this, Utilities.width/2,Utilities.height-80,100,40);
-		buttonMinus.setName("-");
-		
-		buttonDecYear = new Button(this, Positions.buttonDecX, Positions.buttonDecY, Positions.buttonDecWidth, Positions.buttonDecHeight);
-		buttonDecYear.setName("<");
-		buttonIncYear = new Button(this, Positions.buttonIncX,Positions.buttonIncY, Positions.buttonIncWidth,Positions.buttonIncHeight);
-		buttonIncYear.setName(">");
-		
+
 		//MARKER TESTING
 		//markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
 		
@@ -180,12 +185,6 @@ public class Program extends PApplet {
     	textFont(Utilities.font, 30);
     	fill(Colors.white);
     	text(year, Utilities.width*0.7f, Utilities.height*0.1f);
-    	buttonPlus.draw();
-    	buttonMinus.draw();
-    	buttonDecYear.draw();
-    	buttonIncYear.draw();
-		dropUpMenu.draw();
-
     }
 	
 	

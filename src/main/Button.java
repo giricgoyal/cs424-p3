@@ -34,7 +34,7 @@ public class Button extends BasicControl {
 		//parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 		parent.fill(Colors.light);
-		parent.textSize(Utilities.Converter(parent.textAscent()));
+		parent.textSize(Utilities.Converter(20));
 		parent.text(name, (myWidth)/2+myX, (myHeight)/2+myY);
 		parent.popStyle();
 	}
