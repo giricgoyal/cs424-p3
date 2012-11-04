@@ -22,7 +22,20 @@ public class Piechart extends BasicControl{
 		this.diameter = diameter;
 		this.X = X;
 		this.Y = Y;
-		this.colors=new int[] {0x77EE1010, 0x7710EE10, 0x771010EE};
+		this.colors=new int[] {
+			0xAA8DD3C7, 
+			0xAAFFFFB3, 
+			0xAABEBADA,
+			0xAAFB8072,
+			0xAA80B1D3,
+			0xAAFDB462,
+			0xAAB3DE69,
+			0xAAFCCDE5,
+			0xAAD9D9D9,
+			0xAABC808D,
+			0xAACCEBC5,
+			0xAAFFED56
+		};
 		this.values=new int[0];
 	}
 
@@ -44,8 +57,10 @@ public class Piechart extends BasicControl{
 		for (int i=0;i<values.length;i++) {
 			parent.fill(colors[i%colors.length]);
 			float slice= 360*values[i]/(float)total;
-			parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
 			parent.arc(X, Y, diameter, diameter, PApplet.radians(presentArc), PApplet.radians(presentArc+slice));
+			
+			parent.fill(Colors.black);
+			parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
 			presentArc+= slice;
 			parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
 		}

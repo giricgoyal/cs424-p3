@@ -84,9 +84,9 @@ public class MedallionSelector extends BasicControl {
 		this.clockwise = false;
 
 		this.nodeColor = parent.color(0xFFC4CBB7);
-		this.auraColor = parent.color(0xFFEBEFC9);
-		this.lineColor = parent.color(0xFF101010);
-		this.fontColor = parent.color(0xFF101010);
+		this.auraColor = Colors.white;
+		this.lineColor = Colors.white;
+		this.fontColor = Colors.black;
 		
 		this.font=Utilities.font;
 		parent.textSize(Utilities.Converter(10));
@@ -116,6 +116,9 @@ public class MedallionSelector extends BasicControl {
 		parent.noStroke();
 		parent.fill(myX, myY, myWidth, myHeight);
 
+		
+		parent.strokeWeight(Utilities.Converter(1));
+		parent.stroke(Colors.black);
 		// Draw the central ellipse first
 		int centralTokenX = (int) (myX + myWidth / 2);
 		int centralTokenY = (int) (myY + myWidth / 2);
@@ -140,6 +143,8 @@ public class MedallionSelector extends BasicControl {
 		int order = this.clockwise ? 1 : -1;
 		double angularStep = 2 * Math.PI / options.length;
 		for (int i = 0; i < options.length; i++) {
+			parent.strokeWeight(Utilities.Converter(1));
+			parent.stroke(Colors.black);
 			int tokenX = (int) (centralTokenX + radius
 					* Math.cos(offset + angularStep * i * order));
 			int tokenY = (int) (centralTokenY + radius

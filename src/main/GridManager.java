@@ -25,6 +25,11 @@ public class GridManager {
 	
 	Piechart [][][] pies;
 	
+	public void filtersHaveChanged(ArrayList<DataQuad> res) {
+		
+		
+	}
+	
 	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res) {
 		parent=p;
 		map=m;
