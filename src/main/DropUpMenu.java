@@ -9,13 +9,18 @@ import processing.core.PConstants;
  *
  */
 public class DropUpMenu extends BasicControl {
-	private String selectedName = "ciao";
+	private String selectedName;
 	private boolean selected;
+	
+	MedallionSelector medallion;
 
 	public DropUpMenu(PApplet parent, float x, float y, float width,
-			float height) {
+			float height, MedallionSelector m) {
 		super(parent, Utilities.Converter(x), Utilities.Converter(y), Utilities.Converter(width), 
 				Utilities.Converter(height));
+		
+		selectedName = FilterValues.attributes[0];
+		medallion=m;
 	}
 
 	@Override
@@ -24,11 +29,9 @@ public class DropUpMenu extends BasicControl {
 		parent.rectMode(PConstants.CORNER);
 		parent.fill(Colors.medium);
 		parent.rect(myX, myY, myWidth, myHeight);
-		parent.textSize(parent.textAscent()/4*3);
-		parent.textSize(Utilities.Converter(parent.textAscent()));
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 		parent.fill(Colors.light);
-		parent.textSize(Utilities.Converter(parent.textAscent()));
+		parent.textSize(Utilities.Converter(15));
 		parent.text(selectedName, (myWidth)/2+myX, (myHeight)/2+myY);
 		if(selected) drawMenu();
 		parent.popStyle();
@@ -38,8 +41,7 @@ public class DropUpMenu extends BasicControl {
 		parent.pushStyle();
 		parent.rectMode(PConstants.CORNER);
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
-		parent.textSize(parent.textAscent()/4*3);
-		parent.textSize(Utilities.Converter(parent.textAscent()));
+		parent.textSize(Utilities.Converter(10));
 		for(int i=1; i<=FilterValues.attributes.length; i++){
 			parent.fill(Colors.medium);
 			parent.rect(myX, myY-i*myHeight, myWidth, myHeight);
@@ -77,6 +79,12 @@ public class DropUpMenu extends BasicControl {
 	public void setSelectedName(int i){
 		if(i==-1) return;
 		selectedName=FilterValues.attributes[i-1];
+		selected=false;
+		
+		//TODO: ADD HERE CALL TO THE MEDALLION!
+	}
+	
+	public void updateMedallion() {
 	}
 	
 	

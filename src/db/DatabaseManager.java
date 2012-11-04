@@ -78,7 +78,7 @@ public class DatabaseManager {
 		if (msql.connect()) {
 			query = "select latitude, longitude, _year, id, day_of_week "+
 					" from krashes" +
-					" where 1=1 "
+					" where id%300=1 "
 					+filters;
 							//and _year=2005"+
 			System.out.println(query);

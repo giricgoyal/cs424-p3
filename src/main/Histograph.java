@@ -65,7 +65,7 @@ public class Histograph extends BasicControl {
 		
 		for (int column = 0; column < sampleData.size(); column++) {
 			parent.noStroke();
-			parent.fill(0x800000ED);
+			parent.fill(0x700000ED);
 			float value = sampleData.get(column).getValue();
 			float year = sampleData.get(column).getYear();
 			float x = parent.map((int)year, Utilities.yearMin, Utilities.yearMax, myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
@@ -78,13 +78,13 @@ public class Histograph extends BasicControl {
 			parent.text((int)year, x, myY + myHeight/2 + Utilities.Converter(10));
 		}
 		
-		for (float value = 0; value < getMax(); value += getMax()/10) {
+		for (float value = getMin(); value < getMax(); value += getMax()/20) {
 			float y = parent.map(value, getMin(), getMax(), myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
 			parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
 			parent.text((int)value, myX - myWidth/2 - Utilities.Converter(10), y);
 			
 		}
-		
+		System.out.println(getMax()+" : "+getMin());
 		parent.text("Year", myX, myY + myHeight/2 + Utilities.Converter(25));
 		
 	
