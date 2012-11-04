@@ -42,7 +42,7 @@ public class MedallionSelector extends BasicControl {
 	// The starting offset in radiant
 	private int offset;
 	// The order of the insertions
-	private boolean clockwise;
+	private boolean clockwise=true;
 
 	// Coordinates
 	private float tokenDiameter;
