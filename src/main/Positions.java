@@ -36,5 +36,27 @@ public class Positions {
 	public static float suggestionBoxY;
 	public static float suggestionBoxWidth;
 	public static float suggestionBoxHeight;
+	
+	public static float buttonMinusX = Utilities.width/2 + Utilities.Converter(1);
+	public static float buttonMinusY = Utilities.height - Utilities.Converter(31);
+	public static float buttonMinusWidth = Utilities.Converter(30);
+	public static float buttonMinusHeight = Utilities.Converter(30);
+	
+	public static float buttonPlusX = buttonMinusX + buttonMinusWidth + Utilities.Converter(1);
+	public static float buttonPlusY = buttonMinusY;
+	public static float buttonPlusWidth = buttonMinusWidth;
+	public static float buttonPlusHeight = buttonMinusHeight;
+	
+	public static float buttonDecX = buttonMinusX;
+	public static float buttonDecY = buttonMinusY - Utilities.Converter(31);
+	public static float buttonDecWidth = Utilities.Converter(30);
+	public static float buttonDecHeight = Utilities.Converter(30);
+
+	public static float buttonIncX = buttonDecX + buttonDecWidth + Utilities.Converter(1);
+	public static float buttonIncY = buttonDecY;
+	public static float buttonIncWidth = buttonDecWidth;
+	public static float buttonIncHeight = buttonDecHeight;
+	
+	
 
 }
