@@ -41,4 +41,5 @@ public class Utilities {
     public static int barWidth = (int)(Positions.histographWidth/10 - Utilities.Converter(5));
     public static int lowerBound = Integer.MAX_VALUE;
     public static int upperBound = Integer.MIN_VALUE;
+    
 }

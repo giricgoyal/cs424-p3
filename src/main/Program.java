@@ -14,7 +14,7 @@ import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.AbstractMapProvider;
 import com.modestmaps.providers.Microsoft;
-import com.sun.medialib.mlib.mediaLibException;
+//import com.sun.medialib.mlib.mediaLibException;
 
 import db.QueryManager;
 
@@ -110,8 +110,8 @@ public class Program extends PApplet {
 		h1.setBounds();
 		h2.setBounds();
 		
-		h1.setString("Crashes");
-		h2.setString("Fatalities");
+		h1.setString("Crashes (#)","Year");
+		h2.setString("Fatalities (#)","Year");
 		
 		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20, ms);
 		controls.add(dropUpMenu);

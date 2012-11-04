@@ -17,7 +17,9 @@ public class Histograph extends BasicControl {
 	
 	int lowerBound;
 	int upperBound;
-	String label;
+	String xLabel;
+	String yLabel;
+	String mainLabel;
 	/**
 	 * sample string to plot an example. 
 	 * add an argument in the constructor to draw histograms for different information as per the need
@@ -138,13 +140,13 @@ public class Histograph extends BasicControl {
 		 * X-axis label: "Year"
 		 */
 		parent.textAlign(PConstants.CENTER, PConstants.TOP);
-		parent.text("Year", myX, myY + myHeight/2 + Utilities.Converter(25));
+		parent.text(xLabel, myX, myY + myHeight/2 + Utilities.Converter(25));
 		
 		/**
 		 * Main label: "Crashes/Fatalities"
 		 */
 		parent.textSize(Utilities.Converter(10));
-		parent.text(this.label+" (#)", myX, Utilities.Converter(10));
+		parent.text(mainLabel, myX, Utilities.Converter(10));
 	
 	}
 	
@@ -183,8 +185,9 @@ public class Histograph extends BasicControl {
 		}	
 	}
 	
-	public void setString(String label) {
-		this.label = label;
+	public void setString(String mainLabel, String xLabel) {
+		this.mainLabel = mainLabel;
+		this.xLabel = xLabel;
 	}
 	
 	@Override
