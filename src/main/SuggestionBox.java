@@ -39,7 +39,7 @@ public class SuggestionBox extends BasicControl {
 		// TODO Auto-generated constructor stub
 		this.textBoxText = "";
 		this.textBoxBorderColor = Colors.black;
-		this.textBoxBackgroundColor = Colors.white;
+		this.textBoxBackgroundColor = Colors.light;
 		this.suggestionBoxBackgroundColor = Colors.light;
 		this.suggestionBoxBorderColor = Colors.dark;
 		this.textBoxTextColor = Colors.black;
@@ -61,12 +61,14 @@ public class SuggestionBox extends BasicControl {
 		int count = 0;
 		int matchCount = 0;
 		
+		parent.strokeWeight(Utilities.Converter(1));
+		parent.stroke(textBoxBorderColor);
+		parent.fill(textBoxBackgroundColor);
+		parent.rectMode(PConstants.CORNER);
+		parent.rect(myX, myY, myWidth, myHeight);
+		
 		if (!textBoxText.isEmpty()) {
-			parent.strokeWeight(Utilities.Converter(1));
-			parent.stroke(textBoxBorderColor);
-			parent.fill(textBoxBackgroundColor);
-			parent.rectMode(PConstants.CORNER);
-			parent.rect(myX, myY, myWidth, myHeight);
+			
 			parent.rect(Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize((float) myHeight*0.5f);
