@@ -148,14 +148,14 @@ public class FilterValues {
 	
 	@SuppressWarnings("serial")
 	public static final Map<String, Integer> attributesHasMap = new HashMap<String , Integer>() {{
-	    put("Month",1);
-	    put("Day of Week",2);
-	    put("Age",3);
-		put("Light Condition",4);
-		put("Alchol Involved",5);
-		put("Vehicle Type",6);
-		put("Sex",7);
-		put("Hour",8);
-		put("Weather",9);
+	    put("Month",0);
+	    put("Day of Week",1);
+	    put("Age",2);
+		put("Light Condition",3);
+		put("Alchol Involved",4);
+		put("Vehicle Type",5);
+		put("Sex",6);
+		put("Hour",7);
+		put("Weather",8);
 	}};
 }
