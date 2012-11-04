@@ -49,7 +49,7 @@ public class Program extends PApplet {
 	SuggestionBox sb;
 	Histograph h1, h2;
 	DropUpMenu dropUpMenu;
-	
+	MedallionSelector ms;
 	
 	
 	
@@ -86,7 +86,7 @@ public class Program extends PApplet {
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
 		
-		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
+		ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 		
 		//Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
@@ -414,6 +414,12 @@ public class Program extends PApplet {
 	  if (dropUpMenu.isSelected()){
 		  dropUpMenu.setSelectedName(dropUpMenu.selected(mouseX, mouseY));
 	  }
+	}
+	
+	public void mouseClicked() {
+		if (isIn(mouseX, mouseY, Positions.medallionX, Positions.medallionY, Positions.medallionSide, Positions.medallionSide)) {
+			ms.onClick(mouseX,  mouseY);
+		}
 	}
 	
 	public void mouseReleased() {

@@ -28,8 +28,6 @@ public class Program extends PApplet {
 	InteractiveMap map;
 
 	public void setup() {
-		
-		System.out.println("A");
 		if (isWall) {
 			size(8160, 2304, P2D);
 			initOmicron();

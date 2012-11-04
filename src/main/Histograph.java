@@ -84,7 +84,6 @@ public class Histograph extends BasicControl {
 			parent.text((int)value, myX - myWidth/2 - Utilities.Converter(10), y);
 			
 		}
-		System.out.println(getMax()+" : "+getMin());
 		parent.text("Year", myX, myY + myHeight/2 + Utilities.Converter(25));
 		
 	
