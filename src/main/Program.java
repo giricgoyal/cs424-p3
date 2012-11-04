@@ -107,6 +107,12 @@ public class Program extends PApplet {
 		h1.setData(queryManager.getHisogramCrashes(2, 200, -200, 0));
 		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
 		
+		h1.setBounds();
+		h2.setBounds();
+		
+		h1.setString("Crashes");
+		h2.setString("Fatalities");
+		
 		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20, ms);
 		controls.add(dropUpMenu);
 		
