@@ -14,9 +14,11 @@ public class Button extends BasicControl {
 	private boolean showClicked;
 	private boolean addStroke;
 	private String name;
+	private boolean elps;
 
 	public Button(PApplet parent, float x, float y, float width, float height) {
 		super(parent, Utilities.Converter(x), Utilities.Converter(y), Utilities.Converter(width), Utilities.Converter(height));
+		elps=true;
 	}
 	
 	@Override
@@ -30,8 +32,8 @@ public class Button extends BasicControl {
 		}
 		parent.rectMode(PConstants.CORNER);
 		parent.ellipseMode(PConstants.CORNER);
-		parent.ellipse(myX, myY, myWidth, myHeight);
-		//parent.rect(myX, myY, myWidth, myHeight);
+		if(elps) parent.ellipse(myX, myY, myWidth, myHeight);
+		else parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 		parent.fill(Colors.light);
 		parent.textSize(Utilities.Converter(20));
@@ -41,6 +43,10 @@ public class Button extends BasicControl {
 	
 	public boolean isSelected(){
 		return selected;
+	}
+	
+	public void setElpsFalse(){
+		elps = false;
 	}
 	
 	public boolean isInRectangle(float posX,float posY){
