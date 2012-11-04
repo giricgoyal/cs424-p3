@@ -106,7 +106,7 @@ public class Program extends PApplet {
 		h1.setData(queryManager.getHisogramCrashes(2, 200, -200, 0));
 		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
 		
-		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20);
+		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20, ms);
 		controls.add(dropUpMenu);
 		
 		//BUTTON TEST
