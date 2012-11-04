@@ -38,7 +38,7 @@ public class Program extends PApplet {
 	int year=2005;
 	GridManager gm;
 	
-	Button buttonPlus, buttonMinus;
+	Button buttonPlus, buttonMinus, updateQueryButton;
 	Button buttonIncYear, buttonDecYear;
 	
 	
@@ -120,11 +120,17 @@ public class Program extends PApplet {
 		buttonDecYear = new Button(this, Positions.buttonDecX, Positions.buttonDecY, Positions.buttonDecWidth, Positions.buttonDecHeight);
 		buttonDecYear.setName("<");
 		buttonIncYear = new Button(this, Positions.buttonIncX,Positions.buttonIncY, Positions.buttonIncWidth,Positions.buttonIncHeight);
-		buttonIncYear.setName(">");		
+		buttonIncYear.setName(">");	
+		
+		updateQueryButton = new Button(this, Utilities.width/3*2, Utilities.height/2+20, 100, 20);
+		updateQueryButton.setName("Update!");
+		updateQueryButton.setElpsFalse();
+	
 		controls.add(buttonPlus);
 		controls.add(buttonMinus);
 		controls.add(buttonIncYear);
 		controls.add(buttonDecYear);
+		controls.add(updateQueryButton);
 	}
 	
 	public void setup() {		
@@ -413,6 +419,12 @@ public class Program extends PApplet {
 	  }
 	  if (dropUpMenu.isSelected()){
 		  dropUpMenu.setSelectedName(dropUpMenu.selected(mouseX, mouseY));
+	  }
+	  if (updateQueryButton.isInRectangle(mouseX, mouseY)){
+		  updateQueryButton.setSelected(!updateQueryButton.isSelected());
+		  results = queryManager.getCrashes(2, 200, -200, 0);
+		  gm = new GridManager(this, map, results);
+		  gm.computeGridValues();
 	  }
 	}
 	
