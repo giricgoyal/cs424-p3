@@ -40,13 +40,29 @@ public class QueryManager {
 		FilterValues filter = new FilterValues();
 		String filtersWhere = "";
 		for(int i=0;i<filter.filtersValue.length;i++){
+			if(existTrue(i))
+				filtersWhere += " (";
+		
 			for(int j=0;j<filter.filtersValue[i].length;j++){
 				if(filter.filtersValue[i][j].isOn())
 					filtersWhere+=" ("+filter.filtersValue[i][j].getDatabaseValue()+") or ";
 			}
+			if(existTrue(i))
+				filtersWhere = filtersWhere.substring(0,filtersWhere.length()-3);
+			if(existTrue(i))
+				filtersWhere += ") and";
 		}
 		if(filtersWhere.length()>2)
 			filtersWhere = filtersWhere.substring(0,filtersWhere.length()-3);
 		return filtersWhere;
+	}
+	
+	private boolean existTrue(int i){
+		for(int j = 0;j<FilterValues.filtersValue[i].length;j++){
+			if(FilterValues.filtersValue[i][j].isOn())
+				return true;
+		}
+		
+		return false;
 	}
 }

@@ -14,6 +14,7 @@ import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.AbstractMapProvider;
 import com.modestmaps.providers.Microsoft;
+import com.sun.medialib.mlib.mediaLibException;
 
 import db.QueryManager;
 
@@ -422,6 +423,7 @@ public class Program extends PApplet {
 	  }
 	  if (updateQueryButton.isInRectangle(mouseX, mouseY)){
 		  updateQueryButton.setSelected(!updateQueryButton.isSelected());
+		  ms.pushFilters();
 		  results = queryManager.getCrashes(2, 200, -200, 0);
 		  gm = new GridManager(this, map, results);
 		  gm.computeGridValues();

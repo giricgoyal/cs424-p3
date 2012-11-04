@@ -44,8 +44,8 @@ public class FilterValues {
 	private static DataCrash alcholInvolvedInstance1 = new DataCrash(" alcohol_involved = 0 ", " No ", false);
 	private static DataCrash alcholInvolvedInstance2 = new DataCrash(" alcohol_involved = 1 ", " Yes ", false);
 	
-	private static DataCrash sexInstance1 = new DataCrash(" alchol_involved = 1 ", " Male ", false);
-	private static DataCrash sexInstance2 = new DataCrash(" alchol_involved = 2 ", " Female ", false);
+	private static DataCrash sexInstance1 = new DataCrash(" sex = 1 ", " Male ", false);
+	private static DataCrash sexInstance2 = new DataCrash(" sex = 2 ", " Female ", false);
 	
 	private static DataCrash bodyTypeInstance1 = new DataCrash(" body_type = 1 or body_type = 2 or body_type = 3 or" +
 			"body_type = 4 or body_type = 5 or body_type = 6 or body_type = 7 or" +
