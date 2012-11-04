@@ -131,7 +131,7 @@ public class FilterValues {
 			weather
 	};
 	
-	public String[] attributes={
+	public static String[] attributes={
 			"Month",
 			"Day of Week",
 			"Age",

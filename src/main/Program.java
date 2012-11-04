@@ -12,9 +12,11 @@ import types.DataQuad;
 import com.modestmaps.InteractiveMap;
 import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
+import com.modestmaps.providers.AbstractMapProvider;
 import com.modestmaps.providers.Microsoft;
 import com.modestmaps.providers.OpenStreetMapProvider;
 import com.modestmaps.providers.Yahoo;
+import com.modestmaps.providers.Yahoo.AerialProvider;
 
 import db.DatabaseManager;
 
@@ -90,7 +92,7 @@ public class Program extends PApplet {
 		p.values=new int[] {30, 20, 50};
 		controls.add(p);
 		
-		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},1400, 100, 200);
+		MedallionSelector ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},1000, 100, 200);
 		controls.add(ms);
 		
 		//Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
@@ -181,37 +183,109 @@ public class Program extends PApplet {
 	
 	
 	//INITIAL CONFIGURATION OF THE MAP
-	int currentProvider=0;
-	// zoom 0 is the whole world, 19 is street level
-	final int zoomInterState = 4;
-	final int zoomState = 7;
-	final int zoomCity = 11;
+	int currentProviderIndex;
+	AbstractMapProvider[] providers;
 	
-	Location locationUSA = new Location(38.962f,  -94.928f); 
-	Location locationIllinois = new Location(40.4298f,  -88.9244f); 
-	Location locationChicago = new Location(41.85f,  -87.65f);
+	Location locationUSA = new Location(38.962f,  -94.928f);
 	
 	//INIT MAP SIZE AND POSITION
 	public void initMap() {
 		Utilities.mapSize = new PVector( width/2, height );
 		Utilities.mapOffset = new PVector(0,0);
-		map =  new InteractiveMap(this, new Microsoft.RoadProvider(), Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y );
+		
+		providers = new AbstractMapProvider[3];
+		providers[0] = new Microsoft.AerialProvider();
+		providers[1] = new Microsoft.HybridProvider();
+		providers[2] = new Microsoft.RoadProvider();
+		/*providers[3] = new Yahoo.AerialProvider();
+		providers[4] = new Yahoo.RoadProvider();
+		providers[5] = new OpenStreetMapProvider();*/
+		currentProviderIndex=0;
+		
+		map =  new InteractiveMap(this, providers[currentProviderIndex], Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y );
 		map.panTo(locationUSA);
 		map.setZoom(zoomInterState);
-		setMapProvider(currentProvider);
 	}
 	
-	//SELECT PROVIDER
-	void setMapProvider(int newProviderID){
-		switch( newProviderID ){		
-    		case 0: map.setMapProvider( new Microsoft.AerialProvider() ); break;
-	    	case 1: map.setMapProvider( new Microsoft.HybridProvider() ); break;
-	    	case 2: map.setMapProvider( new Microsoft.RoadProvider() ); break;
-	    	case 3: map.setMapProvider( new Yahoo.AerialProvider()); break;
-	    	case 4: map.setMapProvider( new Yahoo.RoadProvider() ); break;
-	    	case 5: map.setMapProvider( new OpenStreetMapProvider()); break;
-		}
+	//******************************************
+	//--> HERE BEGINS THE ZOOMING/TIME MANAGEMENT <--
+	//******************************************
+	
+	// zoom 0 is the whole world, 19 is street level
+	final int zoomInterState = 4;
+	final int zoomState = 7;
+	final int zoomCity = 11;
+	final int maxZoom = 19;
+	final int minZoom = 1;
+	
+	final int maxYear = 2010;
+	final int minYear = 2001;
+	
+	
+	public void zoomIn () {
+		if (map.getZoom()<maxZoom)
+			map.zoomIn();
 	}
+
+	public void zoomOut () {
+		if (map.getZoom()>minZoom)
+			map.zoomOut();
+	}
+	
+	public void nextYear() {
+		if (year<maxYear) year++;
+	}
+	
+	public void prevYear() {
+		if (year>minYear) year--;
+	}
+	
+	public void switchProvider() {
+		currentProviderIndex=(currentProviderIndex+1)%providers.length;
+		map.setMapProvider(providers[currentProviderIndex]);
+	}
+	
+	public void keyPressed()
+	{
+	  switch(key) {
+	  	case '+':
+	  		zoomIn();
+	  		break;
+	  		
+	  	case '-':
+	  		zoomOut();
+	  		break;
+	  		
+	  	case ' ':
+	  		switchProvider();
+	  		break;
+	  }
+	  
+	  switch (keyCode) {
+	  	case RIGHT:
+	  		nextYear();
+	  		break;
+	  	
+	  	case LEFT:
+	  		prevYear();
+	  		break;
+	  }
+	}
+	
+	
+	//***********************************
+	//--> HERE BEGINS THE MOUSE STUFF <--
+	//***********************************
+	
+
+	// See TouchListener on how to use this function call
+	// In this example TouchListener draws a solid ellipse
+	// Ths functions here draws a ring around the solid ellipse
+
+	// NOTE: Mouse pressed, dragged, and released events will also trigger these
+//	       using an ID of -1 and an xWidth and yWidth value of 10.
+
+	// Touch position at last frame
 	
 	public void initOmicron() {
 		// Creates the OmicronAPI object. This is placed in init() since we want to use fullscreen
@@ -229,66 +303,6 @@ public class Program extends PApplet {
 		omicronManager.setTouchListener(touchListener);
 		
 	}
-	
-	public void keyPressed()
-	{
-	  if (key=='+')
-	  {		  
-		  switch(map.getZoom()) {
-		  	case zoomInterState:
-		  		map.setZoom(zoomState);
-		  		map.panTo(locationIllinois);
-		  		break;
-		  	case zoomState:
-		  		map.setZoom(zoomCity);
-		  		map.panTo(locationChicago);
-		  		break;
-		  }
-		  gm.computeGridValues();
-	  }
-	  if (key=='-')
-	  {
-		  switch(map.getZoom()) {
-		  	case zoomCity:
-		  		map.setZoom(zoomState);
-		  		map.panTo(locationIllinois);
-		  		break;
-		  	case zoomState:
-		  		map.setZoom(zoomInterState);
-		  		map.panTo(locationUSA);
-		  		break;
-		  }
-		  gm.computeGridValues();
-	  }
-	  
-	  if (keyCode==RIGHT) {
-		  if (year<2010) {year++;}
-	  }
-	  
-	  if (keyCode==LEFT) {
-		  if (year>2001) {year--;}
-	  }
-	
-	  if (key==' ') {
-		  currentProvider=(currentProvider+1)%6;
-		  setMapProvider(currentProvider);
-	  }		  
-	  
-	  
-	}
-	//***********************************
-	//--> HERE BEGINS THE MOUSE STUFF <--
-	//***********************************
-	
-
-	// See TouchListener on how to use this function call
-	// In this example TouchListener draws a solid ellipse
-	// Ths functions here draws a ring around the solid ellipse
-
-	// NOTE: Mouse pressed, dragged, and released events will also trigger these
-//	       using an ID of -1 and an xWidth and yWidth value of 10.
-
-	// Touch position at last frame
 	
 	public boolean isIn(float mx, float my, float bx, float by, float bw, float bh) {
 		return (bx <= mx && mx <= bx+bw && by <= my && my <= by+bh); }
@@ -431,7 +445,7 @@ public class Program extends PApplet {
 		}
 	}
 	
-	public void drawCookCounty() {
+	/*public void drawCookCounty() {
 		noStroke();
 		fill(0,0,255,150);
 		beginShape();
