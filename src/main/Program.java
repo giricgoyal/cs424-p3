@@ -101,6 +101,10 @@ public class Program extends PApplet {
 		
 		h2 = new Histograph(this, Positions.histograph2X, Positions.histograph2Y, Positions.histographWidth, Positions.histographHeight);
 		controls.add(h2);
+		
+		h1.setData(queryManager.getHisogramCrashes(2, 200, -200, 0));
+		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
+		
 	}
 	
 	public void setup() {		

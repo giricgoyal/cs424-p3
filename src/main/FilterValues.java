@@ -38,11 +38,11 @@ public class FilterValues {
 	private DataCrash adult = new DataCrash(" age >= 20 and age <= 60","Adult",false);
 	private DataCrash elder = new DataCrash(" age >= 60","Elder",false);
 	
-	private DataCrash alcholInvolvedInstance1 = new DataCrash(" alchol_involved = 0 ", " No ", false);
-	private DataCrash alcholInvolvedInstance2 = new DataCrash(" alchol_involved = 1 ", " Yes ", true);
+	private DataCrash alcholInvolvedInstance1 = new DataCrash(" alcohol_involved = 0 ", " No ", false);
+	private DataCrash alcholInvolvedInstance2 = new DataCrash(" alcohol_involved = 1 ", " Yes ", false);
 	
 	private DataCrash sexInstance1 = new DataCrash(" alchol_involved = 1 ", " Male ", false);
-	private DataCrash sexInstance2 = new DataCrash(" alchol_involved = 2 ", " Female ", true);
+	private DataCrash sexInstance2 = new DataCrash(" alchol_involved = 2 ", " Female ", false);
 	
 	private DataCrash bodyTypeInstance1 = new DataCrash(" body_type = 1 or body_type = 2 or body_type = 3 or" +
 			"body_type = 4 or body_type = 5 or body_type = 6 or body_type = 7 or" +

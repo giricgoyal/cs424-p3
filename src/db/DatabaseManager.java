@@ -171,7 +171,7 @@ public class DatabaseManager {
 	private void createArrayFromQueryStateHC(ArrayList<DataYearPair> array,
 			MySQL msql) {
 		while (msql.next()) {
-			array.add(new DataYearPair(msql.getInt("year"),msql.getFloat("value")));
+			array.add(new DataYearPair(msql.getInt("_year"),msql.getFloat(2)));
 		}
 	}
 	
