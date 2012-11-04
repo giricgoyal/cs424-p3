@@ -205,6 +205,7 @@ public class Program extends PApplet {
 		map =  new InteractiveMap(this, providers[currentProviderIndex], Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y );
 		map.panTo(locationUSA);
 		map.setZoom(zoomInterState);
+		oldCenter = map.getCenter();
 	}
 	
 	//******************************************
@@ -223,21 +224,29 @@ public class Program extends PApplet {
 	
 	
 	public void zoomIn () {
-		if (map.getZoom()<maxZoom)
+		if (map.getZoom()<maxZoom) {
 			map.zoomIn();
+			gm.computeGridValues();
+		}
 	}
 
 	public void zoomOut () {
-		if (map.getZoom()>minZoom)
+		if (map.getZoom()>minZoom) {
 			map.zoomOut();
+			gm.computeGridValues();
+		}
 	}
 	
 	public void nextYear() {
-		if (year<maxYear) year++;
+		if (year<maxYear) {
+			year++;
+		}
 	}
 	
 	public void prevYear() {
-		if (year>minYear) year--;
+		if (year>minYear) {
+			year--;
+		}
 	}
 	
 	public void switchProvider() {
@@ -321,18 +330,50 @@ public class Program extends PApplet {
 	@SuppressWarnings("rawtypes")
 	Hashtable touchList;
 
+	public boolean mapHasMoved=false;
+	public int mapDragHack = 1;
+	public Location oldCenter;
+	
+	public void mouseDragged() {
+		if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)){
+			mapDragHack++;
+			if (mapDragHack%10==0) {
+				mapDragHack=1;
+				
+				map.setCenter(map.pointLocation(map.locationPoint(map.getCenter()).x - (mouseX - lastTouchPos.x), map.locationPoint(map.getCenter()).y - (mouseY - lastTouchPos.y))); 
+				
+				/*Location newCenter;
+				if (oldCenter!=null)
+					newCenter = map.pointLocation(map.locationPoint(oldCenter).x-(mouseX - lastTouchPos.x),map.locationPoint(oldCenter).y-(mouseY - lastTouchPos.y));
+				else
+					newCenter = map.pointLocation(map.getCenter())
+				map.setCenter(newCenter);
+				oldCenter=newCenter;*/
+				lastTouchPos.x=mouseX;
+				lastTouchPos.y=mouseY;
+				System.out.println("LSX: "+lastTouchPos.x+" LSY: "+lastTouchPos.y);
+				mapHasMoved=true;
+			}   
+		}
+	}
+	
+	
 	// see if we're over any buttons, and respond accordingly:
-	public void mouseClicked() {
+	public void mousePressed() {
 
 	//CLICK ON THE MAP: if we are clicking on the map, check if we are clicking on a marker.
 	//IF so, toggle its opening.
 	  if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)){
 		  
-		  for (Marker m: markerList) {
+		  lastTouchPos.x = mouseX;
+		  lastTouchPos.y = mouseY;
+		  System.out.println("LSX: "+lastTouchPos.x+" LSY: "+lastTouchPos.y);
+		  
+		  /*for (Marker m: markerList) {
 			  if (isIn(mouseX, mouseY, m.x-Utilities.markerWidth/2, m.y-Utilities.markerHeight, Utilities.markerWidth, Utilities.markerHeight, 0.05f)) {
 				  m.isOpen=!m.isOpen;
 			  }
-		  }
+		  }*/
 		  //markerList.add(new Marker(this, map.pointLocation(mouseX, mouseY)));
 	  }		 
 	  
@@ -354,6 +395,19 @@ public class Program extends PApplet {
 	  }
 	}
 	
+	public void mouseReleased() {
+		//MAP CLICK:
+		if (isIn(mouseX,mouseY,Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {			
+			
+		}
+		
+		if (mapHasMoved) {
+			gm.computeGridValues();
+			mapHasMoved=false;
+			System.out.println("Updated Grid!");
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void touchDown(int ID, float xPos, float yPos, float xWidth, float yWidth){
 	  noFill();
@@ -361,8 +415,8 @@ public class Program extends PApplet {
 	  ellipse( xPos, yPos, xWidth * 2, yWidth * 2 );
 	  
 	  // Update the last touch position
-	  lastTouchPos.x = xPos;
-	  lastTouchPos.y = yPos;
+	  //lastTouchPos.x = xPos;
+	  //lastTouchPos.y = yPos;
 	  
 	  // Add a new touch ID to the list
 	  Touch t = new Touch( ID, xPos, yPos, xWidth, yWidth );
@@ -437,13 +491,6 @@ public class Program extends PApplet {
 	  // Remove touch and ID from list
 	  touchList.remove(ID);
 	}// touchUp
-	
-	public void mouseReleased() {
-		//MAP CLICK:
-		if (isIn(mouseX,mouseY,Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y)) {			
-			
-		}
-	}
 	
 	/*public void drawCookCounty() {
 		noStroke();
