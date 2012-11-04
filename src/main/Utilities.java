@@ -39,4 +39,25 @@ public class Utilities {
     public static int yearMax = 2010;
     
     public static int barWidth = (int)(Positions.histographWidth/10 - Utilities.Converter(5));
+    
+    public static int[] colorCodes =
+    {
+		0xAA8DD3C7, 
+		0xAAFFFFB3, 
+		0xAABEBADA,
+		0xAAFB8072,
+		0xAA80B1D3,
+		0xAAFDB462,
+		0xAAB3DE69,
+		0xAAFCCDE5,
+		0xAAD9D9D9,
+		0xAABC808D,
+		0xAACCEBC5,
+		0xAAFFED56
+	};
+    
+    public static float minActiveLatitude;
+    public static float maxActiveLatitude;
+    public static float minActiveLongitude;
+    public static float maxActiveLongitude;
 }

@@ -70,18 +70,25 @@ public class Program extends PApplet {
 	
 	
 	public void initApp() {
+		//MARKERS
 		markerList = new ArrayList<Marker>();
-		queryManager = new QueryManager(this);
 		Utilities.markerShape=loadShape("marker.svg");
+		
+		//DB
+		queryManager = new QueryManager(this);
+		
 		long timer= System.currentTimeMillis();
 		results=queryManager.getCrashesALL();
 		System.out.println(System.currentTimeMillis()-timer);
-		timer=System.currentTimeMillis();
-		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
+		timer=System.currentTimeMillis();		
+		
+		//GRID
 		gm = new GridManager(this,map,results);
 		gm.computeGridValues();
 		System.out.println(System.currentTimeMillis()-timer);
-		timer=System.currentTimeMillis();
+		
+		//OTHER
+		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
 	}	
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
@@ -217,8 +224,19 @@ public class Program extends PApplet {
 		
 		map =  new InteractiveMap(this, providers[currentProviderIndex], Utilities.mapOffset.x, Utilities.mapOffset.y, Utilities.mapSize.x, Utilities.mapSize.y );
 		map.panTo(locationUSA);
-		map.setZoom(zoomInterState);
+		map.setZoom(zoomInterState);		
 		oldCenter = map.getCenter();
+		
+		updateCoordinatesLimits();
+	}
+	
+	public void updateCoordinatesLimits() {
+		Location topLeft = map.pointLocation(Utilities.mapOffset.x, Utilities.mapOffset.y);
+		Location bottomRight = map.pointLocation(Utilities.mapOffset.x+Utilities.mapSize.x, Utilities.mapOffset.y+Utilities.mapSize.y);
+		Utilities.maxActiveLatitude = Math.max(topLeft.lat, bottomRight.lat);
+		Utilities.minActiveLatitude = Math.min(topLeft.lat, bottomRight.lat);
+		Utilities.maxActiveLongitude = Math.max(topLeft.lon, bottomRight.lon);
+		Utilities.minActiveLongitude = Math.min(topLeft.lon, bottomRight.lon);
 	}
 	
 	//******************************************
@@ -240,6 +258,7 @@ public class Program extends PApplet {
 		if (map.getZoom()<maxZoom) {
 			map.zoomIn();
 			gm.computeGridValues();
+			updateCoordinatesLimits();
 		}
 	}
 
@@ -247,6 +266,7 @@ public class Program extends PApplet {
 		if (map.getZoom()>minZoom) {
 			map.zoomOut();
 			gm.computeGridValues();
+			updateCoordinatesLimits();
 		}
 	}
 	
@@ -441,6 +461,7 @@ public class Program extends PApplet {
 		}
 		
 		if (mapHasMoved) {
+			updateCoordinatesLimits();
 			gm.computeGridValues();
 			mapHasMoved=false;
 			System.out.println("Updated Grid!");
