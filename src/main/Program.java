@@ -40,6 +40,7 @@ public class Program extends PApplet {
 	GridManager gm;
 	
 	Button buttonPlus, buttonMinus;
+	Button buttonIncYear, buttonDecYear;
 	
 	
 	/**
@@ -124,10 +125,18 @@ public class Program extends PApplet {
 		initControls();
 		
 		//BUTTON TEST
-		buttonPlus = new Button(this, Utilities.width/2,Utilities.height-40,100,40);
+		buttonPlus = new Button(this, Positions.buttonPlusX,Positions.buttonPlusY,Positions.buttonPlusWidth,Positions.buttonPlusHeight);
+		//buttonPlus = new Button(this, Utilities.width/2,Utilities.height-40,100,40);
 		buttonPlus.setName("+");
-		buttonMinus  = new Button(this, Utilities.width/2,Utilities.height-80,100,40);
+		buttonMinus  = new Button(this, Positions.buttonMinusX,Positions.buttonMinusY,Positions.buttonMinusWidth,Positions.buttonMinusHeight);
+		//buttonMinus  = new Button(this, Utilities.width/2,Utilities.height-80,100,40);
 		buttonMinus.setName("-");
+		
+		buttonDecYear = new Button(this, Positions.buttonDecX, Positions.buttonDecY, Positions.buttonDecWidth, Positions.buttonDecHeight);
+		buttonDecYear.setName("<");
+		buttonIncYear = new Button(this, Positions.buttonIncX,Positions.buttonIncY, Positions.buttonIncWidth,Positions.buttonIncHeight);
+		buttonIncYear.setName(">");
+		
 
 		//MARKER TESTING
 		//markerList.add(new Marker(this,(locationChicago),this.color(0x80454580)));
@@ -174,6 +183,8 @@ public class Program extends PApplet {
     	text(year, Utilities.width*0.7f, Utilities.height*0.1f);
     	buttonPlus.draw();
     	buttonMinus.draw();
+    	buttonDecYear.draw();
+    	buttonIncYear.draw();
 
     }
 	
@@ -384,11 +395,19 @@ public class Program extends PApplet {
 	  
 	  if(buttonPlus.isInRectangle(mouseX, mouseY)){
 		  buttonPlus.setSelected(!buttonPlus.isSelected());
-		  if (year<2010) {year++;}
+		  zoomIn();
 	  }
 	  if(buttonMinus.isInRectangle(mouseX, mouseY)){
 		  buttonMinus.setSelected(!buttonMinus.isSelected());
-		  if (year>2001) {year--;}
+		  zoomOut();
+	  }
+	  if (buttonDecYear.isInRectangle(mouseX, mouseY)){
+		  buttonDecYear.setSelected(!buttonDecYear.isSelected());
+		  prevYear();
+	  }
+	  if  (buttonIncYear.isInRectangle(mouseX, mouseY)){
+		  buttonIncYear.setSelected(!buttonIncYear.isSelected());
+		  nextYear();
 	  }
 	}
 	
