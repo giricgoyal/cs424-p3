@@ -15,6 +15,9 @@ import types.DataYearPair;
  */
 public class Histograph extends BasicControl {
 	
+	int lowerBound;
+	int upperBound;
+	String label;
 	/**
 	 * sample string to plot an example. 
 	 * add an argument in the constructor to draw histograms for different information as per the need
@@ -57,36 +60,131 @@ public class Histograph extends BasicControl {
 
 	@SuppressWarnings("static-access")
 	private void drawDataBars() {
+		/**
+		 * draw the rectangle outline window
+		 */
 		parent.rectMode(PConstants.CENTER);
 		parent.fill(Colors.dark);
 		parent.stroke(Colors.light);
 		parent.strokeWeight(Utilities.Converter(1));
 		parent.rect(myX, myY, myWidth, myHeight);
 		
+		
+		/**
+		 * draw the line graph
+		 */
+		parent.beginShape();
 		for (int column = 0; column < sampleData.size(); column++) {
-			parent.noStroke();
-			parent.fill(0x700000ED);
+			
 			float value = sampleData.get(column).getValue();
 			float year = sampleData.get(column).getYear();
 			float x = parent.map((int)year, Utilities.yearMin, Utilities.yearMax, myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
-			float y = parent.map(value, getMin(), getMax(), myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
+			float y = parent.map(value, Utilities.lowerBound, Utilities.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
+		
+			parent.noFill();
+			parent.stroke(Colors.transparentWhite);
+			parent.strokeWeight(Utilities.Converter(1));
+			parent.vertex(x, y);
+
+		}
+		parent.endShape();
+		
+		/**
+		 * Draw the data bars
+		 */
+		for (int column = 0; column < sampleData.size(); column++) {
+			
+			float value = sampleData.get(column).getValue();
+			float year = sampleData.get(column).getYear();
+			float x = parent.map((int)year, Utilities.yearMin, Utilities.yearMax, myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
+			float y = parent.map(value, Utilities.lowerBound, Utilities.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
+						
+			/**
+			 * Bars
+			 */
+			parent.noStroke();
+			parent.fill(0x800000ED);
 			parent.rectMode(PConstants.CORNERS);
 			parent.rect(x-Utilities.barWidth/2, y, x + Utilities.barWidth/2, myY + myHeight/2);
+			
+			/**
+			 * X-axis units: Year
+			 */
 			parent.fill(Colors.white);
 			parent.textAlign(PConstants.CENTER, PConstants.TOP);
 			parent.textSize(Utilities.Converter(8));
 			parent.text((int)year, x, myY + myHeight/2 + Utilities.Converter(10));
-		}
-		
-		for (float value = getMin(); value < getMax(); value += getMax()/20) {
-			float y = parent.map(value, getMin(), getMax(), myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
-			parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
-			parent.text((int)value, myX - myWidth/2 - Utilities.Converter(10), y);
+			
+			/**
+			 * Points on the bars
+			 */
+			parent.stroke(Colors.transparentWhite);
+			parent.strokeWeight(Utilities.Converter(5));
+			parent.point(x, y);
 			
 		}
+		
+		/**
+		 * Y-axis units: No. of Crashes or fatalities
+		 */
+		for (int value = Utilities.lowerBound; value <= Utilities.upperBound; value += (Utilities.upperBound-Utilities.lowerBound)/5) {
+			float y = parent.map(value, Utilities.lowerBound, Utilities.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
+			parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
+			parent.text(value, myX - myWidth/2 - Utilities.Converter(10), y);
+			
+		}
+		
+		/**
+		 * X-axis label: "Year"
+		 */
+		parent.textAlign(PConstants.CENTER, PConstants.TOP);
 		parent.text("Year", myX, myY + myHeight/2 + Utilities.Converter(25));
 		
+		/**
+		 * Main label: "Crashes/Fatalities"
+		 */
+		parent.textSize(Utilities.Converter(10));
+		parent.text(this.label+" (#)", myX, Utilities.Converter(10));
 	
+	}
+	
+	public void setBounds(){
+		float min = getMin();
+		float max = getMax();
+		if (min > 0) {
+			this.lowerBound = (int)(min - min % 1);
+			this.upperBound = (int)(max + 1 - max % 1);
+		}
+		if (min>10){
+			this.lowerBound = (int)(min - min % 10);
+			this.upperBound = (int)(max + 10 - max % 10);
+		}
+		if (min > 100) {
+			this.lowerBound = (int)(min - min % 100);
+			this.upperBound = (int)(max + 100 - max % 100);
+		}
+		if (min > 1000) {
+			this.lowerBound = (int)(min - min % 1000);
+			this.upperBound = (int)(max + 1000 - max % 1000);
+		}
+		if (min > 10000) {
+			this.lowerBound = (int)(min - min % 10000);
+			this.upperBound = (int)(max + 10000 - max % 10000);
+		}
+		if (min > 100000) {
+			this.lowerBound = (int)(min - min % 100000);
+			this.upperBound = (int)(max + 100000 - max % 100000);
+		}
+		if (Utilities.lowerBound > this.lowerBound) {
+			Utilities.lowerBound = this.lowerBound;
+		}
+		if (Utilities.upperBound < this.upperBound) {
+			Utilities.upperBound = this.upperBound;
+		}	
+	}
+	
+	public void setString(String label) {
+		this.label = label;
 	}
 	
 	@Override
