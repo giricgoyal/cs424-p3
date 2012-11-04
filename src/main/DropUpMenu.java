@@ -89,12 +89,12 @@ public class DropUpMenu extends BasicControl {
 		selected = false;
 
 		// TODO: ADD HERE CALL TO THE MEDALLION!
-		saveMedallion();
+		medallion.pushFilters();
 		updateMedallion();
 	}
 
 	public void updateMedallion() {
-
+		
 		// GO UPDATING
 		medallion.setKey(selectedName);
 		int index = FilterValues.attributesHasMap.get(selectedName);
@@ -104,21 +104,6 @@ public class DropUpMenu extends BasicControl {
 			medOptions[i] = temp[i].getToShowVaue();
 
 		medallion.setOptions(medOptions);
-	}
-
-	public void saveMedallion() {
-		// SAVE VALUES
-		int indexW = FilterValues.attributesHasMap.get(medallion.getKey());
-		int i = 0;
-		for (DataCrash dc : FilterValues.filtersValue[indexW]) {
-			dc.setOn(medallion.getValues()[i]);
-			i++;
-		}
-
-		for (DataCrash dc : FilterValues.filtersValue[indexW]) {
-			System.out.println("DC: " + dc.getToShowVaue() + " with dbv: "
-					+ dc.getDatabaseValue() + " is " + dc.isOn());
-		}
 	}
 
 }
