@@ -2,29 +2,47 @@ package db;
 
 import java.util.ArrayList;
 
-import types.DataQuad;
-
 import main.FilterValues;
+import processing.core.PApplet;
+import types.DataQuad;
+import types.DataYearPair;
 
+/**
+ * Call database queries from here
+ * @author Claudio
+ *
+ */
 public class QueryManager {
+	DatabaseManager db;
 	
-	public static ArrayList<DataQuad> query(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
-		//query database with filters
-		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
-		return array;
+	public QueryManager(PApplet context){
+		db = new DatabaseManager(context);
+	}
+	
+	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
+		return db.getCrashes(latitude_min, latitude_max, longitude_min, longitude_max, getFiltersWhere());
+	}
+	
+	public ArrayList<DataYearPair> getHisogramCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
+		return db.getHistogramCrashes(latitude_min, latitude_max, longitude_min, longitude_max, getFiltersWhere());
+	}
+	
+	public ArrayList<DataYearPair> getHisogramFatalities(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
+		return db.getHistogramFatalities(latitude_min, latitude_max, longitude_min, longitude_max, getFiltersWhere());
 	}
 	
 	//Filters
-	public static String getFiltersWhere(){
+	private String getFiltersWhere(){
 		FilterValues filter = new FilterValues();
-		String filtersWhere = null;
+		String filtersWhere = "";
 		for(int i=0;i<filter.filtersValue.length;i++){
 			for(int j=0;j<filter.filtersValue[i].length;j++){
 				if(filter.filtersValue[i][j].isOn())
-					filtersWhere+=" or ("+filter.filtersValue[i][j].getDatabaseValue()+") ";
+					filtersWhere+=" ("+filter.filtersValue[i][j].getDatabaseValue()+") or ";
 			}
 		}
+		if(filtersWhere.length()>2)
+			filtersWhere = filtersWhere.substring(0,filtersWhere.length()-3);
 		return filtersWhere;
-		
 	}
 }

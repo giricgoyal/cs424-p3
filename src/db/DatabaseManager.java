@@ -5,6 +5,7 @@ import processing.core.PApplet;
 import types.DataQuad;
 import types.DataState;
 import types.DataTriple;
+import types.DataYearPair;
 import de.bezier.data.sql.MySQL;
 /**
  * Database class. To use it just create an instance and call query method you
@@ -38,8 +39,9 @@ public class DatabaseManager {
 	 * 
 	 * @return
 	 */
-	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max) {
+	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max, String filters) {
 		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
+		if(filters.length()>1)  filters = " and "+filters;
 		String _pie_chart = "day_of_week";
 		String pie_chart = "";
 		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
@@ -51,8 +53,8 @@ public class DatabaseManager {
 					latitude_min+" and latitude<" +
 					latitude_max+" and longitude>"+
 					longitude_min+" and longitude<"+
-					longitude_max+" and id%200=0";
-
+					longitude_max+filters;
+							//and _year=2005"+
 			System.out.println(query);
 			msql.query(query);
 			createArrayFromQueryQ(array, msql);
@@ -79,6 +81,49 @@ public class DatabaseManager {
 		return array;
 	}
 	
+	public ArrayList<DataYearPair> getHistogramCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max,
+			String filters){
+		ArrayList<DataYearPair> array = new ArrayList<DataYearPair>();
+		if(filters.length()>1)  filters = " and "+filters;
+		String query;
+		if (msql.connect()) {
+			query = "select _year, count(id) from krashes " +
+					" where latitude>"+
+					latitude_min+" and latitude<" +
+					latitude_max+" and longitude>"+
+					longitude_min+" and longitude<"+
+					longitude_max + " "+
+					filters +
+					" group by _year ";
+			System.out.println(query);
+			msql.query(query);
+			createArrayFromQueryStateHC(array, msql);
+		} else {
+		}
+		return array;
+		}
+	
+	public ArrayList<DataYearPair> getHistogramFatalities(float latitude_min,float latitude_max,float longitude_min,float longitude_max,
+			String filters){
+		ArrayList<DataYearPair> array = new ArrayList<DataYearPair>();
+		if(filters.length()>1)  filters = " and "+filters;
+		String query;
+		if (msql.connect()) {
+			query = "select _year, sum(number_of_fatalities) from krashes " +
+					" where latitude>"+
+					latitude_min+" and latitude<" +
+					latitude_max+" and longitude>"+
+					longitude_min+" and longitude<"+
+					longitude_max + " "+
+					filters +
+					" group by _year";
+			System.out.println(query);
+			msql.query(query);
+			createArrayFromQueryStateHC(array, msql);
+		} else {
+		}
+		return array;
+		}
 	
 	/**
 	 * Retreive 
@@ -97,8 +142,10 @@ public class DatabaseManager {
 		}
 		return array;
 	}
-
 	
+	/**
+	 * 
+	 */
 	
 	/**
 	 * Converts a msql list into an array list.
@@ -121,14 +168,19 @@ public class DatabaseManager {
 		}
 	}
 	
+	private void createArrayFromQueryStateHC(ArrayList<DataYearPair> array,
+			MySQL msql) {
+		while (msql.next()) {
+			array.add(new DataYearPair(msql.getInt("year"),msql.getFloat("value")));
+		}
+	}
+	
 	private void createArrayFromQueryT(ArrayList<DataTriple> array,
 			MySQL msql) {
 		while (msql.next()) {
 			array.add(new DataTriple(msql.getInt(1),msql.getInt(2),msql.getString(3)));
 		}
 	}
-
-
 
 	/**
 	 * 
@@ -140,8 +192,6 @@ public class DatabaseManager {
 		}
 		return out.substring(0, out.length() - separator.length());
 	}
-	
-	
 
 	
 }

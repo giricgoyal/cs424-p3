@@ -14,11 +14,8 @@ import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.AbstractMapProvider;
 import com.modestmaps.providers.Microsoft;
-import com.modestmaps.providers.OpenStreetMapProvider;
-import com.modestmaps.providers.Yahoo;
-import com.modestmaps.providers.Yahoo.AerialProvider;
 
-import db.DatabaseManager;
+import db.QueryManager;
 
 @SuppressWarnings("serial")
 public class Program extends PApplet {
@@ -37,7 +34,7 @@ public class Program extends PApplet {
 	
 	ArrayList<BasicControl> controls;
 	
-	DatabaseManager db;
+	QueryManager queryManager;
 	ArrayList<DataQuad> results;
 	int year=2005;
 	GridManager gm;
@@ -73,10 +70,10 @@ public class Program extends PApplet {
 	
 	public void initApp() {
 		markerList = new ArrayList<Marker>();
-		db = new DatabaseManager(this);
+		queryManager = new QueryManager(this);
 		Utilities.markerShape=loadShape("marker.svg");
 		long timer= System.currentTimeMillis();
-		results=db.getCrashes(2,200,-200,0);
+		results=queryManager.getCrashes(2, 200, -200, 0);
 		System.out.println(System.currentTimeMillis()-timer);
 		timer=System.currentTimeMillis();
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");

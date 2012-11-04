@@ -3,8 +3,11 @@
  */
 package main;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
+import types.DataYearPair;
 
 /**
  * @author giric
@@ -16,19 +19,26 @@ public class Histograph extends BasicControl {
 	 * sample string to plot an example. 
 	 * add an argument in the constructor to draw histograms for different information as per the need
 	 */
-	public String[][] sampleData = {{"2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"},
-			{"20","40","160","10","90","100","45","40","0","70"}};
+	//public String[][] sampleData = {{"2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"},
+	//		{"20","40","160","10","90","100","45","40","0","70"}};
+	
+	private ArrayList<DataYearPair> sampleData;
 	
 	public Histograph(PApplet parent, float x, float y, float width,float height) {
 		super(parent, x, y, width, height);
+		sampleData = new ArrayList<DataYearPair>();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void setData(ArrayList<DataYearPair> sampleData){
+		this.sampleData = sampleData;
 	}
 	
 	private float getMin() {
 		float min = PConstants.MAX_FLOAT;
-		for (int count = 0; count < sampleData[0].length; count++) {
-			if (min > Float.parseFloat(sampleData[1][count])) {
-				min = Float.parseFloat(sampleData[1][count]);
+		for (int count = 0; count < sampleData.size(); count++) {
+			if (min > sampleData.get(count).getValue()) {
+				min = sampleData.get(count).getValue();
 			}
 		}
 		return min;
@@ -36,9 +46,9 @@ public class Histograph extends BasicControl {
 	
 	private float getMax() {
 		float max = PConstants.MIN_FLOAT;
-		for (int count = 0; count < sampleData[0].length; count++) {
-			if (max < Float.parseFloat(sampleData[1][count])) {
-				max = Float.parseFloat(sampleData[1][count]);
+		for (int count = 0; count < sampleData.size(); count++) {
+			if (max < sampleData.get(count).getValue()) {
+				max = sampleData.get(count).getValue();
 			}
 		}
 		return max;
@@ -53,11 +63,11 @@ public class Histograph extends BasicControl {
 		parent.strokeWeight(Utilities.Converter(1));
 		parent.rect(myX, myY, myWidth, myHeight);
 		
-		for (int column = 0; column < sampleData[0].length; column++) {
+		for (int column = 0; column < sampleData.size(); column++) {
 			parent.noStroke();
 			parent.fill(0x800000ED);
-			float value = Float.parseFloat(sampleData[1][column]);
-			float year = Float.parseFloat(sampleData[0][column]);
+			float value = sampleData.get(column).getValue();
+			float year = sampleData.get(column).getYear();
 			float x = parent.map((int)year, Utilities.yearMin, Utilities.yearMax, myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
 			float y = parent.map(value, getMin(), getMax(), myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
 			parent.rectMode(PConstants.CORNERS);
