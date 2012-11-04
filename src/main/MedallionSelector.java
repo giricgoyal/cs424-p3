@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 
 import processing.core.*;
+import types.DataCrash;
 
 /**
  * Class implementing the multiple boolean selector medallion. 
@@ -89,6 +90,21 @@ public class MedallionSelector extends BasicControl {
 		
 		this.font=Utilities.font;
 		parent.textSize(Utilities.Converter(10));
+	}
+	
+	public void pushFilters() {		
+		// SAVE VALUES
+		int indexW = FilterValues.attributesHasMap.get(getKey());
+		int i = 0;
+		for (DataCrash dc : FilterValues.filtersValue[indexW]) {
+			dc.setOn(getValues()[i]);
+			i++;
+		}
+
+		for (DataCrash dc : FilterValues.filtersValue[indexW]) {
+			System.out.println("DC: " + dc.getToShowVaue() + " with dbv: "
+					+ dc.getDatabaseValue() + " is " + dc.isOn());
+		}
 	}
 
 	@Override
