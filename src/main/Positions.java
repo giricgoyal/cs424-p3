@@ -2,14 +2,18 @@ package main;
 
 public class Positions {
 	
+	public static float histogramAreaWidth = Utilities.width/2 - Utilities.Converter(40);
+	public static float histogramAreaHeight = Utilities.height/4 + Utilities.Converter(40);
+	public static float histogramAreaX = Utilities.width/2 + Utilities.width/4;
+	public static float histogramAreaY = Utilities.height/6 + Utilities.Converter(10); 
 	
-	public static float histographWidth = Utilities.width/4 - Utilities.Converter(80);
-	public static float histographHeight = Utilities.height/4;
-	public static float histograph1X = Utilities.width/2 + Utilities.width/8 + Utilities.Converter(20);
-	public static float histograph1Y = Utilities.height/6 +  Utilities.Converter(30);
+	public static float histographWidth = histogramAreaWidth/2 - Utilities.Converter(80);
+	public static float histographHeight = histogramAreaHeight - Utilities.Converter(60);
+	public static float histograph1X = histogramAreaX - histogramAreaWidth/4 + Utilities.Converter(20);
+	public static float histograph1Y = histogramAreaY - Utilities.Converter(5);
 	
-	public static float histograph2X = Utilities.width/2 + Utilities.width/4 + Utilities.width/8 + Utilities.Converter(20);
-	public static float histograph2Y = Utilities.height/6 + Utilities.Converter(30);
+	public static float histograph2X = histograph1X + histogramAreaWidth/2;
+	public static float histograph2Y = histograph1Y;
 	
 
 	//public static float keyboardX = Utilities.width*0.6f;
