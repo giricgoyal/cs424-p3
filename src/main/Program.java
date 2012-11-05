@@ -3,21 +3,16 @@ package main;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import main.Piechart.KeyValue;
-
 import omicronAPI.OmicronAPI;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
 import types.DataCrashInstance;
-import types.DataQuad;
 
 import com.modestmaps.InteractiveMap;
-import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
 import com.modestmaps.providers.AbstractMapProvider;
 import com.modestmaps.providers.Microsoft;
-//import com.sun.medialib.mlib.mediaLibException;
 
 import db.QueryManager;
 
@@ -54,6 +49,7 @@ public class Program extends PApplet {
 	Button buttonPlus, buttonMinus, updateQueryButton;
 	Button buttonIncYear, buttonDecYear;
 	Button buttonProvider;
+	Slider slider;
 	
 	Timeline timeline;
 	
@@ -155,10 +151,11 @@ public class Program extends PApplet {
 		dropUpMenu2 = new DropUpMenu(this, Positions.buttonKeyX, Positions.buttonKeyY, Positions.buttonKeyWidth, Positions.buttonKeyHeight, ms, false);
 		controls.add(dropUpMenu2);
 
+		slider = new Slider(this,Utilities.width*2/3,Utilities.height/10*9,300,20);		
+
+
 		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
 		controls.add(dropUpMenu);
-
-		
 		
 
 		// BUTTON TEST
@@ -197,6 +194,7 @@ public class Program extends PApplet {
 		controls.add(buttonDecYear);
 		controls.add(updateQueryButton);
 		controls.add(buttonProvider);
+		controls.add(slider);
 	}
 
 	public ArrayList <Marker> updateMarkerList() {
@@ -596,6 +594,10 @@ public class Program extends PApplet {
 			buttonProvider.setSelected(!buttonProvider.isSelected());
 			switchProvider();
 		}
+		//TODO SET 
+		if(slider.isOnKnob(mx, my)){
+			slider.setKnobSelected(true);
+		}
 		
 	}
 	
@@ -623,6 +625,9 @@ public class Program extends PApplet {
 				mapHasMoved = true;
 			}
 		}
+		if(slider.isKnobSelected()){
+			slider.setKnobPosition(mx);
+		}
 	}
 
 	public void myReleased(int id, float mx, float my) {
@@ -639,6 +644,7 @@ public class Program extends PApplet {
 			
 			mapHasMoved=false;
 		}
+		slider.setKnobSelected(false);
 	}
 
 	public void myClicked(int id, float mx, float my) {
