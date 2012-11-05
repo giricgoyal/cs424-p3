@@ -19,7 +19,7 @@ public class Piechart extends BasicControl{
 	
 	public class KeyValue {
 		public String key;
-		public int value;
+		public float value;
 		public KeyValue (String k, int v) {
 			this.key=k;
 			this.value=v;
