@@ -115,6 +115,23 @@ public class DataCrashInstance {
 		return weather;
 	}
 	
+	public String getByIndex(int index) {
+		switch (index){
+			case 0: return getMonth(); 
+			case 1: return getDay_of_week(); 
+			case 2: return getAge(); 
+			case 3: return getLight_condition(); 
+			case 4: return getAlchol_involved(); 
+			case 5: return getBody_type();
+			case 6: return getSex();
+			case 7: return getHour();
+			case 8: return getWeather();
+		}
+		return null;
+	}
+	
+	
+	
 	private String computeAge(int age){
 		if(age >= 1 && age < 20)
 			return "Young";

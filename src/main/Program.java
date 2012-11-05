@@ -92,13 +92,13 @@ public class Program extends PApplet {
 	}
 
 	public void initHistogram() {
-		h1.setData(queryManager.getHisogramCrashes(Utilities.minActiveLatitude,
+		/*h1.setData(queryManager.getHisogramCrashes(Utilities.minActiveLatitude,
 				Utilities.maxActiveLatitude, Utilities.minActiveLongitude,
 				Utilities.maxActiveLongitude));
 		h2.setData(queryManager.getHisogramFatalities(
 				Utilities.minActiveLatitude, Utilities.maxActiveLatitude,
 				Utilities.minActiveLongitude, Utilities.maxActiveLongitude));
-
+		 */
 		h1.setBounds();
 		h2.setBounds();
 
@@ -400,12 +400,12 @@ public class Program extends PApplet {
 		switch (key) {
 		case '+':
 			zoomIn();
-			initHistogram();
+			//initHistogram();
 			break;
 
 		case '-':
 			zoomOut();
-			initHistogram();
+			//initHistogram();
 			break;
 
 		case ' ':
@@ -416,12 +416,12 @@ public class Program extends PApplet {
 		switch (keyCode) {
 		case RIGHT:
 			nextYear();
-			initHistogram();
+			//initHistogram();
 			break;
 
 		case LEFT:
 			prevYear();
-			initHistogram();
+			//initHistogram();
 			break;
 		}
 	}
@@ -511,28 +511,30 @@ public class Program extends PApplet {
 		if (buttonPlus.isInRectangle(mx, my)) {
 			buttonPlus.setSelected(!buttonPlus.isSelected());
 			zoomIn();
-			initHistogram();
+			//initHistogram();
 		}
 		if (buttonMinus.isInRectangle(mx, my)) {
 			buttonMinus.setSelected(!buttonMinus.isSelected());
 			zoomOut();
-			initHistogram();
+			//initHistogram();
 		}
 		if (buttonDecYear.isInRectangle(mx, my)) {
 			buttonDecYear.setSelected(!buttonDecYear.isSelected());
 			prevYear();
-			initHistogram();
+			//initHistogram();
 		}
 		if (buttonIncYear.isInRectangle(mx, my)) {
 			buttonIncYear.setSelected(!buttonIncYear.isSelected());
 			nextYear();
-			initHistogram();
+			//initHistogram();
 		}
 		if (dropUpMenu.isInRectangle(mx, my)) {
 			dropUpMenu.setSelected(!dropUpMenu.isSelected());
 		}
 		if (dropUpMenu.isSelected()) {
 			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
+			h1.setData(results, dropUpMenu.getSelectedName());
+			h2.setData(results, dropUpMenu.getSelectedName());
 		}
 		if (dropUpMenu2.isInRectangle(mx, my)) {
 			dropUpMenu2.setSelected(!dropUpMenu2.isSelected());
@@ -587,7 +589,7 @@ public class Program extends PApplet {
 		touchList.remove(id);
 		if (mapHasMoved) {
 			gm.computeGridValues();
-			initHistogram();
+			//initHistogram();
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}

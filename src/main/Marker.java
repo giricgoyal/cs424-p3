@@ -51,21 +51,23 @@ public class Marker{
 		if (shape!=null)  {
 			shape.disableStyle();
 			//DRAW THE MARKER
-			parent.fill(color);
-			parent.shapeMode(PConstants.CENTER);
-			parent.shape(shape, x, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
-			
-			parent.fill(Colors.black);
-			parent.ellipseMode(PConstants.CENTER);
-			parent.ellipse(x, y, Utilities.Converter(5), Utilities.Converter(5));
-			
-			if (isOpen) {
-				popUp = new PopUp(parent, x,y,color);
-				if (this.infoText==null) {
-					QueryManager qm=new QueryManager(parent);
-					this.infoText=qm.getDataCrashes(this.id);
+			if (x > 0 && x < Utilities.mapSize.x && y > 0 && y < Utilities.mapSize.y){
+				parent.fill(color);
+				parent.shapeMode(PConstants.CENTER);
+				parent.shape(shape, x, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
+				
+				parent.fill(Colors.black);
+				parent.ellipseMode(PConstants.CENTER);
+				parent.ellipse(x, y, Utilities.Converter(5), Utilities.Converter(5));
+				
+				if (isOpen) {
+					popUp = new PopUp(parent, x,y,color);
+					if (this.infoText==null) {
+						QueryManager qm=new QueryManager(parent);
+						this.infoText=qm.getDataCrashes(this.id);
+					}
+					popUp.draw(this.infoText);
 				}
-				popUp.draw(this.infoText);
 			}
 		}
 	}

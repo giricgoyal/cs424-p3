@@ -96,7 +96,9 @@ public class DropUpMenu extends BasicControl {
 		if(activeMedallion){
 		medallion.pushFilters();
 		updateMedallion();
+		
 		}
+		updateHistogram();
 	}
 
 	public void updateMedallion() {
@@ -110,6 +112,16 @@ public class DropUpMenu extends BasicControl {
 			medOptions[i] = temp[i].getToShowVaue();
 
 		medallion.setOptions(medOptions);
+	}
+	
+	public void updateHistogram() {
+		int index = FilterValues.attributesHasMap.get(selectedName);
+		DataCrash[] temp = FilterValues.filtersValue[index];
+		Utilities.histOptions = new String[temp.length];
+		for (int i=0; i<Utilities.histOptions.length;i++) {
+			Utilities.histOptions[i] = temp[i].getToShowVaue();
+		}
+	System.out.println("AAAA : " + selectedName);	
 	}
 	
 	public String getSelectedName(){

@@ -75,4 +75,6 @@ public class Utilities {
     public static int zoomState = 9;
     
     public static Program program;
+    
+    public static String[] histOptions = null;
 }
