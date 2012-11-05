@@ -47,6 +47,11 @@ public class Positions {
 	public static float buttonPlusWidth = buttonMinusWidth;
 	public static float buttonPlusHeight = buttonMinusHeight;
 	
+	public static float buttonProviderX = buttonPlusX + buttonPlusWidth + Utilities.Converter(1);
+	public static float buttonProviderY = buttonPlusY;
+	public static float buttonProviderWidth = buttonPlusWidth;
+	public static float buttonProviderHeight = buttonPlusHeight;
+	
 	public static float buttonDecX = buttonMinusX;
 	public static float buttonDecY = buttonMinusY - Utilities.Converter(31);
 	public static float buttonDecWidth = Utilities.Converter(30);

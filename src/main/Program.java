@@ -41,8 +41,7 @@ public class Program extends PApplet {
 	ArrayList<DataCrashInstance> results;
 	GridManager gm;
 
-	Button buttonPlus, buttonMinus, updateQueryButton;
-	Button buttonIncYear, buttonDecYear;
+	
 
 	/**
 	 * temp addition
@@ -52,7 +51,10 @@ public class Program extends PApplet {
 	Histograph h1, h2;
 	DropUpMenu dropUpMenu, dropUpMenu2;
 	MedallionSelector ms;
-
+	Button buttonPlus, buttonMinus, updateQueryButton;
+	Button buttonIncYear, buttonDecYear;
+	Button buttonProvider;
+	
 	/**
 	 * added by: giric trial markers
 	 * 
@@ -172,7 +174,10 @@ public class Program extends PApplet {
 				Positions.buttonIncY, Positions.buttonIncWidth,
 				Positions.buttonIncHeight);
 		buttonIncYear.setName(">");
-
+		
+		buttonProvider = new Button (this, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth, Positions.buttonProviderHeight);
+		buttonProvider.setName("P");
+		
 		updateQueryButton = new Button(this, Utilities.width / 3 * 2,
 				Utilities.height / 2 + 20, 100, 20);
 		updateQueryButton.setName("Update!");
@@ -183,6 +188,7 @@ public class Program extends PApplet {
 		controls.add(buttonIncYear);
 		controls.add(buttonDecYear);
 		controls.add(updateQueryButton);
+		controls.add(buttonProvider);
 	}
 
 	public ArrayList <Marker> updateMarkerList() {
@@ -483,6 +489,8 @@ public class Program extends PApplet {
 
 	public void myPressed(int id, float mx, float my) {
 		
+	//	System.out.println("MY PRESSED");
+		
 		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
 				Utilities.mapSize.x, Utilities.mapSize.y)) {
 
@@ -556,6 +564,11 @@ public class Program extends PApplet {
 			ms.onClick(mx, my);
 		}
 		
+		if (isIn(mx, my, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth,Positions.buttonProviderHeight)) {
+			buttonProvider.setSelected(!buttonProvider.isSelected());
+			switchProvider();
+		}
+		
 	}
 	
 	
@@ -608,6 +621,7 @@ public class Program extends PApplet {
 	}
 
 	public void mousePressed() {
+		//System.out.println("MOUSE PRESSED");
 		myPressed(-1, mouseX, mouseY);
 	}
 

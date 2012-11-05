@@ -83,6 +83,7 @@ public class DatabaseManager {
 		
 		int modularSample = (Utilities.program.maxZoom-Utilities.program.map.getZoom())*5;
 		if (modularSample==0) modularSample=1;
+		//modularSample=1;
 		
 		if (msql.connect()) {
 			query = "select latitude, longitude, _year, id, "+
