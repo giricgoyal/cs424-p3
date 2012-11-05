@@ -377,8 +377,8 @@ public class Program extends PApplet {
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
-			//h1.setData(results);
-			//h2.setData(results);
+			h1.setData(results);
+			h2.setData(results);
 		}
 	}
 
@@ -392,8 +392,8 @@ public class Program extends PApplet {
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
-			//h2.setData(results);
-			//h1.setData(results);
+			h2.setData(results);
+			h1.setData(results);
 		}
 	}
 
