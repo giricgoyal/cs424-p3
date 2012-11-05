@@ -1,5 +1,7 @@
 package types;
 
+import main.FilterValues;
+
 public class DataCrashInstance {
 	private float latitude;
 	private float longitude;
@@ -16,23 +18,48 @@ public class DataCrashInstance {
 	private String weather;
 
 	public DataCrashInstance(float latitude, float longitude, int _year,
-			int id, String month, String day_of_week, int age,
-			String light_condition, String alchol_involved, int body_type,
-			String sex, int hour, String weather) {
+			int id, int month, int day_of_week, int age,
+			int light_condition, int alchol_involved, int body_type,
+			int sex, int hour, int weather) {
 		super();
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this._year = _year;
 		this.id = id;
-		this.month = month;
-		this.day_of_week = day_of_week;
+		this.month = computeGeneral(month,FilterValues.month,1);
+		this.day_of_week = computeGeneral(day_of_week,FilterValues.day_of_week,1);
 		this.age = computeAge(age);
-		this.light_condition = light_condition;
-		this.alchol_involved = alchol_involved;
+		this.light_condition = computeGeneral(light_condition,FilterValues.light_condition,1);
+		this.alchol_involved = computeGeneral(alchol_involved+1,FilterValues.alcohol_involved,1);
 		this.body_type = computeBodyType(body_type);
-		this.sex = sex;
+		this.sex = computeGeneral(sex,FilterValues.sex,1);
 		this.hour = computeHour(hour);
-		this.weather = weather;
+		this.weather = computeWeather(weather);
+	}
+	
+	
+	public String computeWeather(int weather){
+				 if (weather == 1) return "Sunny";
+				 if (weather == 2) return "Rainy";
+				 if (weather == 3) return "Hail";
+				 if (weather == 4 || weather == 11) return "Snow";
+				 if (weather == 5) return "Fog";
+				 if (weather == 6) return "Windy";
+				 if (weather == 10) return "Cloudy";
+				 else return ("Sunny");
+	}
+	
+	public String computeDayOfWeek(int day_of_week){
+		if(day_of_week>=1 && day_of_week<=7)
+			return FilterValues.day_of_week[day_of_week-1].getToShowVaue();
+		else return FilterValues.day_of_week[0].getToShowVaue();
+	}
+	
+	public String computeGeneral(int var,DataCrash[] arr,int min){
+		if(var>=min && var<=arr.length){
+			return arr[var-1].getToShowVaue();
+		}
+			else return arr[0].getToShowVaue();
 	}
 	
 	

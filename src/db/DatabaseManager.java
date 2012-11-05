@@ -217,10 +217,10 @@ public class DatabaseManager {
 			MySQL msql) {
 		while (msql.next()) {
 			array.add(new DataCrashInstance(msql.getFloat("latitude"),msql.getFloat("longitude"),
-					msql.getInt("_year"),msql.getInt("id"),msql.getString("month"),msql.getString("day_of_week"),
-					msql.getInt("age"),msql.getString("light_condition"),msql.getString("alcohol_involved"),
-					msql.getInt("body_type"),msql.getString("sex"),
-					msql.getInt("hour"),msql.getString("weather")));
+					msql.getInt("_year"),msql.getInt("id"),msql.getInt("month"),msql.getInt("day_of_week"),
+					msql.getInt("age"),msql.getInt("light_condition"),msql.getInt("alcohol_involved"),
+					msql.getInt("body_type"),msql.getInt("sex"),
+					msql.getInt("hour"),msql.getInt("weather")));
 		}
 	}
 
