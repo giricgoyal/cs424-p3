@@ -55,6 +55,8 @@ public class Program extends PApplet {
 	Button buttonIncYear, buttonDecYear;
 	Button buttonProvider;
 	
+	Timeline timeline;
+	
 	/**
 	 * added by: giric trial markers
 	 * 
@@ -189,6 +191,10 @@ public class Program extends PApplet {
 		controls.add(buttonDecYear);
 		controls.add(updateQueryButton);
 		controls.add(buttonProvider);
+		
+		timeline = new Timeline(this, 800, 200, 600, 100, gm);
+		timeline.updateData();
+		controls.add(timeline);
 	}
 
 	public ArrayList <Marker> updateMarkerList() {
