@@ -43,18 +43,18 @@ public class Utilities {
     
     public static int[] colorCodes =
     {
-		0xAA8DD3C7, 
-		0xAAFFFFB3, 
-		0xAABEBADA,
-		0xAAFB8072,
-		0xAA80B1D3,
-		0xAAFDB462,
-		0xAAB3DE69,
-		0xAAFCCDE5,
-		0xAAD9D9D9,
-		0xAABC808D,
-		0xAACCEBC5,
-		0xAAFFED56
+		0xBB8DD3C7, 
+		0xBBFFED56,
+		0xBBFDB462,
+		0xBBFB8072,
+		0xBB80B1D3,
+		0xBBBEBADA,
+		0xBBB3DE69,
+		0xBBFCCDE5,
+		0xBBD9D9D9,
+		0xBBBC808D,
+		0xBBCCEBC5,
+		0xBBFFFFB3,
 	};
     
     public static float minActiveLatitude;
@@ -66,9 +66,9 @@ public class Utilities {
     public static int lowerBound = Integer.MAX_VALUE;
     public static int upperBound = Integer.MIN_VALUE;
     
-    
     public static String defaultFocusAttribute = "Age";
     public static String focusAttribute = "Age";
 
-
+    public static int zoomCity = 12;
+    public static int zoomState = 9;
 }

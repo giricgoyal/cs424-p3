@@ -9,8 +9,11 @@ public class Colors {
 	public static int white = 0xFFEEEEEE;
 	
 	public static int transparentWhite = 0x77EEEEEE;
+	public static int transparentBlack = 0x88101010;
 	
-	public static int windowBackground; 
+	public static int gridColor = 0x88FB8072;
+	
+	public static int windowBackground = 0xFF202020; 
 	
 	
 	public static int map1;

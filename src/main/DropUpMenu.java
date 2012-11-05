@@ -19,7 +19,7 @@ public class DropUpMenu extends BasicControl {
 			float height, MedallionSelector m) {
 		super(parent, x,y,width,height);
 
-		selectedName = FilterValues.attributes[0];
+		selectedName = Utilities.defaultFocusAttribute;
 		medallion = m;
 		updateMedallion();
 	}
