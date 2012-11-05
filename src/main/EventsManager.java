@@ -10,9 +10,9 @@ public class EventsManager {
 	
 	public static boolean showEvents;
 	
-	public static int[] eventsYears = {2006, 2007, 2008, 2009};
+	public static int[] eventsYears = {2002, 2006, 2007, 2008, 2009};
 	
-	public static String[] eventsName = {"Texas rises S.L.", "Begin of Crysis", "Max Oil Price", "Min Oil Price"};
+	public static String[] eventsName = {"Montana Safety Game","Texas rises S.L.", "Begin of Crysis", "Max Oil Price", "Min Oil Price"};
 	
 	
 }

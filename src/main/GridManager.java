@@ -64,6 +64,7 @@ public class GridManager {
 		
 		Location[][] locs = new Location[gridHLine][gridVLine];
 		for (int i = 0; i < locs.length; i++) {
+		
 			for (int j = 0; j < locs[0].length; j++) {
 				locs[i][j] = map.pointLocation(Utilities.mapOffset.x + j
 						* gridHStep, Utilities.mapOffset.y + i * gridVStep);
@@ -98,8 +99,6 @@ public class GridManager {
 				// INCREMENT
 				gridValues[r][c][dq.getYear() - 2001]++;
 
-				if (dq.getYear()==2010) System.out.println("DRAWN A 2010");
-				
 				int piesIndex = 0;
 				
 				
@@ -146,13 +145,6 @@ public class GridManager {
 				if (piesIndex < pc.values.size())
 					pc.values.get(piesIndex).value++;
 			}
-		}
-		System.out.println("COMPUTE");
-		for (int i=0;i<gridValues.length;i++) {
-			for (int j=0;j<gridValues[i].length;j++) {
-				System.out.print(gridValues[i][j][9]+"\t");
-			}
-			System.out.println();
 		}
 	}
 
