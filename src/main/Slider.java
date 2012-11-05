@@ -43,8 +43,10 @@ public class Slider extends BasicControl{
 		for(int i=1;i<10;i++){
 			parent.fill(255);
 			parent.textAlign(PConstants.CENTER);
+			parent.textSize(Utilities.Converter(10));
 			parent.text(i*10,xeff+i*interval,myY+myHeight+myHeight/2);
 			parent.stroke(255);
+			parent.strokeWeight(Utilities.Converter(1));
 			parent.line(xeff+i*interval,yeff-1,xeff+i*interval,yeff+heff-1);
 			
 		}
