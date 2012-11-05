@@ -88,7 +88,7 @@ public class Timeline extends BasicControl {
 	public void draw() {
 		//Compute the data by iterating over the gridmanager's pies:
 		parent.noStroke();
-		float xStep = myPlotWidth / 8;
+		float xStep = myPlotWidth / 9;
 		
 		//ACTUAL DRAW
 		float[] oldY  = new float[10];

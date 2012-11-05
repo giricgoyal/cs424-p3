@@ -166,7 +166,6 @@ public class Program extends PApplet {
 				Positions.buttonPlusY, Positions.buttonPlusWidth,
 				Positions.buttonPlusHeight);
 		// buttonPlus = new Button(this,
-		// Utilities.width/2,Utilities.height-40,100,40);
 		buttonPlus.setName("+");
 		buttonMinus = new Button(this, Positions.buttonMinusX,
 				Positions.buttonMinusY, Positions.buttonMinusWidth,
@@ -326,10 +325,10 @@ public class Program extends PApplet {
 	// INIT MAP SIZE AND POSITION
 	public void initMap() {
 
-		providers = new AbstractMapProvider[3];
-		providers[0] = new Microsoft.AerialProvider();
-		providers[1] = new Microsoft.HybridProvider();
-		providers[2] = new Microsoft.RoadProvider();
+		providers = new AbstractMapProvider[3];		
+		providers[0] = new Microsoft.RoadProvider();
+		providers[1] = new Microsoft.AerialProvider();
+		providers[2] = new Microsoft.HybridProvider();
 		/*
 		 * providers[3] = new Yahoo.AerialProvider(); providers[4] = new
 		 * Yahoo.RoadProvider(); providers[5] = new OpenStreetMapProvider();

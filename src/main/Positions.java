@@ -87,7 +87,7 @@ public class Positions {
 	
 	public static float timelineX = Utilities.mapOffset.x+Utilities.mapSize.x+ buttonVSpacing;
 	public static float timelineY = histogramAreaHeight+2*buttonVSpacing;
-	public static float timelineWidth = Utilities.width - timelineX-buttonVSpacing;
-	public static float timelineHeight = buttonPlusY-circleButtonVSpacing-timelineY;
+	public static float timelineWidth = histogramAreaX+histogramAreaWidth/2-timelineX;//(Utilities.width - timelineX-buttonVSpacing)*0.8f;
+	public static float timelineHeight = buttonPlusY-2*circleButtonVSpacing-timelineY;
 
 }
