@@ -11,24 +11,11 @@ public class Positions {
 	public static float histograph2X = Utilities.width/2 + Utilities.width/4 + Utilities.width/8 + Utilities.Converter(20);
 	public static float histograph2Y = Utilities.height/6 + Utilities.Converter(30);
 	
-	public static float keyboardX = Utilities.width/2 + Utilities.width/4 + Utilities.Converter(40);
-	public static float keyboardY = Utilities.height/3*2 + Utilities.Converter(30);
-	public static float keyboardWidth = Utilities.width/4 - Utilities.Converter(50);
-	public static float keyboardHeight = Utilities.height/3 - Utilities.Converter(40);
-	
-	
-	
-	
 
 	//public static float keyboardX = Utilities.width*0.6f;
 	//public static float keyboardY = Utilities.height*0.6f;
 	//public static float keyboardWidth = Utilities.width*0.22f;
 	//public static float keyboardHeight = Utilities.height*0.25f;
-	
-	public static float textBoxX = Utilities.width/2 + Utilities.width/4 + Utilities.Converter(44);
-	public static float textBoxY = Utilities.height/3*2;
-	public static float textBoxWidth = Utilities.width/4 - Utilities.Converter(58);
-	public static float textBoxHeight = Utilities.height*0.05f;
 	
 	public static float suggestionBoxX;
 	public static float suggestionBoxY;
@@ -67,9 +54,36 @@ public class Positions {
 	public static float medallionY = buttonPlusY;
 	public static float medallionSide = buttonProviderY + buttonProviderHeight - medallionY;
 	
+	public static float buttonKeyX = medallionX+medallionSide +2*circleButtonVSpacing;
+	public static float buttonKeyY = medallionY;
+	public static float buttonKeyWidth = Utilities.width/6;
+	public static float buttonKeyHeight = Utilities.height*0.05f;
+	
+	public static float buttonVSpacing =  (Utilities.height-buttonKeyY) / 4 - buttonKeyHeight;
+	
+	public static float buttonFilterX = buttonKeyX;
+	public static float buttonFilterY = buttonKeyY + buttonKeyHeight+buttonVSpacing;
+	public static float buttonFilterWidth = buttonKeyWidth;
+	public static float buttonFilterHeight = buttonKeyHeight;
+	
+	public static float buttonUpdateX = buttonFilterX;
+	public static float buttonUpdateY = buttonFilterY + buttonFilterHeight+buttonVSpacing;
+	public static float buttonUpdateWidth = buttonFilterWidth;
+	public static float buttonUpdateHeight = buttonFilterHeight;
+	
 	public static float timelineX = buttonDecX + buttonDecWidth + Utilities.Converter(1);
 	public static float timelineY = buttonDecY;
 	public static float timelineWidth = buttonDecWidth;
 	public static float timelineHeight = buttonDecHeight;
+	
+	public static float textBoxX = buttonKeyX + buttonKeyWidth + circleButtonVSpacing;
+	public static float textBoxY = buttonKeyY;
+	public static float textBoxWidth = Utilities.width - textBoxX - circleButtonVSpacing;
+	public static float textBoxHeight = Utilities.height*0.05f;
+	
+	public static float keyboardX = textBoxX;
+	public static float keyboardY = textBoxY+textBoxHeight+circleButtonVSpacing;
+	public static float keyboardWidth = textBoxWidth;
+	public static float keyboardHeight = Utilities.height - keyboardY - circleButtonVSpacing;
 
 }

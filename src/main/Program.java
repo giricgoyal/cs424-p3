@@ -150,12 +150,10 @@ public class Program extends PApplet {
 
 		initHistogram();
 
-		dropUpMenu = new DropUpMenu(this, Utilities.width / 3 * 2,
-				Utilities.height / 2, 100, 20, ms,true);
+		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
 		controls.add(dropUpMenu);
 		
-		dropUpMenu2 = new DropUpMenu(this, Utilities.width / 3 * 2,
-				Utilities.height / 2-20, 100, 20, ms,false);
+		dropUpMenu2 = new DropUpMenu(this, Positions.buttonKeyX, Positions.buttonKeyY, Positions.buttonKeyWidth, Positions.buttonKeyHeight, ms, false);
 		controls.add(dropUpMenu2);
 		
 		
@@ -186,8 +184,7 @@ public class Program extends PApplet {
 		buttonProvider = new Button (this, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth, Positions.buttonProviderHeight);
 		buttonProvider.setName("P");
 		
-		updateQueryButton = new Button(this, Utilities.width / 3 * 2,
-				Utilities.height / 2 + 20, 100, 20);
+		updateQueryButton = new Button(this, Positions.buttonUpdateX,Positions.buttonUpdateY,Positions.buttonUpdateWidth, Positions.buttonUpdateHeight);
 		updateQueryButton.setName("Update!");
 		updateQueryButton.setElpsFalse();
 
