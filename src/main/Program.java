@@ -7,6 +7,7 @@ import omicronAPI.OmicronAPI;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
+import types.DataCrashInstance;
 import types.DataQuad;
 
 import com.modestmaps.InteractiveMap;
@@ -35,7 +36,7 @@ public class Program extends PApplet {
 	ArrayList<BasicControl> controls;
 	
 	QueryManager queryManager;
-	ArrayList<DataQuad> results;
+	ArrayList<DataCrashInstance> results;
 	int year=2005;
 	GridManager gm;
 	

@@ -2,6 +2,7 @@ package db;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import types.DataCrashInstance;
 import types.DataQuad;
 import types.DataState;
 import types.DataTriple;
@@ -39,15 +40,17 @@ public class DatabaseManager {
 	 * 
 	 * @return
 	 */
-	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max, String filters) {
-		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
+	public ArrayList<DataCrashInstance> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max, String filters) {
+		ArrayList<DataCrashInstance> array = new ArrayList<DataCrashInstance>();
 		if(filters.length()>1)  filters = " and "+filters;
 		String _pie_chart = "day_of_week";
 		String pie_chart = "";
 		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
 		String query;
 		if (msql.connect()) {
-			query = "select latitude, longitude, _year, id, day_of_week "+
+			query = "select latitude, longitude, _year, id, "+
+					"month, day_of_week, age, light_condition, alchol_involved, body_type, " +
+					"sex, hour, weather "+
 					" from krashes" +
 					" where latitude>"+
 					latitude_min+" and latitude<" +
@@ -57,7 +60,7 @@ public class DatabaseManager {
 							//and _year=2005"+
 			System.out.println(query);
 			msql.query(query);
-			createArrayFromQueryQ(array, msql);
+			createArrayFromQueryCrashInstance(array, msql);
 		} else {
 		}
 		return array;
@@ -76,7 +79,9 @@ public class DatabaseManager {
 		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
 		String query;
 		if (msql.connect()) {
-			query = "select latitude, longitude, _year, id, day_of_week "+
+			query = "select latitude, longitude, _year, id, "+
+					"month, day_of_week, age, light_condition, alchol_involved, body_type, " +
+					"sex, hour, weather "+
 					" from krashes" +
 					" where id%300=1 "
 					+filters;
@@ -205,6 +210,17 @@ public class DatabaseManager {
 			MySQL msql) {
 		while (msql.next()) {
 			array.add(new DataTriple(msql.getInt(1),msql.getInt(2),msql.getString(3)));
+		}
+	}
+	
+	private void createArrayFromQueryCrashInstance(ArrayList<DataCrashInstance> array,
+			MySQL msql) {
+		while (msql.next()) {
+			array.add(new DataCrashInstance(msql.getFloat("latitude"),msql.getFloat("longitude"),
+					msql.getInt("_year"),msql.getInt("id"),msql.getString("month"),msql.getString("day_of_week"),
+					msql.getInt("age"),msql.getString("light_condition"),msql.getString("alchol_involved"),
+					msql.getInt("body_type"),msql.getString("sex"),
+					msql.getInt("hour"),msql.getString("weather")));
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import main.FilterValues;
 import processing.core.PApplet;
+import types.DataCrashInstance;
 import types.DataQuad;
 import types.DataYearPair;
 
@@ -14,12 +15,14 @@ import types.DataYearPair;
  */
 public class QueryManager {
 	DatabaseManager db;
+	String pieAttribute;
 	
 	public QueryManager(PApplet context){
 		db = new DatabaseManager(context);
+		pieAttribute = "day_of_week";
 	}
 	
-	public ArrayList<DataQuad> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
+	public ArrayList<DataCrashInstance> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
 		return db.getCrashes(latitude_min, latitude_max, longitude_min, longitude_max, getFiltersWhere());
 	}
 	
@@ -55,6 +58,14 @@ public class QueryManager {
 		if(filtersWhere.length()>2)
 			filtersWhere = filtersWhere.substring(0,filtersWhere.length()-3);
 		return filtersWhere;
+	}
+	
+	private String getPieAttribute(){
+		return pieAttribute;
+	}
+	
+	public void setPieAttrubte(){
+		
 	}
 	
 	private boolean existTrue(int i){

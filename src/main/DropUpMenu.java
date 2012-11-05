@@ -22,7 +22,6 @@ public class DropUpMenu extends BasicControl {
 
 		selectedName = FilterValues.attributes[0];
 		medallion = m;
-
 		updateMedallion();
 	}
 
