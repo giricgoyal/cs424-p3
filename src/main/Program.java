@@ -98,8 +98,10 @@ public class Program extends PApplet {
 				Utilities.minActiveLatitude, Utilities.maxActiveLatitude,
 				Utilities.minActiveLongitude, Utilities.maxActiveLongitude));
 		 */
-		h1.setBounds();
-		h2.setBounds();
+		//h1.setBounds();
+		//h2.setBounds();
+		h1.setData(results);
+		h2.setData(results);
 
 		h1.setString("Crashes (#)", "Year");
 		h2.setString("Fatalities (#)", "Year");

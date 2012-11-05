@@ -65,7 +65,7 @@ public class Utilities {
     public static float maxActiveLongitude;
 
     
-    public static int lowerBound = Integer.MAX_VALUE;
+    public static int lowerBound = 0;
     public static int upperBound = Integer.MIN_VALUE;
     
     public static String defaultFocusAttribute = "Age";

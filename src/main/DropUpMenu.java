@@ -98,7 +98,7 @@ public class DropUpMenu extends BasicControl {
 		updateMedallion();
 		
 		}
-		updateHistogram();
+		//updateHistogram();
 	}
 
 	public void updateMedallion() {
