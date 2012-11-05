@@ -65,11 +65,11 @@ public class Histograph extends BasicControl {
 		activeYearCrashes = new Hashtable();
 		
 		int index = FilterValues.attributesHasMap.get(Utilities.defaultFocusAttribute);
-		System.out.println("Index : " + index);
+		
 		if (Utilities.histOptions != null){
 			index = FilterValues.attributesHasMap.get(Utilities.focusAttribute);
 		}
-		
+		System.out.println("Index : " + index);
 		DataCrash[] temp = FilterValues.filtersValue[index];
 		Utilities.histOptions = new String[temp.length];
 		for (int i=0; i<Utilities.histOptions.length;i++) {
@@ -207,27 +207,27 @@ public class Histograph extends BasicControl {
 	public void setBounds(){
 		float min = getMin();
 		float max = getMax();
-		if (min > 0) {
+		if (max > 0) {
 			this.lowerBound = (int)(min - min % 1);
 			this.upperBound = (int)(max + 1 - max % 1);
 		}
-		if (min>10){
+		if (max>10){
 			this.lowerBound = (int)(min - min % 10);
 			this.upperBound = (int)(max + 10 - max % 10);
 		}
-		if (min > 100) {
+		if (max > 100) {
 			this.lowerBound = (int)(min - min % 100);
 			this.upperBound = (int)(max + 100 - max % 100);
 		}
-		if (min > 1000) {
+		if (max > 1000) {
 			this.lowerBound = (int)(min - min % 1000);
 			this.upperBound = (int)(max + 1000 - max % 1000);
 		}
-		if (min > 10000) {
+		if (max > 10000) {
 			this.lowerBound = (int)(min - min % 10000);
 			this.upperBound = (int)(max + 10000 - max % 10000);
 		}
-		if (min > 100000) {
+		if (max > 100000) {
 			this.lowerBound = (int)(min - min % 100000);
 			this.upperBound = (int)(max + 100000 - max % 100000);
 		}
@@ -235,6 +235,7 @@ public class Histograph extends BasicControl {
 			//Utilities.lowerBound = this.lowerBound;
 		//}
 		//if (Utilities.upperBound < this.upperBound) {
+	
 			Utilities.upperBound = this.upperBound;
 		//}	
 	}

@@ -554,6 +554,7 @@ public class Program extends PApplet {
 			int a=dropUpMenu2.selected(mx, my);
 			dropUpMenu2.setSelectedName(a);
 			Utilities.focusAttribute=dropUpMenu2.getSelectedName();
+			h1.setData(results);
 		}
 		if (updateQueryButton.isInRectangle(mx, my)) {
 			updateQueryButton.setSelected(!updateQueryButton.isSelected());
