@@ -83,7 +83,7 @@ public class DatabaseManager {
 					"month, day_of_week, age, light_condition, alcohol_involved, body_type, " +
 					"sex, hour, weather "+
 					" from krashes" +
-					" where id%300=1 "
+					" where id%100=1 "
 					+filters;
 							//and _year=2005"+
 			System.out.println(query);

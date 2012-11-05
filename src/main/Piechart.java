@@ -48,17 +48,18 @@ public class Piechart extends BasicControl{
 			total+=values.get(i).value;
 		
 		//DRAW
-		float presentArc = 270;
+		float presentArc = -90;
 		parent.strokeWeight(Utilities.Converter(1));
 		for (int i=0;i<values.size();i++) {
-			parent.fill(Utilities.colorCodes[i%Utilities.colorCodes.length]);
-			float slice= 360*values.get(i).value/(float)total;
-			parent.arc(X, Y, diameter, diameter, PApplet.radians(presentArc), PApplet.radians(presentArc+slice));
-			
-			parent.fill(Colors.black);
-			parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
-			presentArc+= slice;
-			parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
+			if (values.get(i).value>0) {
+				parent.fill(Utilities.colorCodes[i%Utilities.colorCodes.length]);
+				float slice= 360*values.get(i).value/(float)total;
+				parent.arc(X, Y, diameter, diameter, PApplet.radians(presentArc), PApplet.radians(presentArc+slice));
+				parent.fill(Colors.black);
+				parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
+				presentArc+= slice;
+				parent.line(X, Y, X+diameter/2 * PApplet.cos(PApplet.radians(presentArc)), Y+diameter/2 * PApplet.sin(PApplet.radians(presentArc)));
+			}
 		}
 	}
 	
