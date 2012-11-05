@@ -38,8 +38,12 @@ public class Utilities {
     public static int yearMin = 2001;
     public static int yearMax = 2010;
     
+<<<<<<< HEAD
+    public static int barWidth = (int)(Positions.histographWidth/10 - Utilities.Converter(5));
+=======
     public static int barWidth = (int)(Positions.histographWidth/10 - Utilities.Converter(5));
 
+>>>>>>> 9ec40697afc97e4d88c8417113fcf2a0fbf2bf85
     
     public static int[] colorCodes =
     {
@@ -62,8 +66,13 @@ public class Utilities {
     public static float minActiveLongitude;
     public static float maxActiveLongitude;
 
+    
     public static int lowerBound = Integer.MAX_VALUE;
     public static int upperBound = Integer.MIN_VALUE;
     
+    
+    public static String defaultFocusAttribute = "Age";
+    public static String focusAttribute = "Age";
+
 
 }

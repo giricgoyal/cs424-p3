@@ -85,17 +85,29 @@ public class Program extends PApplet {
 		timer=System.currentTimeMillis();		
 		
 		//GRID
-		gm = new GridManager(this,map,results);
+		gm = new GridManager(this,map,results, Utilities.defaultFocusAttribute);
 		gm.computeGridValues();
 		System.out.println(System.currentTimeMillis()-timer);
 		
 		//OTHER
 		Utilities.font=this.loadFont("Helvetica-Bold-100.vlw");
 	}	
+	
+	public void initHistogram() {
+		h1.setData(queryManager.getHisogramCrashes(Utilities.minActiveLatitude, Utilities.maxActiveLatitude, Utilities.minActiveLongitude, Utilities.maxActiveLongitude));
+		h2.setData(queryManager.getHisogramFatalities(Utilities.minActiveLatitude, Utilities.maxActiveLatitude, Utilities.minActiveLongitude, Utilities.maxActiveLongitude));
+		
+		h1.setBounds();
+		h2.setBounds();
+		
+		h1.setString("Crashes (#)","Year");
+		h2.setString("Fatalities (#)","Year");
+		
+	}
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
 		
-		ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
+		ms = new MedallionSelector(this, Utilities.defaultFocusAttribute, new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 		
 		//Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
@@ -112,14 +124,8 @@ public class Program extends PApplet {
 		h2 = new Histograph(this, Positions.histograph2X, Positions.histograph2Y, Positions.histographWidth, Positions.histographHeight);
 		controls.add(h2);
 		
-		h1.setData(queryManager.getHisogramCrashes(2, 200, -200, 0));
-		h2.setData(queryManager.getHisogramFatalities(2, 200, -200, 0));
+		initHistogram();
 		
-		h1.setBounds();
-		h2.setBounds();
-		
-		h1.setString("Crashes (#)","Year");
-		h2.setString("Fatalities (#)","Year");
 		
 		dropUpMenu = new DropUpMenu(this, Utilities.width/3*2, Utilities.height/2, 100, 20, ms);
 		controls.add(dropUpMenu);
@@ -300,10 +306,12 @@ public class Program extends PApplet {
 	  switch(key) {
 	  	case '+':
 	  		zoomIn();
+	  		initHistogram();
 	  		break;
 	  		
 	  	case '-':
 	  		zoomOut();
+	  		initHistogram();
 	  		break;
 	  		
 	  	case ' ':
@@ -314,10 +322,12 @@ public class Program extends PApplet {
 	  switch (keyCode) {
 	  	case RIGHT:
 	  		nextYear();
+	  		initHistogram();
 	  		break;
 	  	
 	  	case LEFT:
 	  		prevYear();
+	  		initHistogram();
 	  		break;
 	  }
 	}
@@ -394,6 +404,7 @@ public class Program extends PApplet {
 				lastTouchPos.y=mouseY;
 				System.out.println("LSX: "+lastTouchPos.x+" LSY: "+lastTouchPos.y);
 				mapHasMoved=true;
+				initHistogram();
 			}   
 		}
 	}
@@ -429,18 +440,22 @@ public class Program extends PApplet {
 	  if(buttonPlus.isInRectangle(mouseX, mouseY)){
 		  buttonPlus.setSelected(!buttonPlus.isSelected());
 		  zoomIn();
+		  initHistogram();
 	  }
 	  if(buttonMinus.isInRectangle(mouseX, mouseY)){
 		  buttonMinus.setSelected(!buttonMinus.isSelected());
 		  zoomOut();
+		  initHistogram();
 	  }
 	  if (buttonDecYear.isInRectangle(mouseX, mouseY)){
 		  buttonDecYear.setSelected(!buttonDecYear.isSelected());
 		  prevYear();
+		  initHistogram();
 	  }
 	  if  (buttonIncYear.isInRectangle(mouseX, mouseY)){
 		  buttonIncYear.setSelected(!buttonIncYear.isSelected());
 		  nextYear();
+		  initHistogram();
 	  }
 	  if  (dropUpMenu.isInRectangle(mouseX, mouseY)){
 		  dropUpMenu.setSelected(!dropUpMenu.isSelected());
@@ -450,9 +465,10 @@ public class Program extends PApplet {
 	  }
 	  if (updateQueryButton.isInRectangle(mouseX, mouseY)){
 		  updateQueryButton.setSelected(!updateQueryButton.isSelected());
+		  
 		  ms.pushFilters();
-		  results = queryManager.getCrashes(2, 200, -200, 0);
-		  gm = new GridManager(this, map, results);
+		  results = queryManager.getCrashesALL();
+		  gm = new GridManager(this, map, results, Utilities.focusAttribute);
 		  gm.computeGridValues();
 	  }
 	}
@@ -474,6 +490,7 @@ public class Program extends PApplet {
 			gm.computeGridValues();
 			mapHasMoved=false;
 			System.out.println("Updated Grid!");
+			initHistogram();
 		}
 	}
 	
