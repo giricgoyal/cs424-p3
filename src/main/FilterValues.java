@@ -99,7 +99,7 @@ public class FilterValues {
 			lightConditionInstace4,lightConditionInstace5,lightConditionInstace6
 	};
 	
-	private static DataCrash[] alchol_involved = {
+	private static DataCrash[] alcohol_involved = {
 			alcholInvolvedInstance1,alcholInvolvedInstance2
 	};
 	
@@ -127,7 +127,7 @@ public class FilterValues {
 			day_of_week,
 			age,
 			light_condition,
-			alchol_involved,
+			alcohol_involved,
 			body_type,
 			sex,
 			hour,
@@ -139,7 +139,7 @@ public class FilterValues {
 			"Day of Week",
 			"Age",
 			"Light Condition",
-			"Alchol Involved",
+			"Alcohol Involved",
 			"Vehicle Type",
 			"Sex",
 			"Hour",
@@ -152,7 +152,7 @@ public class FilterValues {
 	    put("Day of Week",1);
 	    put("Age",2);
 		put("Light Condition",3);
-		put("Alchol Involved",4);
+		put("Alcohol Involved",4);
 		put("Vehicle Type",5);
 		put("Sex",6);
 		put("Hour",7);

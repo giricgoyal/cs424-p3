@@ -49,7 +49,7 @@ public class DatabaseManager {
 		String query;
 		if (msql.connect()) {
 			query = "select latitude, longitude, _year, id, "+
-					"month, day_of_week, age, light_condition, alchol_involved, body_type, " +
+					"month, day_of_week, age, light_condition, alcohol_involved, body_type, " +
 					"sex, hour, weather "+
 					" from krashes" +
 					" where latitude>"+
@@ -80,7 +80,7 @@ public class DatabaseManager {
 		String query;
 		if (msql.connect()) {
 			query = "select latitude, longitude, _year, id, "+
-					"month, day_of_week, age, light_condition, alchol_involved, body_type, " +
+					"month, day_of_week, age, light_condition, alcohol_involved, body_type, " +
 					"sex, hour, weather "+
 					" from krashes" +
 					" where id%300=1 "
@@ -218,7 +218,7 @@ public class DatabaseManager {
 		while (msql.next()) {
 			array.add(new DataCrashInstance(msql.getFloat("latitude"),msql.getFloat("longitude"),
 					msql.getInt("_year"),msql.getInt("id"),msql.getString("month"),msql.getString("day_of_week"),
-					msql.getInt("age"),msql.getString("light_condition"),msql.getString("alchol_involved"),
+					msql.getInt("age"),msql.getString("light_condition"),msql.getString("alcohol_involved"),
 					msql.getInt("body_type"),msql.getString("sex"),
 					msql.getInt("hour"),msql.getString("weather")));
 		}

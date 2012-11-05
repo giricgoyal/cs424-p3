@@ -27,7 +27,7 @@ public class GridManager {
 	
 	Piechart [][][] pies;
 	
-	public void filtersHaveChanged(ArrayList<DataQuad> res) {
+	public void filtersHaveChanged(ArrayList<DataCrashInstance> res) {
 		
 		
 	}
