@@ -104,11 +104,12 @@ public class Program extends PApplet {
 		 */
 		//h1.setBounds();
 		//h2.setBounds();
+		h1.setString(Utilities.hist1String);
+		h2.setString(Utilities.hist2String + " " + Utilities.activeYear);
 		h1.setData(results);
 		h2.setData(results);
 
-		h1.setString("Crashes (#)", "Year");
-		h2.setString("Fatalities (#)", "Year");
+		
 
 	}
 
@@ -552,7 +553,7 @@ public class Program extends PApplet {
 			int a=dropUpMenu2.selected(mx, my);
 			dropUpMenu2.setSelectedName(a);
 			Utilities.focusAttribute=dropUpMenu2.getSelectedName();
-			h1.setData(results);
+
 		}
 		if (updateQueryButton.isInRectangle(mx, my)) {
 			updateQueryButton.setSelected(!updateQueryButton.isSelected());

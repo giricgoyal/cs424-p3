@@ -15,9 +15,14 @@ public class Utilities {
 			return pixel;
 	}
 	
+<<<<<<< HEAD
+	//public static float width = Converter(1632);
+	public static float width = Converter(1360);
+=======
 	
 	public static float width = Converter(1632);
 	//public static float width = Converter(1360);
+>>>>>>> 131a2851ce5523a96b0e8519a17a92f46280db90
 	public static float height = Converter(461);
 	
 	public static float markerWidth ;
@@ -78,6 +83,11 @@ public class Utilities {
     public static String[] histOptions = null;
 	public static int activeYear = 2005;
 	
+<<<<<<< HEAD
+	public static String hist1String = "# Crashes for Years 2001 to 2010";
+	public static String hist2String = "# Crashes for the Year";
+}
+=======
 	public static Float[] perStatePopulation = {
 		(float) 4611.5,
 		(float) 670.5,
@@ -138,3 +148,4 @@ public class Utilities {
 
 	
 }
+>>>>>>> 131a2851ce5523a96b0e8519a17a92f46280db90

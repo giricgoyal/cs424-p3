@@ -40,9 +40,11 @@ public class Histograph extends BasicControl {
 	
 	Hashtable allYearCrashes;
 	Hashtable activeYearCrashes;
+	Hashtable hashTemp;
 	
 	Enumeration enumerationAll;
 	Enumeration enumerationActive;
+	Enumeration enumTemp;
 	
 	
 	public Histograph(PApplet parent, float x, float y, float width,float height) {
@@ -109,8 +111,16 @@ public class Histograph extends BasicControl {
 		float min = PConstants.MAX_FLOAT;
 		enumerationAll = allYearCrashes.keys();
 		enumerationActive = activeYearCrashes.keys();
-		while(enumerationAll.hasMoreElements()){
-			DataPair dataPair = (DataPair)allYearCrashes.get(enumerationAll.nextElement());
+		//if (mainLabel.compareToIgnoreCase(Utilities.hist1String) == 0) {
+			enumTemp = enumerationAll;
+			hashTemp = allYearCrashes;
+		/*}
+		if (mainLabel.compareToIgnoreCase(Utilities.hist2String)==0) {
+			enumTemp = enumerationActive;
+			hashTemp = activeYearCrashes;
+		}*/
+		while(enumTemp.hasMoreElements()){
+			DataPair dataPair = (DataPair)hashTemp.get(enumTemp.nextElement());
 			if (min > dataPair.getValue()) {
 				min = dataPair.getValue();
 			}
@@ -123,12 +133,22 @@ public class Histograph extends BasicControl {
 		float max = PConstants.MIN_FLOAT;
 		enumerationAll = allYearCrashes.keys();
 		enumerationActive = activeYearCrashes.keys();
-		while(enumerationAll.hasMoreElements()){
-			DataPair dataPair = (DataPair)allYearCrashes.get(enumerationAll.nextElement());
+		//if (mainLabel.compareToIgnoreCase(Utilities.hist1String) == 0) {
+			enumTemp = enumerationAll;
+			hashTemp = allYearCrashes;
+		/*}
+		if (mainLabel.compareToIgnoreCase(Utilities.hist2String)==0) {
+			enumTemp = enumerationActive;
+			hashTemp = activeYearCrashes;
+		}
+	*/
+		while(enumTemp.hasMoreElements()){
+			DataPair dataPair = (DataPair)hashTemp.get(enumTemp.nextElement());
 			if (max <  dataPair.getValue()) {
 				max =  dataPair.getValue();
 			}
 		}
+		
 		System.out.println("max : " + max);
 		return max;
 		
@@ -151,12 +171,20 @@ public class Histograph extends BasicControl {
 		enumerationAll = allYearCrashes.keys();
 		enumerationActive = activeYearCrashes.keys();
 		fieldCount = 0;
-		while (enumerationAll.hasMoreElements()){
-			DataPair dataPair = (DataPair)allYearCrashes.get(enumerationAll.nextElement());
+		//if (mainLabel.compareToIgnoreCase(Utilities.hist1String) == 0) {
+			enumTemp = enumerationAll;
+			hashTemp = allYearCrashes;
+		/*}
+		if (mainLabel.compareToIgnoreCase(Utilities.hist2String)==0) {
+			enumTemp = enumerationActive;
+			hashTemp = activeYearCrashes;
+		}*/
+		while (enumTemp.hasMoreElements()){
+			DataPair dataPair = (DataPair)hashTemp.get(enumTemp.nextElement());
 			
 			float value = dataPair.getValue();
 			String field = dataPair.getField();
-			float x = parent.map(fieldCount++, 0, allYearCrashes.size(), myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
+			float x = parent.map(fieldCount++, 0, hashTemp.size(), myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
 			float y = parent.map(value, Utilities.lowerBound, Utilities.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
 						
 			/**
@@ -176,6 +204,7 @@ public class Histograph extends BasicControl {
 			parent.text(field, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(10));
 			
 		}
+		
 		
 		/**
 		 * Y-axis units: No. of Crashes or fatalities
@@ -240,9 +269,9 @@ public class Histograph extends BasicControl {
 		//}	
 	}
 	
-	public void setString(String mainLabel, String xLabel) {
+	public void setString(String mainLabel) {
 		this.mainLabel = mainLabel;
-		this.xLabel = xLabel;
+		//this.xLabel = xLabel;
 	}
 	
 	@Override
