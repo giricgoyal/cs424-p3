@@ -156,6 +156,79 @@ public class DatabaseManager {
 		return array;
 		}
 	
+	public String getCrashData(int id){
+		String query;
+		if (msql.connect()) {
+			query = "select k.day, month.month, _year,bt.value, states.name, hour.value,ntl.code, ts.speed, rsc.value, drf_1.value, drf_2.value,di.value, ai.value "  +
+					"from krashes as k, month as month, states as states, hour as hour,	travel_speed as ts, roadway_surface_condition as rsc, number_of_travel_lanes as ntl, first_harmful_event as fhe, most_harmful_event as mhe, driver_related_factors_1 as drf_1, driver_related_factors_1 as drf_2, drug_involved as di, alcohol_involved as ai, body_type as bt " +
+					"where k.month=month.code and k._state=states.id and k.hour=hour.code and " +
+					"k.travel_speed=ts.code and k.roadway_surface_condition=rsc.code and k.driver_related_factors_1=drf_1.code and " +
+					"k.driver_related_factors_2=drf_2.code and k.drug_involved=di.code and " +
+					"k.alcohol_involved=ai.code and k.id="+id+" and bt.code=k.body_type and k.`number_of_travel_lanes`=ntl.code " +
+					"group by k.id";
+			System.out.println(query);
+			msql.query(query);
+		} else {
+		}
+		return generateData(msql);
+		}
+	
+	private String generateData(MySQL msql) {
+		msql.next();
+		String day=msql.getString(1);
+		String month=msql.getString(2);
+		String year=msql.getString(3);
+		String body_type=msql.getString(4);
+		String state=msql.getString(5);
+		String hour = msql.getString(6);
+		String ntl=msql.getString(7);
+
+		if(ntl.length()>15){
+			ntl=ntl.substring(0, 14);
+			ntl+="...";
+		}
+		String travel_speed=msql.getString(8);
+		String rsc=msql.getString(9);
+		if(rsc.length()>15){
+			rsc=rsc.substring(0, 14);
+			rsc+="...";
+		}
+		String drf_1=msql.getString(10);
+		if(drf_1.length()>15){
+			drf_1=drf_1.substring(0, 14);
+			drf_1+="...";
+		}
+		String drf_2=msql.getString(11);
+		if(drf_2.length()>15){
+			drf_2=drf_2.substring(0, 14);
+			drf_1+="...";
+		}
+		String di=msql.getString(12);
+		if(di.length()>15){
+			di=di.substring(0, 14);
+			di+="...";
+		}
+		String ai=msql.getString(13);
+		if(ai.length()>15){
+			ai=ai.substring(0, 14);
+			ai+="...";
+		}
+		String data = "Crash Information:\n" +
+				"Date:\t\t"+month+"/"+day+"/"+year+"\n"+
+				"Vehicle Type:\t" + body_type+"\n"+
+				"State:\t\t" + state+"\n"+
+				"Travel Lanes:\t" + ntl +"\n"+
+				"Speed:\t\t" + travel_speed + "\n"+
+				"Surface:\t"+ rsc + "\n"+
+				"Notes:\t\t"+ drf_1+"\n\t "+
+				"\t  and "+drf_2+"\n"+
+				"Drug Involved:\t"+di+"\n"+
+				"Alcohol:\t"+ai;
+		return data;
+	}
+	/*
+	 * 
+	 */
 	/**
 	 * Retreive 
 	 * 

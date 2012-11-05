@@ -17,9 +17,15 @@ public class QueryManager {
 	DatabaseManager db;
 	String pieAttribute;
 	
+	
+	
 	public QueryManager(PApplet context){
 		db = new DatabaseManager(context);
 		pieAttribute = "day_of_week";
+	}
+	
+	public String getDataCrashes(int i){
+		return db.getCrashData(i);
 	}
 	
 	public ArrayList<DataCrashInstance> getCrashes(float latitude_min,float latitude_max,float longitude_min,float longitude_max){
