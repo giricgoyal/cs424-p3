@@ -6,6 +6,8 @@ package main;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+import javax.swing.text.Position;
+
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
 import processing.core.PApplet;
@@ -161,7 +163,12 @@ public class Histograph extends BasicControl {
 		/**
 		 * draw the rectangle outline window
 		 */
+		
 		parent.rectMode(PConstants.CENTER);
+		parent.noFill();
+		parent.stroke(Colors.light);
+		parent.strokeWeight(Utilities.Converter(1));
+		parent.rect(Positions.histogramAreaX, Positions.histogramAreaY, Positions.histogramAreaWidth, Positions.histogramAreaHeight);
 		parent.fill(Colors.dark);
 		parent.stroke(Colors.light);
 		parent.strokeWeight(Utilities.Converter(1));
@@ -205,8 +212,21 @@ public class Histograph extends BasicControl {
 			 */
 			parent.fill(Colors.white);
 			parent.textAlign(PConstants.CENTER, PConstants.TOP);
-			parent.textSize(Utilities.Converter(8));
-			parent.text(field, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(10));
+			parent.textSize(Utilities.Converter(7));
+			
+			if (field.contains("-")){
+				field = field.replaceAll("-"," ");
+			}
+			if (field.contains(" ")){
+				field = field.replaceAll(" ", "\n");
+			}
+			if (field.contains("\n\n")) {
+				field = field.replaceAll("\n\n" ,"\n");
+			}
+			if (field.contains("\n\n\n")) {
+				field = field.replaceAll("\n\n\n" ,"\n");
+			}
+			parent.text(field, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(8));
 			
 		}
 		
@@ -225,6 +245,7 @@ public class Histograph extends BasicControl {
 		 * X-axis label
 		 */
 		parent.textAlign(PConstants.CENTER, PConstants.TOP);
+		parent.textSize(Utilities.Converter(9));
 		if (Utilities.histOptions != null)
 			parent.text(Utilities.focusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
 		else
@@ -233,9 +254,9 @@ public class Histograph extends BasicControl {
 		/**
 		 * Main label: "Crashes/Fatalities"
 		 */
+		parent.textAlign(PConstants.CENTER, PConstants.TOP);
 		parent.textSize(Utilities.Converter(10));
-		
-		parent.text(newMainLabel, myX, Utilities.Converter(10));
+		parent.text(newMainLabel, myX, Positions.histogramAreaY - Positions.histogramAreaHeight/2 + Utilities.Converter(10));
 	
 	}
 	

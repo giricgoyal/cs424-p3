@@ -146,13 +146,16 @@ public class Program extends PApplet {
 		controls.add(h2);
 
 		initHistogram();
-
-		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
-		controls.add(dropUpMenu);
+		
 		
 		dropUpMenu2 = new DropUpMenu(this, Positions.buttonKeyX, Positions.buttonKeyY, Positions.buttonKeyWidth, Positions.buttonKeyHeight, ms, false);
 		controls.add(dropUpMenu2);
-		slider = new Slider(this,Utilities.width*3/4,Utilities.height/10*9,300,20);		
+
+		slider = new Slider(this,Utilities.width*2/3,Utilities.height/10*9,300,20);		
+
+
+		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
+		controls.add(dropUpMenu);
 		
 
 		// BUTTON TEST
@@ -285,12 +288,22 @@ public class Program extends PApplet {
 			gm.drawGrid();
 			gm.drawCircles(Utilities.activeYear);
 		}
+		
+		//BEFORE OF THE CONTROLS, UNIFY THE MEDALLION AND ITS BUTTON
+		fill(Colors.filterColor);
+		noStroke();
+		beginShape();
+		vertex(ms.myX + ms.myWidth / 2,  ms.myY + ms.myWidth / 2);
+		vertex(Positions.buttonFilterX, Positions.buttonFilterY);
+		vertex(Positions.buttonFilterX, Positions.buttonFilterY+Positions.buttonFilterHeight);
+		endShape();
 
 		// DRAW CONTROLS
 		for (BasicControl bc : controls) {
 			bc.draw();
 		}
-
+		
+		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
 			omicronManager.process();
@@ -365,8 +378,8 @@ public class Program extends PApplet {
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
-			h1.setData(results);
-			h2.setData(results);
+			//h1.setData(results);
+			//h2.setData(results);
 		}
 	}
 
@@ -380,8 +393,8 @@ public class Program extends PApplet {
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
-			h2.setData(results);
-			h1.setData(results);
+			//h2.setData(results);
+			//h1.setData(results);
 		}
 	}
 

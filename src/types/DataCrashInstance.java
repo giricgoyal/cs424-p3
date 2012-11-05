@@ -16,11 +16,13 @@ public class DataCrashInstance {
 	private String sex;
 	private String hour;
 	private String weather;
-
+	private int stateFIPS;
+	
+	
 	public DataCrashInstance(float latitude, float longitude, int _year,
 			int id, int month, int day_of_week, int age,
 			int light_condition, int alchol_involved, int body_type,
-			int sex, int hour, int weather) {
+			int sex, int hour, int weather, int SFIPS) {
 		super();
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -35,6 +37,7 @@ public class DataCrashInstance {
 		this.sex = computeGeneral(sex,FilterValues.sex,1);
 		this.hour = computeHour(hour);
 		this.weather = computeWeather(weather);
+		this.stateFIPS=SFIPS;
 	}
 	
 	
@@ -99,6 +102,10 @@ public class DataCrashInstance {
 		return alchol_involved;
 	}
 
+	public int getStateFIPS() {
+		return this.stateFIPS;
+	}
+	
 	public String getBody_type() {
 		return body_type;
 	}
@@ -145,7 +152,6 @@ public class DataCrashInstance {
 	private String computeBodyType(int body_type){
 		if(body_type == 1 || body_type == 2 || body_type == 3 || body_type == 4 || body_type == 5 || body_type == 6 || body_type == 7 || body_type == 8 || body_type == 9)
 			{
-			System.out.println("SOME CAR");
 			return "Car";
 			}
 		else if(body_type == 6 || body_type == 11 || body_type == 16)
@@ -158,7 +164,7 @@ public class DataCrashInstance {
 				body_type == 61 || body_type == 62 || body_type == 63 || body_type == 64 ||
 				body_type == 65 || body_type == 66 || body_type == 71 ||
 				body_type == 72 || body_type == 73 || body_type == 7)
-			{	System.out.println("SOME TRUCK!");
+			{	
 			return "Trucks";
 			}
 		else if(body_type == 14 ||

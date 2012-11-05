@@ -23,7 +23,7 @@ public class Timeline extends BasicControl {
 		super(p,x,y,w,h);
 		this.gm=gm;
 		
-		myPlotWidth =(float) (myWidth * 0.9);
+		myPlotWidth =myWidth;
 		myPlotHeight = (float) (myHeight*0.9);
 	}
 	
@@ -143,11 +143,11 @@ public class Timeline extends BasicControl {
 		}
 		
 		//DRAW Y AXIS
-		parent.textAlign(PConstants.RIGHT);
+		/*parent.textAlign(PConstants.RIGHT);
 		float yStep = myPlotHeight / 5;
 		for (int i=0;i<=5;i++) {
 			parent.text( ((int)(max/5*i)) +"", myX, myY+myPlotHeight-yStep*i);
-		}
+		}*/
 		
 	}
 }
