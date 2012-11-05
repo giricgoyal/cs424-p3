@@ -267,9 +267,9 @@ public class Program extends PApplet {
 		Utilities.mapOffset = new PVector(0, 0);
 
 		providers = new AbstractMapProvider[3];
-		providers[0] = new Microsoft.AerialProvider();
+		providers[0] = new Microsoft.RoadProvider();
 		providers[1] = new Microsoft.HybridProvider();
-		providers[2] = new Microsoft.RoadProvider();
+		providers[2] = new Microsoft.AerialProvider();
 		/*
 		 * providers[3] = new Yahoo.AerialProvider(); providers[4] = new
 		 * Yahoo.RoadProvider(); providers[5] = new OpenStreetMapProvider();
@@ -306,7 +306,7 @@ public class Program extends PApplet {
 	final int maxZoom = 16;
 	
 	//final int minZoom = 6; //WALL
-	final int minZoom = 3;	//PC
+	final int minZoom = 4;	//PC
 	
 	final int maxYear = 2010;
 	final int minYear = 2001;
@@ -522,8 +522,6 @@ public class Program extends PApplet {
 			if (mapDragHack % 10 == 0) {
 				mapDragHack = 1;
 
-				System.out.println("OLD CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
-				
 				map.setCenter(map.pointLocation(
 						map.locationPoint(map.getCenter()).x
 								- (mx - lastTouchPos.x),

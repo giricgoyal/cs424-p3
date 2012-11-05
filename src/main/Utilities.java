@@ -44,17 +44,17 @@ public class Utilities {
     public static int[] colorCodes =
     {
 		0xBB8DD3C7, 
-		0xBBFFFFB3, 
-		0xBBBEBADA,
+		0xBBFFED56,
+		0xBBFDB462,
 		0xBBFB8072,
 		0xBB80B1D3,
-		0xBBFDB462,
+		0xBBBEBADA,
 		0xBBB3DE69,
 		0xBBFCCDE5,
 		0xBBD9D9D9,
 		0xBBBC808D,
 		0xBBCCEBC5,
-		0xBBFFED56
+		0xBBFFFFB3,
 	};
     
     public static float minActiveLatitude;

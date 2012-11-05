@@ -81,7 +81,7 @@ public class MedallionSelector extends BasicControl {
 		this.tokenDiameter = this.myWidth * 2 / 12;
 		this.radius = (int) (this.myWidth * 5 / 12);
 		this.offset = (int) (Math.PI * 3 / 2);
-		this.clockwise = false;
+		this.clockwise = true;
 
 		this.nodeColor = parent.color(0xFFC4CBB7);
 		this.auraColor = Colors.white;
@@ -158,7 +158,12 @@ public class MedallionSelector extends BasicControl {
 			}
 
 			// Draw the Node
-			parent.fill(nodeColor);
+			if (key.equals(Utilities.focusAttribute)) {
+				parent.fill(Utilities.colorCodes[i%Utilities.colorCodes.length]);
+			}
+			else {
+				parent.fill(nodeColor);	
+			}
 			parent.ellipse(tokenX, tokenY, tokenDiameter, tokenDiameter);
 
 			// Write the Node

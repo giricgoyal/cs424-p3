@@ -173,8 +173,8 @@ public class GridManager {
 
 	public void drawGrid() {
 		parent.fill(Colors.transparentWhite);
-		parent.strokeWeight(Utilities.Converter(1));
-		parent.stroke(Colors.white);
+		parent.strokeWeight(Utilities.Converter(2));
+		parent.stroke(Colors.gridColor);
 		for (int i = 0; i < gridVLine; i++) {
 			parent.line(Utilities.mapOffset.x + gridHStep * i,
 					Utilities.mapOffset.y, Utilities.mapOffset.x + gridHStep
