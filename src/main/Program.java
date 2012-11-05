@@ -540,8 +540,6 @@ public class Program extends PApplet {
 		}
 		if (dropUpMenu.isSelected()) {
 			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
-			h1.setData(results);
-			h2.setData(results);
 		}
 		if (dropUpMenu2.isInRectangle(mx, my)) {
 			dropUpMenu2.setSelected(!dropUpMenu2.isSelected());
@@ -558,6 +556,9 @@ public class Program extends PApplet {
 			results = queryManager.getCrashesALL();
 			gm = new GridManager(this, map, results);
 			gm.computeGridValues();
+			
+			h1.setData(results);
+			h2.setData(results);
 		}
 		if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
 				Positions.medallionSide, Positions.medallionSide)) {
