@@ -193,7 +193,7 @@ public class Program extends PApplet {
 		controls.add(buttonProvider);
 		
 		timeline = new Timeline(this, 800, 200, 600, 100, gm);
-		timeline.updateData();
+		timeline.updateData(gm);
 		controls.add(timeline);
 	}
 
@@ -363,7 +363,7 @@ public class Program extends PApplet {
 	public void zoomIn() {
 		if (map.getZoom() < maxZoom) {
 			map.zoomIn();
-			gm.computeGridValues();
+			gm.computeGridValues();timeline.updateData(gm);
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
 			if (map.getZoom()>=zoomThreshold) {
@@ -375,7 +375,7 @@ public class Program extends PApplet {
 	public void zoomOut() {
 		if (map.getZoom() > minZoom) {
 			map.zoomOut();
-			gm.computeGridValues();
+			gm.computeGridValues();timeline.updateData(gm);
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
 			if (map.getZoom()>=zoomThreshold) {
@@ -563,6 +563,8 @@ public class Program extends PApplet {
 			gm = new GridManager(this, map, results);
 			gm.computeGridValues();
 			
+			timeline.updateData(gm);
+			
 			h1.setData(results);
 			h2.setData(results);
 		}
@@ -607,7 +609,7 @@ public class Program extends PApplet {
 	public void myReleased(int id, float mx, float my) {
 		touchList.remove(id);
 		if (mapHasMoved) {
-			gm.computeGridValues();
+			gm.computeGridValues();timeline.updateData(gm);
 			//initHistogram();
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
