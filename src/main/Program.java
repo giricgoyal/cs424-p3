@@ -120,6 +120,10 @@ public class Program extends PApplet {
 				Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 
+		timeline = new Timeline(this, 800, 200, 600, 100, gm);
+		timeline.updateData(gm);
+		controls.add(timeline);
+		
 		// Keyboard keyboard = new Keyboard(this, Positions.keyboardX,
 		// Positions.keyboardY, Positions.keyboardWidth,
 		// Positions.keyboardHeight);
@@ -193,10 +197,6 @@ public class Program extends PApplet {
 		controls.add(buttonDecYear);
 		controls.add(updateQueryButton);
 		controls.add(buttonProvider);
-		
-		timeline = new Timeline(this, 800, 200, 600, 100, gm);
-		timeline.updateData(gm);
-		controls.add(timeline);
 	}
 
 	public ArrayList <Marker> updateMarkerList() {
@@ -304,6 +304,7 @@ public class Program extends PApplet {
 		textFont(Utilities.font, 30);
 		fill(Colors.white);
 		text(Utilities.activeYear, Utilities.width * 0.7f, Utilities.height * 0.1f);
+	
 	}
 
 	// INITIAL CONFIGURATION OF THE MAP

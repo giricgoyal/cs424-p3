@@ -124,10 +124,21 @@ public class Timeline extends BasicControl {
 		parent.fill(Colors.white);
 		parent.textSize(myHeight-myPlotHeight);
 		parent.stroke(Colors.white);
-		parent.strokeWeight(Utilities.Converter(1));
 		parent.textAlign(PConstants.CENTER);
 		for (int i=0;i<10;i++) {
 			parent.text((2001+i)+"", myX+i*xStep, myY+myHeight);
+			//DRAW EVENTS
+			parent.strokeWeight(Utilities.Converter(1));
+			if (EventsManager.showEvents)			
+				//CHECK IF LINES SHOULD BE THICKER OR NOT
+				for (int w=0;w<EventsManager.eventsYears.length;w++)
+					if (EventsManager.eventsYears[w]==2001+i) {
+						parent.strokeWeight(Utilities.Converter(5));
+						if (EventsManager.eventsShow[w]) {
+							parent.text(EventsManager.eventsName[w], myX+i*xStep, EventsManager.eventsY[w]);
+						}
+					}
+			
 			parent.line(myX+i*xStep, myY, myX+i*xStep, myY+myPlotHeight);
 		}
 		

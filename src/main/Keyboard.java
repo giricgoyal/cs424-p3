@@ -57,7 +57,7 @@ public class Keyboard extends BasicControl {
 	int enterButtonRow = 3;
 	int enterButtonColumn = 8;
 
-	int backspaceButtonRow = 3;
+	int backspaceButtonRow = 2;
 	int backspaceButtonColumn = 7;
 
 	float horizontalSpacing;
