@@ -71,8 +71,8 @@ public class DatabaseManager {
 	 * 
 	 * @return
 	 */
-	public ArrayList<DataQuad> getCrashesALL(String filters) {
-		ArrayList<DataQuad> array = new ArrayList<DataQuad>();
+	public ArrayList<DataCrashInstance> getCrashesALL(String filters) {
+		ArrayList<DataCrashInstance> array = new ArrayList<DataCrashInstance>();
 		if(filters.length()>1)  filters = " and "+filters;
 		String _pie_chart = "day_of_week";
 		String pie_chart = "";
@@ -88,7 +88,7 @@ public class DatabaseManager {
 							//and _year=2005"+
 			System.out.println(query);
 			msql.query(query);
-			createArrayFromQueryQ(array, msql);
+			createArrayFromQueryCrashInstance(array, msql);
 		} else {
 		}
 		return array;

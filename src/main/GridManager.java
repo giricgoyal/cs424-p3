@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import types.DataCrashInstance;
 import types.DataQuad;
 
 import com.modestmaps.InteractiveMap;
@@ -21,7 +22,7 @@ public class GridManager {
 	
 	public PApplet parent;
 	public InteractiveMap map;
-	public ArrayList<DataQuad> results;
+	public ArrayList<DataCrashInstance> results;
 	public String currentKey;
 	
 	Piechart [][][] pies;
@@ -31,10 +32,10 @@ public class GridManager {
 		
 	}
 	
-	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res) {
+	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataCrashInstance> results2) {
 		parent=p;
 		map=m;
-		results=res;
+		results=results2;
 		pies=new Piechart[gridHLine-1][gridVLine-1][10];
 		for (int i=0;i<pies.length;i++) {
 			for (int j=0;j<pies[i].length;j++) {
@@ -67,7 +68,7 @@ public class GridManager {
 		System.out.println("Looking at "+locs[0][0].lat+" "+locs[0][0].lon+" up to "+locs[locs.length-1][locs[0].length-1].lat+" "+locs[locs.length-1][locs[0].length-1].lon);;
 		
 		
-		for(DataQuad dq : results) {
+		for(DataCrashInstance dq : results) {
 			//LOCATE THE CORRECT ROW:
 			int r;
 			for (r=0;r<locs.length-1;r++) {

@@ -44,7 +44,7 @@ public class DataCrashInstance {
 		return longitude;
 	}
 
-	public int get_year() {
+	public int getYear() {
 		return _year;
 	}
 

@@ -85,7 +85,7 @@ public class Program extends PApplet {
 		timer=System.currentTimeMillis();		
 		
 		//GRID
-		gm = new GridManager(this,map,results, Utilities.defaultFocusAttribute);
+		gm = new GridManager(this,map,results);
 		gm.computeGridValues();
 		System.out.println(System.currentTimeMillis()-timer);
 		
@@ -468,7 +468,7 @@ public class Program extends PApplet {
 		  
 		  ms.pushFilters();
 		  results = queryManager.getCrashesALL();
-		  gm = new GridManager(this, map, results, Utilities.focusAttribute);
+		  gm = new GridManager(this, map, results);
 		  gm.computeGridValues();
 	  }
 	}
