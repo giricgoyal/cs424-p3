@@ -179,45 +179,48 @@ public class DatabaseManager {
 		String month=msql.getString(2);
 		String year=msql.getString(3);
 		String body_type=msql.getString(4);
+		if(body_type.length()>21){
+			body_type=body_type.substring(0, 20);
+			body_type+="...";
+		}
 		String state=msql.getString(5);
 		String hour = msql.getString(6);
 		String ntl=msql.getString(7);
 
-		if(ntl.length()>15){
-			ntl=ntl.substring(0, 14);
+		if(ntl.length()>21){
+			ntl=ntl.substring(0, 20);
 			ntl+="...";
 		}
 		String travel_speed=msql.getString(8);
 		String rsc=msql.getString(9);
-		if(rsc.length()>15){
-			rsc=rsc.substring(0, 14);
+		if(rsc.length()>21){
+			rsc=rsc.substring(0, 20);
 			rsc+="...";
 		}
 		String drf_1=msql.getString(10);
-		if(drf_1.length()>15){
-			drf_1=drf_1.substring(0, 14);
+		if(drf_1.length()>21){
+			drf_1=drf_1.substring(0, 20);
 			drf_1+="...";
 		}
 		String drf_2=msql.getString(11);
-		if(drf_2.length()>15){
-			drf_2=drf_2.substring(0, 14);
-			drf_1+="...";
+		if(drf_2.length()>21){
+			drf_2=drf_2.substring(0, 20);
+			drf_2+="...";
 		}
 		String di=msql.getString(12);
-		if(di.length()>15){
-			di=di.substring(0, 14);
+		if(di.length()>21){
+			di=di.substring(0, 20);
 			di+="...";
 		}
 		String ai=msql.getString(13);
-		if(ai.length()>15){
-			ai=ai.substring(0, 14);
+		if(ai.length()>21){
+			ai=ai.substring(0, 20);
 			ai+="...";
 		}
 		String data = "Crash Information:\n" +
 				"Date:\t\t"+month+"/"+day+"/"+year+"\n"+
+				"Hour:\t\t" + hour+"\n"+
 				"Vehicle Type:\t" + body_type+"\n"+
-				"State:\t\t" + state+"\n"+
-				"Travel Lanes:\t" + ntl +"\n"+
 				"Speed:\t\t" + travel_speed + "\n"+
 				"Surface:\t"+ rsc + "\n"+
 				"Notes:\t\t"+ drf_1+"\n\t "+

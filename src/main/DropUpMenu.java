@@ -12,16 +12,20 @@ import types.DataCrash;
 public class DropUpMenu extends BasicControl {
 	private String selectedName;
 	private boolean selected;
+	private boolean activeMedallion;
 
 	MedallionSelector medallion;
 
 	public DropUpMenu(PApplet parent, float x, float y, float width,
-			float height, MedallionSelector m) {
+			float height, MedallionSelector m,boolean activeMedallion) {
 		super(parent, x,y,width,height);
 
 		selectedName = Utilities.defaultFocusAttribute;
+		
+		if(activeMedallion){
 		medallion = m;
 		updateMedallion();
+		}
 	}
 
 	@Override
@@ -32,7 +36,7 @@ public class DropUpMenu extends BasicControl {
 		parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
 		parent.fill(Colors.light);
-		parent.textSize(Utilities.Converter(15));
+		parent.textSize(Utilities.Converter(13));
 		parent.text(selectedName, (myWidth) / 2 + myX, (myHeight) / 2 + myY);
 		if (selected)
 			drawMenu();
@@ -87,8 +91,10 @@ public class DropUpMenu extends BasicControl {
 		selected = false;
 
 		// TODO: ADD HERE CALL TO THE MEDALLION!
+		if(activeMedallion){
 		medallion.pushFilters();
 		updateMedallion();
+		}
 	}
 
 	public void updateMedallion() {
@@ -102,6 +108,10 @@ public class DropUpMenu extends BasicControl {
 			medOptions[i] = temp[i].getToShowVaue();
 
 		medallion.setOptions(medOptions);
+	}
+	
+	public String getSelectedName(){
+		return selectedName;
 	}
 
 }
