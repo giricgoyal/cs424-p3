@@ -312,8 +312,6 @@ public class Program extends PApplet {
 
 	// INIT MAP SIZE AND POSITION
 	public void initMap() {
-		Utilities.mapSize = new PVector(width / 2, height);
-		Utilities.mapOffset = new PVector(0, 0);
 
 		providers = new AbstractMapProvider[3];
 		providers[0] = new Microsoft.AerialProvider();

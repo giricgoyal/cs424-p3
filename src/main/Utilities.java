@@ -30,8 +30,8 @@ public class Utilities {
 	public static float popUpX;
 	public static float popUpY;
 	
-	public static PVector mapSize;
-    public static PVector mapOffset;
+	public static PVector mapSize = new PVector(width/2, height);
+    public static PVector mapOffset = new PVector(0,0);
     
     public static PFont font;
     
