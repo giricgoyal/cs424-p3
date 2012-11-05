@@ -4,7 +4,7 @@ public class Positions {
 	
 	
 	public static float histographWidth = Utilities.width/4 - Utilities.Converter(80);
-	public static float histographHeight = Utilities.height/3;
+	public static float histographHeight = Utilities.height/4;
 	public static float histograph1X = Utilities.width/2 + Utilities.width/8 + Utilities.Converter(20);
 	public static float histograph1Y = Utilities.height/6 +  Utilities.Converter(30);
 	
@@ -17,9 +17,7 @@ public class Positions {
 	public static float keyboardHeight = Utilities.height/3 - Utilities.Converter(40);
 	
 	
-	public static float medallionX = Utilities.width/2+ Utilities.Converter(40);
-	public static float medallionY = histograph1Y+histographHeight - Utilities.Converter(20);
-	public static float medallionSide = Utilities.height*0.4f;
+	
 	
 
 	//public static float keyboardX = Utilities.width*0.6f;
@@ -65,7 +63,9 @@ public class Positions {
 	public static float buttonPlusWidth = circleButtonSize;
 	public static float buttonPlusHeight = circleButtonSize;
 	
-	
+	public static float medallionX = buttonProviderX+buttonProviderWidth+circleButtonVSpacing;
+	public static float medallionY = buttonPlusY;
+	public static float medallionSide = buttonProviderY + buttonProviderHeight - medallionY;
 	
 	public static float timelineX = buttonDecX + buttonDecWidth + Utilities.Converter(1);
 	public static float timelineY = buttonDecY;
