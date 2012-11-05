@@ -116,9 +116,9 @@ public class DataCrashInstance {
 	}
 	
 	private String computeAge(int age){
-		if(age >= 1 && age <= 20)
+		if(age >= 1 && age < 20)
 			return "Young";
-		if(age >= 20 && age <=60)
+		if(age >= 20 && age < 60)
 			return "Adult";
 		if(age >=60 )
 			return "Elder";
