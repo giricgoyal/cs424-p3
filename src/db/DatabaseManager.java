@@ -86,11 +86,12 @@ public class DatabaseManager {
 		//modularSample=1;
 		
 		if (msql.connect()) {
-			query = "select latitude, longitude, _year, id, "+
-					"month, day_of_week, age, light_condition, alcohol_involved, body_type, " +
-					"sex, hour, weather "+
+			query = " select latitude, longitude, _year, id, month, day_of_week, " +
+					"SUBSTRING_INDEX(SUBSTRING_INDEX(age,\",\",1),\":\",1), light_condition, " +
+					"alcohol_involved, SUBSTRING_INDEX(body_type,\",\",1) ," +
+					"SUBSTRING_INDEX(SUBSTRING_INDEX(sex,\",\",1),\":\",1), hour, weather " +					
 					" from krashes" +
-					" where id%"+modularSample+"=0"
+					" where id%"+modularSample+"=0 "
 					+filters;
 							//and _year=2005"+
 			System.out.println(query);
@@ -301,8 +302,8 @@ public class DatabaseManager {
 		while (msql.next()) {
 			array.add(new DataCrashInstance(msql.getFloat("latitude"),msql.getFloat("longitude"),
 					msql.getInt("_year"),msql.getInt("id"),msql.getInt("month"),msql.getInt("day_of_week"),
-					msql.getInt("age"),msql.getInt("light_condition"),msql.getInt("alcohol_involved"),
-					msql.getInt("body_type"),msql.getInt("sex"),
+					msql.getInt("SUBSTRING_INDEX(SUBSTRING_INDEX(age,\",\",1),\":\",1)"),msql.getInt("light_condition"),msql.getInt("alcohol_involved"),
+					msql.getInt(10),msql.getInt("SUBSTRING_INDEX(SUBSTRING_INDEX(sex,\",\",1),\":\",1)"),
 					msql.getInt("hour"),msql.getInt("weather")));
 		}
 	}
