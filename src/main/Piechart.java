@@ -19,7 +19,7 @@ public class Piechart extends BasicControl{
 	
 	public class KeyValue {
 		public String key;
-		public int value;
+		public float value;
 		public KeyValue (String k, int v) {
 			this.key=k;
 			this.value=v;
@@ -63,9 +63,9 @@ public class Piechart extends BasicControl{
 		}
 	}
 	
-	public void initValues(String ck) {
+	public void initValues() {
 		//WE NEED TO PUSH A NEW KEYVALUE FOR EACH ISTANCE OF THE KEY
-		int index = FilterValues.attributesHasMap.get(ck);
+		int index = FilterValues.attributesHasMap.get(Utilities.focusAttribute);
 		this.values=new ArrayList<Piechart.KeyValue>();
 		
 		for (int i=0;i<FilterValues.filtersValue[index].length;i++) {

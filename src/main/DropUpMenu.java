@@ -33,7 +33,11 @@ public class DropUpMenu extends BasicControl {
 	public void draw() {
 		parent.pushStyle();
 		parent.rectMode(PConstants.CORNER);
-		parent.fill(Colors.medium);
+		if (activeMedallion)
+			parent.fill(Colors.gridColor);
+		else
+			parent.fill(Colors.medium);
+		
 		parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
 		parent.fill(Colors.light);

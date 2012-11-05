@@ -38,7 +38,7 @@ public class FilterValues {
 	private  static DataCrash lightConditionInstace6 = new DataCrash(" light_condition = 6 ","Dark - Unknown Lighting",false);
 	
 	private  static DataCrash young = new DataCrash(" age >= 1 and age <= 20","Young",false);
-	private  static DataCrash adult = new DataCrash(" age >= 20 and age <= 60","Adult",false);
+	private  static DataCrash adult = new DataCrash(" (age >= 20 and age <= 60) or age=0","Adult",false);
 	private  static DataCrash elder = new DataCrash(" age >= 60","Elder",false);
 	
 	private  static DataCrash alcholInvolvedInstance1 = new DataCrash(" alcohol_involved = 0 ", " No ", false);

@@ -41,8 +41,7 @@ public class Program extends PApplet {
 	ArrayList<DataCrashInstance> results;
 	GridManager gm;
 
-	Button buttonPlus, buttonMinus, updateQueryButton;
-	Button buttonIncYear, buttonDecYear;
+	
 
 	/**
 	 * temp addition
@@ -52,7 +51,12 @@ public class Program extends PApplet {
 	Histograph h1, h2;
 	DropUpMenu dropUpMenu, dropUpMenu2;
 	MedallionSelector ms;
-
+	Button buttonPlus, buttonMinus, updateQueryButton;
+	Button buttonIncYear, buttonDecYear;
+	Button buttonProvider;
+	
+	Timeline timeline;
+	
 	/**
 	 * added by: giric trial markers
 	 * 
@@ -174,7 +178,10 @@ public class Program extends PApplet {
 				Positions.buttonIncY, Positions.buttonIncWidth,
 				Positions.buttonIncHeight);
 		buttonIncYear.setName(">");
-
+		
+		buttonProvider = new Button (this, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth, Positions.buttonProviderHeight);
+		buttonProvider.setName("P");
+		
 		updateQueryButton = new Button(this, Utilities.width / 3 * 2,
 				Utilities.height / 2 + 20, 100, 20);
 		updateQueryButton.setName("Update!");
@@ -185,6 +192,11 @@ public class Program extends PApplet {
 		controls.add(buttonIncYear);
 		controls.add(buttonDecYear);
 		controls.add(updateQueryButton);
+		controls.add(buttonProvider);
+		
+		timeline = new Timeline(this, 800, 200, 600, 100, gm);
+		timeline.updateData(gm);
+		controls.add(timeline);
 	}
 
 	public ArrayList <Marker> updateMarkerList() {
@@ -302,8 +314,6 @@ public class Program extends PApplet {
 
 	// INIT MAP SIZE AND POSITION
 	public void initMap() {
-		Utilities.mapSize = new PVector(width / 2, height);
-		Utilities.mapOffset = new PVector(0, 0);
 
 		providers = new AbstractMapProvider[3];
 		providers[0] = new Microsoft.AerialProvider();
@@ -353,7 +363,7 @@ public class Program extends PApplet {
 	public void zoomIn() {
 		if (map.getZoom() < maxZoom) {
 			map.zoomIn();
-			gm.computeGridValues();
+			gm.computeGridValues();timeline.updateData(gm);
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
 			if (map.getZoom()>=zoomThreshold) {
@@ -365,7 +375,7 @@ public class Program extends PApplet {
 	public void zoomOut() {
 		if (map.getZoom() > minZoom) {
 			map.zoomOut();
-			gm.computeGridValues();
+			gm.computeGridValues();timeline.updateData(gm);
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
 			if (map.getZoom()>=zoomThreshold) {
@@ -485,6 +495,8 @@ public class Program extends PApplet {
 
 	public void myPressed(int id, float mx, float my) {
 		
+	//	System.out.println("MY PRESSED");
+		
 		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
 				Utilities.mapSize.x, Utilities.mapSize.y)) {
 
@@ -534,8 +546,6 @@ public class Program extends PApplet {
 		}
 		if (dropUpMenu.isSelected()) {
 			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
-			h1.setData(results);
-			h2.setData(results);
 		}
 		if (dropUpMenu2.isInRectangle(mx, my)) {
 			dropUpMenu2.setSelected(!dropUpMenu2.isSelected());
@@ -552,10 +562,20 @@ public class Program extends PApplet {
 			results = queryManager.getCrashesALL();
 			gm = new GridManager(this, map, results);
 			gm.computeGridValues();
+			
+			timeline.updateData(gm);
+			
+			h1.setData(results);
+			h2.setData(results);
 		}
 		if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
 				Positions.medallionSide, Positions.medallionSide)) {
 			ms.onClick(mx, my);
+		}
+		
+		if (isIn(mx, my, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth,Positions.buttonProviderHeight)) {
+			buttonProvider.setSelected(!buttonProvider.isSelected());
+			switchProvider();
 		}
 		
 	}
@@ -589,7 +609,7 @@ public class Program extends PApplet {
 	public void myReleased(int id, float mx, float my) {
 		touchList.remove(id);
 		if (mapHasMoved) {
-			gm.computeGridValues();
+			gm.computeGridValues();timeline.updateData(gm);
 			//initHistogram();
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
@@ -610,6 +630,7 @@ public class Program extends PApplet {
 	}
 
 	public void mousePressed() {
+		//System.out.println("MOUSE PRESSED");
 		myPressed(-1, mouseX, mouseY);
 	}
 

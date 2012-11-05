@@ -37,26 +37,39 @@ public class Positions {
 	public static float suggestionBoxWidth;
 	public static float suggestionBoxHeight;
 	
-	public static float buttonMinusX = Utilities.width/2 + Utilities.Converter(1);
-	public static float buttonMinusY = Utilities.height - Utilities.Converter(31);
-	public static float buttonMinusWidth = Utilities.Converter(30);
-	public static float buttonMinusHeight = Utilities.Converter(30);
+	public static float circleButtonSize = Utilities.Converter(30);
+	public static float circleButtonVSpacing = Utilities.Converter(10);
 	
-	public static float buttonPlusX = buttonMinusX + buttonMinusWidth + Utilities.Converter(1);
-	public static float buttonPlusY = buttonMinusY;
-	public static float buttonPlusWidth = buttonMinusWidth;
-	public static float buttonPlusHeight = buttonMinusHeight;
+	public static float buttonProviderX = Utilities.mapOffset.x+ Utilities.mapSize.x + Utilities.Converter(10);
+	public static float buttonProviderY = Utilities.mapOffset.y+ Utilities.mapSize.y - circleButtonVSpacing - circleButtonSize;
+	public static float buttonProviderWidth = circleButtonSize;
+	public static float buttonProviderHeight = circleButtonSize;
 	
-	public static float buttonDecX = buttonMinusX;
-	public static float buttonDecY = buttonMinusY - Utilities.Converter(31);
-	public static float buttonDecWidth = Utilities.Converter(30);
-	public static float buttonDecHeight = Utilities.Converter(30);
-
-	public static float buttonIncX = buttonDecX + buttonDecWidth + Utilities.Converter(1);
-	public static float buttonIncY = buttonDecY;
-	public static float buttonIncWidth = buttonDecWidth;
-	public static float buttonIncHeight = buttonDecHeight;
+	public static float buttonDecX = buttonProviderX;
+	public static float buttonDecY = buttonProviderY - circleButtonVSpacing- circleButtonSize;
+	public static float buttonDecWidth = circleButtonSize;
+	public static float buttonDecHeight = circleButtonSize;
+	
+	public static float buttonIncX = buttonProviderX;
+	public static float buttonIncY = buttonDecY - circleButtonVSpacing- circleButtonSize;
+	public static float buttonIncWidth = circleButtonSize;
+	public static float buttonIncHeight = circleButtonSize;
+	
+	public static float buttonMinusX = buttonProviderX;
+	public static float buttonMinusY = buttonIncY - circleButtonVSpacing- circleButtonSize;
+	public static float buttonMinusWidth = circleButtonSize;
+	public static float buttonMinusHeight = circleButtonSize;
+	
+	public static float buttonPlusX = buttonProviderX;
+	public static float buttonPlusY = buttonMinusY - circleButtonVSpacing- circleButtonSize; ;
+	public static float buttonPlusWidth = circleButtonSize;
+	public static float buttonPlusHeight = circleButtonSize;
 	
 	
+	
+	public static float timelineX = buttonDecX + buttonDecWidth + Utilities.Converter(1);
+	public static float timelineY = buttonDecY;
+	public static float timelineWidth = buttonDecWidth;
+	public static float timelineHeight = buttonDecHeight;
 
 }

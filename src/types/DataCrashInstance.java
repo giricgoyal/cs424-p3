@@ -139,7 +139,7 @@ public class DataCrashInstance {
 			return "Adult";
 		if(age >=60 )
 			return "Elder";
-		return "Young";
+		return "Adult";
 	}
 	
 	private String computeBodyType(int body_type){
@@ -177,7 +177,7 @@ public class DataCrashInstance {
 			return " [1-6] p.m.";
 		if(hour >= 19 && hour <=24)
 			return " [7-12] p.m.";
-		return " [1-6] a.m.";
+		return " [7-12] a.m.";
 	}
 
 }
