@@ -305,8 +305,9 @@ public class Program extends PApplet {
 	final int zoomCity = 12;
 	final int zoomThreshold = 11;
 	final int maxZoom = 16;
-	final int minZoom = 6;
-
+	//final int minZoom = 6;
+	final int minZoom = 3;
+	
 	final int maxYear = 2010;
 	final int minYear = 2001;
 
