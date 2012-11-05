@@ -106,7 +106,7 @@ public class Histograph extends BasicControl {
 		
 		setBounds();
 		
-		Utilities.barWidth = (int)((int)Positions.histographWidth/Utilities.histOptions.length);
+		Utilities.barWidth = (int)((int)Positions.histographWidth/Utilities.histOptions.length - Utilities.Converter(2));
 		
 	}
 	
