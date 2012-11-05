@@ -9,10 +9,10 @@ public class Positions {
 	
 	public static float histographWidth = histogramAreaWidth/2 - Utilities.Converter(80);
 	public static float histographHeight = histogramAreaHeight - Utilities.Converter(60);
-	public static float histograph1X = histogramAreaX - histogramAreaWidth/4 + Utilities.Converter(20);
+	public static float histograph1X = histogramAreaX - histogramAreaWidth/4 + Utilities.Converter(70);
 	public static float histograph1Y = histogramAreaY - Utilities.Converter(5);
 	
-	public static float histograph2X = histograph1X + histogramAreaWidth/2;
+	public static float histograph2X = histograph1X + histogramAreaWidth/2 - Utilities.Converter(50);
 	public static float histograph2Y = histograph1Y;
 	
 
@@ -87,7 +87,7 @@ public class Positions {
 	
 	public static float timelineX = Utilities.mapOffset.x+Utilities.mapSize.x+ buttonVSpacing;
 	public static float timelineY = histogramAreaHeight+2*buttonVSpacing;
-	public static float timelineWidth = Utilities.width - timelineX-buttonVSpacing;
-	public static float timelineHeight = buttonPlusY-circleButtonVSpacing-timelineY;
+	public static float timelineWidth = histogramAreaX+histogramAreaWidth/2-timelineX;//(Utilities.width - timelineX-buttonVSpacing)*0.8f;
+	public static float timelineHeight = buttonPlusY-2*circleButtonVSpacing-timelineY;
 
 }

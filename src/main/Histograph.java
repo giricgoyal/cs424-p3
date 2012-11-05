@@ -234,13 +234,14 @@ public class Histograph extends BasicControl {
 		/**
 		 * Y-axis units: No. of Crashes or fatalities
 		 */
+		/*
 		for (int value = 0; value <= this.upperBound; value += (this.upperBound)/5) {
 			float y = parent.map(value, 0, this.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
 			parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
 			parent.text(value, myX - myWidth/2 - Utilities.Converter(10), y);
-			
-		}
 		
+		}
+		*/
 		/**
 		 * X-axis label
 		 */
