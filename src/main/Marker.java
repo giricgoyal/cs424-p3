@@ -50,6 +50,10 @@ public class Marker{
 			parent.shapeMode(PConstants.CENTER);
 			parent.shape(shape, x, y-Utilities.markerHeight/2, Utilities.markerWidth, Utilities.markerHeight);
 			
+			parent.fill(Colors.black);
+			parent.ellipseMode(PConstants.CENTER);
+			parent.ellipse(x, y, Utilities.Converter(5), Utilities.Converter(5));
+			
 			if (isOpen) {
 				popUp = new PopUp(parent, x,y,color);
 				popUp.draw();

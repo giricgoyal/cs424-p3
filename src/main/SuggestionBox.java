@@ -9,6 +9,9 @@ package main;
 
 import java.util.ArrayList;
 
+import com.modestmaps.InteractiveMap;
+import com.modestmaps.geo.Location;
+
 import db.DatabaseManager;
 
 import processing.core.PApplet;
@@ -26,7 +29,7 @@ public class SuggestionBox extends BasicControl {
 	
 	String textBoxText;
 	DatabaseManager db;
-	
+	Program program;
 	
 	/**
 	 * temp test string
@@ -34,7 +37,7 @@ public class SuggestionBox extends BasicControl {
 	//String[] testString = {"hello","yoyo honey singh","holaaa","wadddhhuppp","blah blah","uncle","haloween","home"};
 	ArrayList<DataState> states;
 	
-	public SuggestionBox(PApplet parent, float x, float y, float width,	float height) {
+	public SuggestionBox(PApplet parent, float x, float y, float width,	float height, Program program) {
 		super(parent, x, y, width, height);
 		// TODO Auto-generated constructor stub
 		this.textBoxText = "";
@@ -43,6 +46,8 @@ public class SuggestionBox extends BasicControl {
 		this.suggestionBoxBackgroundColor = Colors.light;
 		this.suggestionBoxBorderColor = Colors.dark;
 		this.textBoxTextColor = Colors.black;
+		
+		this.program=program;
 		
 		Positions.suggestionBoxX = myX;
 		Positions.suggestionBoxY = myY - Utilities.Converter(1) - myHeight*5;
@@ -153,6 +158,16 @@ public class SuggestionBox extends BasicControl {
 			count++;
 			}
 		}
+		
+		for (int i=0;i<states.size();i++) {
+			if (states.get(i).getName().equals(clickedString)) {
+				program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
+				program.updateMarkerList();
+				program.gm.computeGridValues();
+				break;
+			}
+		}
+		
 		/*
 		else {
 			while(count<5) {
@@ -175,9 +190,6 @@ public class SuggestionBox extends BasicControl {
 		 * currently just displaying on the console
 		 * modify below to assign a variable or something
 		 */
-		
-		
-		System.out.println(clickedString);
 		
 	}
 }

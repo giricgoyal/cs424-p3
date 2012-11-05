@@ -123,7 +123,7 @@ public class Program extends PApplet {
 		// Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 		// Positions.suggestionBoxHeight);
 		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY,
-				Positions.textBoxWidth, Positions.textBoxHeight);
+				Positions.textBoxWidth, Positions.textBoxHeight, this);
 		controls.add(sb);
 
 		h1 = new Histograph(this, Positions.histograph1X,
@@ -302,11 +302,11 @@ public class Program extends PApplet {
 	// ******************************************
 
 	// zoom 0 is the whole world, 19 is street level
-	final int zoomCity = 12;
 	final int zoomThreshold = 11;
 	final int maxZoom = 16;
-	//final int minZoom = 6;
-	final int minZoom = 3;
+	
+	//final int minZoom = 6; //WALL
+	final int minZoom = 3;	//PC
 	
 	final int maxYear = 2010;
 	final int minYear = 2001;
@@ -445,12 +445,20 @@ public class Program extends PApplet {
 	public boolean mapHasMoved = false;
 
 	public void myPressed(int id, float mx, float my) {
-		
+
 		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
 				Utilities.mapSize.x, Utilities.mapSize.y)) {
-
+			
 			lastTouchPos.x = mx;
 			lastTouchPos.y = my;
+			
+			//CHECK FOR MARKERS
+			float epsilon = Utilities.Converter(10);
+			for (Marker m : markerList) {
+				if (mx-epsilon <= m.x && m.x <= mx+epsilon && my-epsilon <= m.y && m.y <= my+epsilon) {
+					m.isOpen=!m.isOpen;
+				}
+			}
 		}
 
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
