@@ -13,6 +13,8 @@ public class Colors {
 	
 	public static int gridColor = 0x88FB8072;
 	
+	public static int filterColor = 0xFF987E18;
+	
 	public static int windowBackground = 0xFF202020; 
 	
 	

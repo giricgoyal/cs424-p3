@@ -137,13 +137,17 @@ public class GridManager {
 						if (pc.values.get(piesIndex).key.equals(dq.getWeather())) {
 							break;
 						}
+					} else if (Utilities.focusAttribute.equals("Vehicle Type")) {
+						if (pc.values.get(piesIndex).key.equals(dq.getBody_type())) {
+							break;
+						}
 					}
 					
 					piesIndex++;
 				}
 
 				if (piesIndex < pc.values.size())
-					pc.values.get(piesIndex).value++;
+					pc.values.get(piesIndex).value+= 1/(Utilities.perStatePopulation[dq.getStateFIPS()-1]);
 			}
 		}
 	}

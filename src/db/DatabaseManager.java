@@ -89,7 +89,7 @@ public class DatabaseManager {
 			query = " select latitude, longitude, _year, id, month, day_of_week, " +
 					"SUBSTRING_INDEX(SUBSTRING_INDEX(age,\",\",1),\":\",1), light_condition, " +
 					"alcohol_involved, SUBSTRING_INDEX(body_type,\",\",1) ," +
-					"SUBSTRING_INDEX(SUBSTRING_INDEX(sex,\",\",1),\":\",1), hour, weather " +					
+					"SUBSTRING_INDEX(SUBSTRING_INDEX(sex,\",\",1),\":\",1), hour, weather, _state " +					
 					" from krashes" +
 					" where id%"+modularSample+"=0 "
 					+filters;
@@ -304,7 +304,7 @@ public class DatabaseManager {
 					msql.getInt("_year"),msql.getInt("id"),msql.getInt("month"),msql.getInt("day_of_week"),
 					msql.getInt("SUBSTRING_INDEX(SUBSTRING_INDEX(age,\",\",1),\":\",1)"),msql.getInt("light_condition"),msql.getInt("alcohol_involved"),
 					msql.getInt(10),msql.getInt("SUBSTRING_INDEX(SUBSTRING_INDEX(sex,\",\",1),\":\",1)"),
-					msql.getInt("hour"),msql.getInt("weather")));
+					msql.getInt("hour"),msql.getInt("weather"), msql.getInt("_state")));
 		}
 	}
 

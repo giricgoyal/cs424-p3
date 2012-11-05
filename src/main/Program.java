@@ -121,7 +121,7 @@ public class Program extends PApplet {
 				Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 
-		timeline = new Timeline(this, 800, 200, 600, 100, gm);
+		timeline = new Timeline(this, Positions.timelineX, Positions.timelineY, Positions.timelineWidth, Positions.timelineHeight,gm);
 		timeline.updateData(gm);
 		controls.add(timeline);
 		
@@ -150,12 +150,14 @@ public class Program extends PApplet {
 		controls.add(h2);
 
 		initHistogram();
-
-		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
-		controls.add(dropUpMenu);
+		
 		
 		dropUpMenu2 = new DropUpMenu(this, Positions.buttonKeyX, Positions.buttonKeyY, Positions.buttonKeyWidth, Positions.buttonKeyHeight, ms, false);
 		controls.add(dropUpMenu2);
+
+		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
+		controls.add(dropUpMenu);
+
 		
 		
 
@@ -288,12 +290,22 @@ public class Program extends PApplet {
 			gm.drawGrid();
 			gm.drawCircles(Utilities.activeYear);
 		}
+		
+		//BEFORE OF THE CONTROLS, UNIFY THE MEDALLION AND ITS BUTTON
+		fill(Colors.filterColor);
+		noStroke();
+		beginShape();
+		vertex(ms.myX + ms.myWidth / 2,  ms.myY + ms.myWidth / 2);
+		vertex(Positions.buttonFilterX, Positions.buttonFilterY);
+		vertex(Positions.buttonFilterX, Positions.buttonFilterY+Positions.buttonFilterHeight);
+		endShape();
 
 		// DRAW CONTROLS
 		for (BasicControl bc : controls) {
 			bc.draw();
 		}
-
+		
+		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
 			omicronManager.process();

@@ -43,7 +43,7 @@ public class Piechart extends BasicControl{
 		parent.arc(X, Y, diameter, diameter, PApplet.radians(0), PApplet.radians(360));
 
 		//COMPUTE MAX
-		int total=0;
+		float total=0;
 		for (int i=0;i<values.size();i++)
 			total+=values.get(i).value;
 		
