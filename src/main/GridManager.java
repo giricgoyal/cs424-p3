@@ -31,11 +31,10 @@ public class GridManager {
 		
 	}
 	
-	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res, String ck) {
+	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res) {
 		parent=p;
 		map=m;
 		results=res;
-		currentKey=ck;
 		pies=new Piechart[gridHLine-1][gridVLine-1][10];
 		for (int i=0;i<pies.length;i++) {
 			for (int j=0;j<pies[i].length;j++) {
@@ -90,7 +89,7 @@ public class GridManager {
 				int piesIndex=0;
 				Piechart pc = pies[r][c][dq.getYear()-2001];
 				while (piesIndex<pc.values.size()) {
-					if (pc.values.get(piesIndex).key==currentKey) {
+					if (pc.values.get(piesIndex).key.toLowerCase()==Utilities.focusAttribute.toLowerCase()) {
 						break;
 					}
 					piesIndex++;
