@@ -130,18 +130,18 @@ public class PopUp {
 		
 	}
 	
-	private void displayText() {
+	private void displayText(String t) {
 		parent.textFont(Utilities.font, Utilities.Converter(14));
 		parent.fill(Colors.white);
 		parent.textAlign(PConstants.LEFT, PConstants.TOP);
-		parent.text("sampleText\nTesting\nCheck\nCheck\n\n**Information goes here**", Utilities.popUpX, Utilities.popUpY);
+		parent.text(t, Utilities.popUpX, Utilities.popUpY);
 	}
 	
 	public void invertCheck() {
 		check = !check;
 	}
 	
-	public void draw() {
+	public void draw(String t) {
 		parent.noStroke();
 		parent.fill(color);
 		parent.beginShape();
@@ -153,7 +153,7 @@ public class PopUp {
 		parent.vertex(lowerRightX, lowerRightY);
 		parent.vertex(triangleRightX, triangleRightY);
 		parent.endShape();		
-		displayText();
+		displayText(t);
 	}
 	
 	public float getX() {

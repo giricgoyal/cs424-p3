@@ -182,7 +182,7 @@ public class Program extends PApplet {
 		for (DataCrashInstance dci : results) {
 			if (dci.getYear()==year && Utilities.minActiveLatitude <= dci.getLatitude() && dci.getLatitude() <= Utilities.maxActiveLatitude && Utilities.minActiveLongitude <= dci.getLongitude() && dci.getLongitude() <= Utilities.maxActiveLongitude) {
 				//SEARCH FOR THE COLOR
-				Marker m = new Marker(this, new Location (dci.getLatitude(), dci.getLongitude()), Utilities.colorCodes[(int)Math.random()*11]);
+				Marker m = new Marker(this, dci.getId(), new Location (dci.getLatitude(), dci.getLongitude()), Utilities.colorCodes[(int)Math.random()*11]);
 				m.x = map.locationPoint(m.location).x;
 				m.y = map.locationPoint(m.location).y;
 				ret.add(m);

@@ -10,6 +10,8 @@ import processing.core.PShape;
 
 import com.modestmaps.geo.Location;
 
+import db.QueryManager;
+
 public class Marker{
 	//Marker of a single crash on the map.
 	//Needs: Shape, color, x, y, coordX, coordY
@@ -19,6 +21,8 @@ public class Marker{
 	//pixels
 	public float x;
 	public float y;
+	public int id;
+	public String infoText=null;
 	public PShape shape;
 	public PShape shapeBorderLayer;
 	public int color;
@@ -28,12 +32,13 @@ public class Marker{
 	
 	
 	
-	public Marker(PApplet p, Location l, int color) {
+	public Marker(PApplet p, int id, Location l, int color) {
 		// TODO Auto-generated constructor stub	
 		this.parent = p;
 		this.color = color;
 		this.location=l;
 		this.shape = Utilities.markerShape;
+		this.id=id;
 		
 		this.isOpen=false;
 		
@@ -56,7 +61,11 @@ public class Marker{
 			
 			if (isOpen) {
 				popUp = new PopUp(parent, x,y,color);
-				popUp.draw();
+				if (this.infoText==null) {
+					QueryManager qm=new QueryManager(parent);
+					this.infoText=qm.getDataCrashes(this.id);
+				}
+				popUp.draw(this.infoText);
 			}
 		}
 	}
