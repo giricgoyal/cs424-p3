@@ -9,8 +9,7 @@ public class DropDownMenu extends BasicControl {
 
 	public DropDownMenu(PApplet parent, float x, float y, float width,
 			float height) {
-		super(parent, Utilities.Converter(x), Utilities.Converter(y), Utilities.Converter(width), 
-				Utilities.Converter(height));
+		super(parent, x,y,width,height);
 	}
 
 	@Override

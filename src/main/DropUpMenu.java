@@ -17,8 +17,7 @@ public class DropUpMenu extends BasicControl {
 
 	public DropUpMenu(PApplet parent, float x, float y, float width,
 			float height, MedallionSelector m) {
-		super(parent, Utilities.Converter(x), Utilities.Converter(y), Utilities
-				.Converter(width), Utilities.Converter(height));
+		super(parent, x,y,width,height);
 
 		selectedName = FilterValues.attributes[0];
 		medallion = m;

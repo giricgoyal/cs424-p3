@@ -15,8 +15,8 @@ public class Utilities {
 			return pixel;
 	}
 	
-	//public static float width = Converter(1632);
-	public static float width = Converter(1360);
+	public static float width = Converter(1632);
+	//public static float width = Converter(1360);
 	public static float height = Converter(461);
 	
 	public static float markerWidth ;

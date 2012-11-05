@@ -94,7 +94,6 @@ public class MedallionSelector extends BasicControl {
 	
 	public void pushFilters() {		
 		// SAVE VALUES
-		System.out.println("Saving "+getKey());
 		int indexW = FilterValues.attributesHasMap.get(getKey());
 		int i = 0;
 		for (DataCrash dc : FilterValues.filtersValue[indexW]) {
@@ -102,10 +101,10 @@ public class MedallionSelector extends BasicControl {
 			i++;
 		}
 
-		for (DataCrash dc : FilterValues.filtersValue[indexW]) {
+		/*for (DataCrash dc : FilterValues.filtersValue[indexW]) {
 			System.out.println("DC: " + dc.getToShowVaue() + " with dbv: "
 					+ dc.getDatabaseValue() + " is " + dc.isOn());
-		}
+		}*/
 	}
 
 	@Override

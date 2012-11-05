@@ -23,7 +23,6 @@ public class GridManager {
 	public PApplet parent;
 	public InteractiveMap map;
 	public ArrayList<DataCrashInstance> results;
-	public String currentKey;
 	
 	Piechart [][][] pies;
 	
@@ -41,13 +40,13 @@ public class GridManager {
 			for (int j=0;j<pies[i].length;j++) {
 				for (int k=0;k<pies[i][j].length;k++) {
 					pies[i][j][k]=new Piechart(parent, Utilities.Converter(20), (float)(Utilities.mapOffset.x+(j+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(i+0.5)*gridVStep));
-					pies[i][j][k].initValues(currentKey);
+					pies[i][j][k].initValues(Utilities.focusAttribute);
 				}
 			}
 		}
 	}
 
-	public void computeGridValues() {		
+	public void computeGridValues() {
 		gridValues  = new int[gridHLine-1][gridVLine-1][10];
 		for (int i=0;i<gridValues.length;i++) {
 			for (int j=0;j<gridValues[i].length;j++) {
@@ -56,7 +55,6 @@ public class GridManager {
 				}
 			}
 		}
-		
 		Location[][] locs = new Location[gridHLine][gridVLine];
 		for (int i=0;i<locs.length; i++){
 			for (int j=0; j<locs[0].length;j++) {
@@ -101,6 +99,14 @@ public class GridManager {
 				pc.values.get(piesIndex).value++;
 			}
 		}
+		
+		for (int i=0;i<gridValues.length;i++) {
+			for (int j=0;j<gridValues[i].length;j++) {
+					System.out.println(pies[i][j][4].values.get(0).value);
+				
+			}
+		}
+		System.out.println("END PRINT");
 	}
 	
 	public void drawCircles(int year) {
@@ -115,6 +121,7 @@ public class GridManager {
 		
 		parent.ellipseMode(PConstants.CENTER);
 		parent.strokeWeight(Utilities.Converter(1));
+		
 		for (int i=0;i<gridValues.length;i++) {
 			for (int j=0;j<gridValues[i].length;j++) {
 				float diameter= maxDiam * gridValues[i][j][yearIndex] / maxGridValue;

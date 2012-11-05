@@ -8,7 +8,6 @@ public class Piechart extends BasicControl{
 	public float diameter;
 	public ArrayList<KeyValue> values;
 	
-	public int [] colors;
 	public float initPercentage1;
 	public float finalPercentage1;
 	public float initPercentage2;
@@ -33,7 +32,6 @@ public class Piechart extends BasicControl{
 		this.diameter = diameter;
 		this.X = X;
 		this.Y = Y;
-		this.colors=Utilities.colorCodes;
 		this.values=new ArrayList<Piechart.KeyValue>();
 	}
 
@@ -53,7 +51,7 @@ public class Piechart extends BasicControl{
 		float presentArc = 270;
 		parent.strokeWeight(Utilities.Converter(1));
 		for (int i=0;i<values.size();i++) {
-			parent.fill(colors[i%colors.length]);
+			parent.fill(Utilities.colorCodes[i%Utilities.colorCodes.length]);
 			float slice= 360*values.get(i).value/(float)total;
 			parent.arc(X, Y, diameter, diameter, PApplet.radians(presentArc), PApplet.radians(presentArc+slice));
 			
