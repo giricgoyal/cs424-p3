@@ -31,7 +31,7 @@ public class Program extends PApplet {
 
 	OmicronAPI omicronManager;
 	TouchListener touchListener;
-	InteractiveMap map;
+	public InteractiveMap map;
 
 	ArrayList<Marker> markerList;
 
@@ -65,6 +65,7 @@ public class Program extends PApplet {
 	 */
 
 	public void initApp() {
+		Utilities.program=this;
 		touchList = new Hashtable<Integer, Touch>();
 
 		// DB
@@ -85,7 +86,7 @@ public class Program extends PApplet {
 		System.out.println("InitApp1");
 		gm.computeGridValues();
 		System.out.println(System.currentTimeMillis() - timer);
-
+		
 		// OTHER
 		Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
 	}
@@ -339,11 +340,11 @@ public class Program extends PApplet {
 	// ******************************************
 
 	// zoom 0 is the whole world, 19 is street level
-	final int zoomCity = 12;
-	final int zoomThreshold = 11;
-	final int maxZoom = 16;
+	public final int zoomCity = 12;
+	public final int zoomThreshold = 11;
+	public final int maxZoom = 16;
 	//final int minZoom = 6;
-	final int minZoom = 3;
+	public final int minZoom = 3;
 	
 	final int maxYear = 2010;
 	final int minYear = 2001;
@@ -590,6 +591,7 @@ public class Program extends PApplet {
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
+			markerList=updateMarkerList();
 			
 			updateCoordinatesLimits();
 			

@@ -1,5 +1,7 @@
 package main;
 
+import com.modestmaps.InteractiveMap;
+
 import processing.core.PFont;
 import processing.core.PShape;
 import processing.core.PVector;
@@ -71,4 +73,6 @@ public class Utilities {
 
     public static int zoomCity = 12;
     public static int zoomState = 9;
+    
+    public static Program program;
 }

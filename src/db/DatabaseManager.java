@@ -1,6 +1,8 @@
 package db;
 import java.util.ArrayList;
 
+import main.Utilities;
+
 import processing.core.PApplet;
 import types.DataCrashInstance;
 import types.DataQuad;
@@ -78,12 +80,16 @@ public class DatabaseManager {
 		String pie_chart = "";
 		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
 		String query;
+		
+		int modularSample = (Utilities.program.maxZoom-Utilities.program.map.getZoom())*5;
+		if (modularSample==0) modularSample=1;
+		
 		if (msql.connect()) {
 			query = "select latitude, longitude, _year, id, "+
 					"month, day_of_week, age, light_condition, alcohol_involved, body_type, " +
 					"sex, hour, weather "+
 					" from krashes" +
-					" where id%100=1 "
+					" where id%"+modularSample+"=0"
 					+filters;
 							//and _year=2005"+
 			System.out.println(query);

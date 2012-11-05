@@ -132,7 +132,7 @@ public class PopUp {
 	
 	private void displayText(String t) {
 		parent.textFont(Utilities.font, Utilities.Converter(14));
-		parent.fill(Colors.white);
+		parent.fill(Colors.black);
 		parent.textAlign(PConstants.LEFT, PConstants.TOP);
 		parent.text(t, Utilities.popUpX, Utilities.popUpY);
 	}
