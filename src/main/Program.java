@@ -64,10 +64,6 @@ public class Program extends PApplet {
 
 	public void initApp() {
 		touchList = new Hashtable<Integer, Touch>();
-		
-		// MARKERS
-		markerList = new ArrayList<Marker>();
-		Utilities.markerShape = loadShape("marker.svg");
 
 		// DB
 		queryManager = new QueryManager(this);
@@ -77,6 +73,11 @@ public class Program extends PApplet {
 		System.out.println(System.currentTimeMillis() - timer);
 		timer = System.currentTimeMillis();
 
+		// MARKERS
+		Utilities.markerShape = loadShape("marker.svg");
+		markerList = updateMarkerList();
+		
+		
 		// GRID
 		gm = new GridManager(this, map, results);
 		System.out.println("InitApp1");
@@ -176,6 +177,21 @@ public class Program extends PApplet {
 		controls.add(updateQueryButton);
 	}
 
+	public ArrayList <Marker> updateMarkerList() {
+		ArrayList <Marker> ret = new ArrayList<Marker>();
+		for (DataCrashInstance dci : results) {
+			if (dci.getYear()==year && Utilities.minActiveLatitude <= dci.getLatitude() && dci.getLatitude() <= Utilities.maxActiveLatitude && Utilities.minActiveLongitude <= dci.getLongitude() && dci.getLongitude() <= Utilities.maxActiveLongitude) {
+				//SEARCH FOR THE COLOR
+				Marker m = new Marker(this, new Location (dci.getLatitude(), dci.getLongitude()), Utilities.colorCodes[(int)Math.random()*11]);
+				m.x = map.locationPoint(m.location).x;
+				m.y = map.locationPoint(m.location).y;
+				ret.add(m);
+			}			
+		}
+		
+		return ret;
+	}
+	
 	public void setup() {
 		size((int) Utilities.width, (int) Utilities.height, JAVA2D);
 		if (Utilities.isWall) {
@@ -213,15 +229,15 @@ public class Program extends PApplet {
 		this.rect(0, Utilities.mapOffset.y + Utilities.mapSize.y, width, height);
 		this.rect(Utilities.mapOffset.x + Utilities.mapSize.x, 0, width, height);
 
-		// UPDATE MARKERS POSITIONS AND DRAW+
-		for (Marker m : markerList) {
-			Point2f p = map.locationPoint(m.location);
-			if (isIn(p.x, p.y, Utilities.mapOffset.x, Utilities.mapOffset.y,
-					Utilities.mapSize.x, Utilities.mapSize.y)) {
-				m.x = p.x;
-				m.y = p.y;
+		if (map.getZoom()>=zoomThreshold) {
+			// UPDATE MARKERS POSITIONS AND DRAW+
+			for (Marker m : markerList) {
 				m.draw();
 			}
+		}
+		else {
+			gm.drawGrid();
+			gm.drawCircles(year);
 		}
 
 		// DRAW CONTROLS
@@ -233,9 +249,6 @@ public class Program extends PApplet {
 		if (Utilities.isWall) {
 			omicronManager.process();
 		}
-		// drawNewMexico();
-		gm.drawGrid();
-		gm.drawCircles(year);
 
 		textFont(Utilities.font, 30);
 		fill(Colors.white);
@@ -303,6 +316,9 @@ public class Program extends PApplet {
 			gm.computeGridValues();
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
+			if (map.getZoom()>=zoomThreshold) {
+				markerList=updateMarkerList();
+			}
 		}
 	}
 
@@ -312,18 +328,27 @@ public class Program extends PApplet {
 			gm.computeGridValues();
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
+			if (map.getZoom()>=zoomThreshold) {
+				markerList=updateMarkerList();
+			}
 		}
 	}
 
 	public void nextYear() {
 		if (year < maxYear) {
 			year++;
+			if (map.getZoom()>=zoomThreshold) {
+				markerList=updateMarkerList();
+			}
 		}
 	}
 
 	public void prevYear() {
 		if (year > minYear) {
 			year--;
+			if (map.getZoom()>=zoomThreshold) {
+				markerList=updateMarkerList();
+			}
 		}
 	}
 
@@ -472,6 +497,11 @@ public class Program extends PApplet {
 			gm = new GridManager(this, map, results);
 			gm.computeGridValues();
 		}
+		if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
+				Positions.medallionSide, Positions.medallionSide)) {
+			ms.onClick(mx, my);
+		}
+		
 	}
 	
 	
@@ -505,16 +535,17 @@ public class Program extends PApplet {
 		if (mapHasMoved) {
 			gm.computeGridValues();
 			initHistogram();
+			if (map.getZoom()>=zoomThreshold) {
+				markerList=updateMarkerList();
+			}
+			
+			updateCoordinatesLimits();
+			
 			mapHasMoved=false;
 		}
-		System.out.println("RELEASED");
 	}
 
 	public void myClicked(int id, float mx, float my) {
-		if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
-				Positions.medallionSide, Positions.medallionSide)) {
-			ms.onClick(mx, my);
-		}
 	}
 
 	public void mouseDragged() {
