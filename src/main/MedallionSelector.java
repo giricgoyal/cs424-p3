@@ -122,7 +122,7 @@ public class MedallionSelector extends BasicControl {
 		int centralTokenX = (int) (myX + myWidth / 2);
 		int centralTokenY = (int) (myY + myWidth / 2);
 		parent.ellipseMode(PConstants.CENTER);
-		parent.fill(Colors.gridColor);
+		parent.fill(Colors.filterColor);
 		parent.ellipse(centralTokenX, centralTokenY, tokenDiameter,
 				tokenDiameter);
 

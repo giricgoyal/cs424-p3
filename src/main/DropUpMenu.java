@@ -34,7 +34,7 @@ public class DropUpMenu extends BasicControl {
 		parent.pushStyle();
 		parent.rectMode(PConstants.CORNER);
 		if (activeMedallion)
-			parent.fill(Colors.gridColor);
+			parent.fill(Colors.filterColor);
 		else
 			parent.fill(Colors.medium);
 		
@@ -54,9 +54,12 @@ public class DropUpMenu extends BasicControl {
 		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
 		parent.textSize(Utilities.Converter(10));
 		for (int i = 1; i <= FilterValues.attributes.length; i++) {
-			parent.fill(Colors.medium);
+			if (activeMedallion)
+				parent.fill(Colors.filterColor);
+			else
+				parent.fill(Colors.medium);
 			parent.rect(myX, myY - i * myHeight, myWidth, myHeight);
-			parent.fill(Colors.light);
+			parent.fill(Colors.white);
 			parent.text(FilterValues.attributes[i - 1], (myWidth) / 2 + myX,
 					(myHeight) / 2 + myY - i * myHeight);
 		}

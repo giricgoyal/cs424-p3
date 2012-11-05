@@ -105,7 +105,7 @@ public class Program extends PApplet {
 		//h1.setBounds();
 		//h2.setBounds();
 		h1.setString(Utilities.hist1String);
-		h2.setString(Utilities.hist2String + " " + Utilities.activeYear);
+		h2.setString(Utilities.hist2String);
 		h1.setData(results);
 		h2.setData(results);
 
@@ -150,12 +150,14 @@ public class Program extends PApplet {
 		controls.add(h2);
 
 		initHistogram();
-
-		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
-		controls.add(dropUpMenu);
+		
 		
 		dropUpMenu2 = new DropUpMenu(this, Positions.buttonKeyX, Positions.buttonKeyY, Positions.buttonKeyWidth, Positions.buttonKeyHeight, ms, false);
 		controls.add(dropUpMenu2);
+
+		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
+		controls.add(dropUpMenu);
+
 		
 		
 
@@ -288,12 +290,22 @@ public class Program extends PApplet {
 			gm.drawGrid();
 			gm.drawCircles(Utilities.activeYear);
 		}
+		
+		//BEFORE OF THE CONTROLS, UNIFY THE MEDALLION AND ITS BUTTON
+		fill(Colors.filterColor);
+		noStroke();
+		beginShape();
+		vertex(ms.myX + ms.myWidth / 2,  ms.myY + ms.myWidth / 2);
+		vertex(Positions.buttonFilterX, Positions.buttonFilterY);
+		vertex(Positions.buttonFilterX, Positions.buttonFilterY+Positions.buttonFilterHeight);
+		endShape();
 
 		// DRAW CONTROLS
 		for (BasicControl bc : controls) {
 			bc.draw();
 		}
-
+		
+		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
 			omicronManager.process();
@@ -368,24 +380,30 @@ public class Program extends PApplet {
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
+			h1.setData(results);
+			h2.setData(results);
 		}
 	}
 
 	public void zoomOut() {
 		if (map.getZoom() > minZoom) {
 			map.zoomOut();
+			
 			gm.computeGridValues();timeline.updateData(gm);
 			updateCoordinatesLimits();
 			System.out.println("Current zoom level: " + map.getZoom());
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
+			h2.setData(results);
+			h1.setData(results);
 		}
 	}
 
 	public void nextYear() {
 		if (Utilities.activeYear < maxYear) {
 			Utilities.activeYear++;
+			h2.setData(results);
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
@@ -395,6 +413,7 @@ public class Program extends PApplet {
 	public void prevYear() {
 		if (Utilities.activeYear > minYear) {
 			Utilities.activeYear--;
+			h2.setData(results);
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
