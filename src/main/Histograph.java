@@ -177,12 +177,12 @@ public class Histograph extends BasicControl {
 			this.lowerBound = (int)(min - min % 100000);
 			this.upperBound = (int)(max + 100000 - max % 100000);
 		}
-		if (Utilities.lowerBound > this.lowerBound) {
+		//if (Utilities.lowerBound > this.lowerBound) {
 			Utilities.lowerBound = this.lowerBound;
-		}
-		if (Utilities.upperBound < this.upperBound) {
+		//}
+		//if (Utilities.upperBound < this.upperBound) {
 			Utilities.upperBound = this.upperBound;
-		}	
+		//}	
 	}
 	
 	public void setString(String mainLabel, String xLabel) {

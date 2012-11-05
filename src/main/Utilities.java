@@ -62,8 +62,8 @@ public class Utilities {
     public static float minActiveLongitude;
     public static float maxActiveLongitude;
 
-    public static int lowerBound = Integer.MAX_VALUE;
-    public static int upperBound = Integer.MIN_VALUE;
+    public static int lowerBound;
+    public static int upperBound;
     
 
 }
