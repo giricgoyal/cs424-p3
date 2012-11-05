@@ -267,7 +267,7 @@ public class Program extends PApplet {
 				Utilities.mapOffset.x, Utilities.mapOffset.y,
 				Utilities.mapSize.x, Utilities.mapSize.y);
 		map.panTo(locationUSA);
-		map.setZoom(zoomInterState);
+		map.setZoom(minZoom);
 
 		updateCoordinatesLimits();
 	}
@@ -289,11 +289,10 @@ public class Program extends PApplet {
 	// ******************************************
 
 	// zoom 0 is the whole world, 19 is street level
-	final int zoomInterState = 4;
-	final int zoomState = 7;
-	final int zoomCity = 11;
-	final int maxZoom = 19;
-	final int minZoom = 1;
+	final int zoomCity = 12;
+	final int zoomThreshold = 11;
+	final int maxZoom = 16;
+	final int minZoom = 6;
 
 	final int maxYear = 2010;
 	final int minYear = 2001;
@@ -412,91 +411,60 @@ public class Program extends PApplet {
 	PVector initTouchPos2 = new PVector();
 	PVector lastTouchPos = new PVector();
 	PVector lastTouchPos2 = new PVector();
-
+	int mapDragHack=1;
+	
 	@SuppressWarnings("rawtypes")
 	Hashtable touchList;
 
 	public boolean mapHasMoved = false;
 
 	public void myPressed(int id, float mx, float my) {
-		Touch t = new Touch(id, mx, my, 0, 0);
-		touchList.put(id, t);
-
-		if (touchList.size() == 1) { // If one touch record initial position
-										// (for dragging). Saving ID 1 for later
-			touchID1 = id;
-			initTouchPos.x = mx;
-			initTouchPos.y = my;
-		} else if (touchList.size() == 2) { // If second touch record initial
-											// position (for zooming). Saving ID
-											// 2 for later
-			touchID2 = id;
-			initTouchPos2.x = mx;
-			initTouchPos2.y = my;
-		}
-
-		if (touchList.size() >= 5) {
-
-			// Zoom to entire USA
-			map.setCenterZoom(locationUSA, 6);
-		}
-
-		if (id == touchID1) {
-			lastTouchPos.x = mx;
-			lastTouchPos.y = my;
-		} else if (id == touchID2) {
-			lastTouchPos2.x = mx;
-			lastTouchPos2.y = my;
-		}
-
-		// CLICK ON THE MAP: if we are clicking on the map, check if we are
-		// clicking on a marker.
-		// IF so, toggle its opening.
-		if (isIn(mouseX, mouseY, Utilities.mapOffset.x, Utilities.mapOffset.y,
+		
+		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
 				Utilities.mapSize.x, Utilities.mapSize.y)) {
 
-			lastTouchPos.x = mouseX;
-			lastTouchPos.y = mouseY;
+			lastTouchPos.x = mx;
+			lastTouchPos.y = my;
 		}
 
-		if (isIn(mouseX, mouseY, Positions.keyboardX, Positions.keyboardY,
+		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
-			sb.updateTextBox(keyboard.Click(mouseX, mouseY));
+			sb.updateTextBox(keyboard.Click(mx, my));
 		}
 
-		if (isIn(mouseX, mouseY, Positions.suggestionBoxX,
+		if (isIn(mx, my, Positions.suggestionBoxX,
 				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 				Positions.suggestionBoxHeight)) {
-			sb.Click(mouseX, mouseY);
+			sb.Click(mx, my);
 		}
 
-		if (buttonPlus.isInRectangle(mouseX, mouseY)) {
+		if (buttonPlus.isInRectangle(mx, my)) {
 			buttonPlus.setSelected(!buttonPlus.isSelected());
 			zoomIn();
 			initHistogram();
 		}
-		if (buttonMinus.isInRectangle(mouseX, mouseY)) {
+		if (buttonMinus.isInRectangle(mx, my)) {
 			buttonMinus.setSelected(!buttonMinus.isSelected());
 			zoomOut();
 			initHistogram();
 		}
-		if (buttonDecYear.isInRectangle(mouseX, mouseY)) {
+		if (buttonDecYear.isInRectangle(mx, my)) {
 			buttonDecYear.setSelected(!buttonDecYear.isSelected());
 			prevYear();
 			initHistogram();
 		}
-		if (buttonIncYear.isInRectangle(mouseX, mouseY)) {
+		if (buttonIncYear.isInRectangle(mx, my)) {
 			buttonIncYear.setSelected(!buttonIncYear.isSelected());
 			nextYear();
 			initHistogram();
 		}
-		if (dropUpMenu.isInRectangle(mouseX, mouseY)) {
+		if (dropUpMenu.isInRectangle(mx, my)) {
 			dropUpMenu.setSelected(!dropUpMenu.isSelected());
 		}
 		if (dropUpMenu.isSelected()) {
-			dropUpMenu.setSelectedName(dropUpMenu.selected(mouseX, mouseY));
+			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
 		}
-		if (updateQueryButton.isInRectangle(mouseX, mouseY)) {
+		if (updateQueryButton.isInRectangle(mx, my)) {
 			updateQueryButton.setSelected(!updateQueryButton.isSelected());
 
 			ms.pushFilters();
@@ -505,63 +473,31 @@ public class Program extends PApplet {
 			gm.computeGridValues();
 		}
 	}
-	int mapDragHack=1;
+	
+	
+	
 	public void myDragged(int id, float mx, float my) {
 		// DRAG ON THE MAP!
-		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
-				Utilities.mapSize.x, Utilities.mapSize.y)) {
-			// MOUSE CLICK
-			if (id < 0) {
-				mapDragHack++;
-				if (mapDragHack % 10 == 0) {
-					mapDragHack = 1;
+		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,	Utilities.mapSize.x, Utilities.mapSize.y)) {
+			mapDragHack++;
+			if (mapDragHack % 10 == 0) {
+				mapDragHack = 1;
 
-					System.out.println("OLD CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
-					
-					map.setCenter(map.pointLocation(
-							map.locationPoint(map.getCenter()).x
-									- (mx - lastTouchPos.x),
-							map.locationPoint(map.getCenter()).y
-									- (my - lastTouchPos.y)));
+				System.out.println("OLD CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
+				
+				map.setCenter(map.pointLocation(
+						map.locationPoint(map.getCenter()).x
+								- (mx - lastTouchPos.x),
+						map.locationPoint(map.getCenter()).y
+								- (my - lastTouchPos.y)));
 
-					System.out.println("NEW CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
-					
-					lastTouchPos.x = mx;
-					lastTouchPos.y = my;
-					mapHasMoved = true;
-				}
-			} else {// OMICRON
-				if (touchList.size() == 2) {
-					// Only two touch, scale map based on midpoint and distance
-					// from initial touch positions
-					float sc = dist(lastTouchPos.x, lastTouchPos.y,
-							lastTouchPos2.x, lastTouchPos2.y);
-					float initPos = dist(initTouchPos.x, initTouchPos.y,
-							initTouchPos2.x, initTouchPos2.y);
-
-					PVector midpoint = new PVector(
-							(lastTouchPos.x + lastTouchPos2.x) / 2,
-							(lastTouchPos.y + lastTouchPos2.y) / 2);
-					sc -= initPos;
-					sc /= 5000;
-					sc += 1;
-					// println(sc);
-					float mX = (midpoint.x - Utilities.mapOffset.x)
-							- Utilities.mapSize.x / 2;
-					float mY = (midpoint.y - Utilities.mapOffset.y)
-							- Utilities.mapSize.y / 2;
-					/*map.tx -= mX / map.sc;
-					map.ty -= mY / map.sc;
-					map.sc *= sc;
-					map.tx += mX / map.sc;
-					map.ty += mY / map.sc;*/
-				}
+				System.out.println("NEW CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
+				
+				lastTouchPos.x = mx;
+				lastTouchPos.y = my;
+				mapHasMoved = true;
 			}
 		}
-		// Update touch list
-		/*
-		 * Touch t = new Touch(id, mx, my, 0, 0); touchList.put(id, t);
-		 */
 	}
 
 	public void myReleased(int id, float mx, float my) {
@@ -575,9 +511,9 @@ public class Program extends PApplet {
 	}
 
 	public void myClicked(int id, float mx, float my) {
-		if (isIn(mouseX, mouseY, Positions.medallionX, Positions.medallionY,
+		if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
 				Positions.medallionSide, Positions.medallionSide)) {
-			ms.onClick(mouseX, mouseY);
+			ms.onClick(mx, my);
 		}
 	}
 
@@ -601,6 +537,39 @@ public class Program extends PApplet {
 	@SuppressWarnings("unchecked")
 	public void touchDown(int ID, float xPos, float yPos, float xWidth,
 			float yWidth) {
+		
+		Touch t = new Touch(ID, xPos, yPos, xWidth, yWidth);
+		touchList.put(ID,t);
+		System.out.println("Added Touch "+ID);
+		
+		if (touchList.size() == 1) { // If one touch record initial position
+			// (for dragging). Saving ID 1 for later
+			touchID1 = ID;
+			initTouchPos.x = mouseX;
+			initTouchPos.y = mouseY;
+		} else if (touchList.size() == 2) { 
+			// If second touch record initial
+			// position (for zooming). Saving ID
+			// 2 for later
+			touchID2 = ID;
+			initTouchPos2.x = mouseX;
+			initTouchPos2.y = mouseY;
+		}
+		
+		if (touchList.size() >= 5) {
+		
+		// Zoom to entire USA
+			map.setCenterZoom(locationUSA, minZoom);
+		}
+		
+		if (ID == touchID1) {
+			lastTouchPos.x = mouseX;
+			lastTouchPos.y = mouseY;
+		} else if (ID == touchID2) {
+			lastTouchPos2.x = mouseX;
+			lastTouchPos2.y = mouseY;
+		}
+		
 		myPressed(ID, xPos, yPos);
 	}
 
@@ -612,6 +581,8 @@ public class Program extends PApplet {
 
 	public void touchUp(int ID, float xPos, float yPos, float xWidth,
 			float yWidth) {
+		touchList.remove(ID);
+		System.out.println("Released Touch "+ID);
 		myReleased(ID, xPos, yPos);
 	}
 

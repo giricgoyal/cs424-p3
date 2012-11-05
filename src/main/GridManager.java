@@ -99,14 +99,6 @@ public class GridManager {
 				pc.values.get(piesIndex).value++;
 			}
 		}
-		
-		for (int i=0;i<gridValues.length;i++) {
-			for (int j=0;j<gridValues[i].length;j++) {
-					System.out.println(pies[i][j][4].values.get(0).value);
-				
-			}
-		}
-		System.out.println("END PRINT");
 	}
 	
 	public void drawCircles(int year) {
