@@ -9,10 +9,10 @@ public class Positions {
 	
 	public static float histographWidth = histogramAreaWidth/2 - Utilities.Converter(80);
 	public static float histographHeight = histogramAreaHeight - Utilities.Converter(60);
-	public static float histograph1X = histogramAreaX - histogramAreaWidth/4 + Utilities.Converter(20);
+	public static float histograph1X = histogramAreaX - histogramAreaWidth/4 + Utilities.Converter(70);
 	public static float histograph1Y = histogramAreaY - Utilities.Converter(5);
 	
-	public static float histograph2X = histograph1X + histogramAreaWidth/2;
+	public static float histograph2X = histograph1X + histogramAreaWidth/2 - Utilities.Converter(50);
 	public static float histograph2Y = histograph1Y;
 	
 

@@ -139,13 +139,13 @@ public class Program extends PApplet {
 				Positions.textBoxWidth, Positions.textBoxHeight,this);
 		controls.add(sb);
 
-		h1 = new Histograph(this, Positions.histograph1X,
-				Positions.histograph1Y, Positions.histographWidth,
+		h1 = new Histograph(this, Positions.histograph2X,
+				Positions.histograph2Y, Positions.histographWidth,
 				Positions.histographHeight);
 		controls.add(h1);
 
-		h2 = new Histograph(this, Positions.histograph2X,
-				Positions.histograph2Y, Positions.histographWidth,
+		h2 = new Histograph(this, Positions.histograph1X,
+				Positions.histograph1Y, Positions.histographWidth,
 				Positions.histographHeight);
 		controls.add(h2);
 
