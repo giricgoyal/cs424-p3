@@ -49,7 +49,7 @@ public class Program extends PApplet {
 	Keyboard keyboard;
 	SuggestionBox sb;
 	Histograph h1, h2;
-	DropUpMenu dropUpMenu;
+	DropUpMenu dropUpMenu, dropUpMenu2;
 	MedallionSelector ms;
 
 	/**
@@ -123,7 +123,7 @@ public class Program extends PApplet {
 		// Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 		// Positions.suggestionBoxHeight);
 		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY,
-				Positions.textBoxWidth, Positions.textBoxHeight, this);
+				Positions.textBoxWidth, Positions.textBoxHeight,this);
 		controls.add(sb);
 
 		h1 = new Histograph(this, Positions.histograph1X,
@@ -139,8 +139,14 @@ public class Program extends PApplet {
 		initHistogram();
 
 		dropUpMenu = new DropUpMenu(this, Utilities.width / 3 * 2,
-				Utilities.height / 2, 100, 20, ms);
+				Utilities.height / 2, 100, 20, ms,true);
 		controls.add(dropUpMenu);
+		
+		dropUpMenu2 = new DropUpMenu(this, Utilities.width / 3 * 2,
+				Utilities.height / 2-20, 100, 20, ms,false);
+		controls.add(dropUpMenu2);
+		
+		
 
 		// BUTTON TEST
 		buttonPlus = new Button(this, Positions.buttonPlusX,
@@ -267,9 +273,9 @@ public class Program extends PApplet {
 		Utilities.mapOffset = new PVector(0, 0);
 
 		providers = new AbstractMapProvider[3];
-		providers[0] = new Microsoft.RoadProvider();
+		providers[0] = new Microsoft.AerialProvider();
 		providers[1] = new Microsoft.HybridProvider();
-		providers[2] = new Microsoft.AerialProvider();
+		providers[2] = new Microsoft.RoadProvider();
 		/*
 		 * providers[3] = new Yahoo.AerialProvider(); providers[4] = new
 		 * Yahoo.RoadProvider(); providers[5] = new OpenStreetMapProvider();
@@ -302,11 +308,11 @@ public class Program extends PApplet {
 	// ******************************************
 
 	// zoom 0 is the whole world, 19 is street level
+	final int zoomCity = 12;
 	final int zoomThreshold = 11;
 	final int maxZoom = 16;
-	
-	//final int minZoom = 6; //WALL
-	final int minZoom = 4;	//PC
+	//final int minZoom = 6;
+	final int minZoom = 3;
 	
 	final int maxYear = 2010;
 	final int minYear = 2001;
@@ -445,20 +451,12 @@ public class Program extends PApplet {
 	public boolean mapHasMoved = false;
 
 	public void myPressed(int id, float mx, float my) {
-
+		
 		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
 				Utilities.mapSize.x, Utilities.mapSize.y)) {
-			
+
 			lastTouchPos.x = mx;
 			lastTouchPos.y = my;
-			
-			//CHECK FOR MARKERS
-			float epsilon = Utilities.Converter(10);
-			for (Marker m : markerList) {
-				if (mx-epsilon <= m.x && m.x <= mx+epsilon && my-epsilon <= m.y && m.y <= my+epsilon) {
-					m.isOpen=!m.isOpen;
-				}
-			}
 		}
 
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
@@ -498,6 +496,14 @@ public class Program extends PApplet {
 		if (dropUpMenu.isSelected()) {
 			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
 		}
+		if (dropUpMenu2.isInRectangle(mx, my)) {
+			dropUpMenu2.setSelected(!dropUpMenu2.isSelected());
+		}
+		if (dropUpMenu2.isSelected()) {
+			int a=dropUpMenu2.selected(mx, my);
+			dropUpMenu2.setSelectedName(a);
+			Utilities.focusAttribute=dropUpMenu2.getSelectedName();
+		}
 		if (updateQueryButton.isInRectangle(mx, my)) {
 			updateQueryButton.setSelected(!updateQueryButton.isSelected());
 
@@ -522,6 +528,8 @@ public class Program extends PApplet {
 			if (mapDragHack % 10 == 0) {
 				mapDragHack = 1;
 
+				System.out.println("OLD CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
+				
 				map.setCenter(map.pointLocation(
 						map.locationPoint(map.getCenter()).x
 								- (mx - lastTouchPos.x),

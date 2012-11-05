@@ -70,8 +70,8 @@ public class QueryManager {
 		return pieAttribute;
 	}
 	
-	public void setPieAttrubte(){
-		
+	public void setPieAttrubte(String pieAttribute){
+		this.pieAttribute=pieAttribute;
 	}
 	
 	private boolean existTrue(int i){
