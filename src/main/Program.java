@@ -84,7 +84,7 @@ public class Program extends PApplet {
 		timer=System.currentTimeMillis();		
 		
 		//GRID
-		gm = new GridManager(this,map,results);
+		gm = new GridManager(this,map,results, Utilities.defaultFocusAttribute);
 		gm.computeGridValues();
 		System.out.println(System.currentTimeMillis()-timer);
 		
@@ -94,7 +94,7 @@ public class Program extends PApplet {
 	public void initControls() {
 		controls=new ArrayList<BasicControl>();
 		
-		ms = new MedallionSelector(this, "Penis", new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
+		ms = new MedallionSelector(this, Utilities.defaultFocusAttribute, new String[] {"A","B", "C","DDD"},Positions.medallionX, Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 		
 		//Keyboard keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY, Positions.keyboardWidth, Positions.keyboardHeight);
@@ -449,9 +449,10 @@ public class Program extends PApplet {
 	  }
 	  if (updateQueryButton.isInRectangle(mouseX, mouseY)){
 		  updateQueryButton.setSelected(!updateQueryButton.isSelected());
+		  
 		  ms.pushFilters();
-		  results = queryManager.getCrashes(2, 200, -200, 0);
-		  gm = new GridManager(this, map, results);
+		  results = queryManager.getCrashesALL();
+		  gm = new GridManager(this, map, results, Utilities.focusAttribute);
 		  gm.computeGridValues();
 	  }
 	}

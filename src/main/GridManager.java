@@ -22,6 +22,7 @@ public class GridManager {
 	public PApplet parent;
 	public InteractiveMap map;
 	public ArrayList<DataQuad> results;
+	public String currentKey;
 	
 	Piechart [][][] pies;
 	
@@ -30,16 +31,17 @@ public class GridManager {
 		
 	}
 	
-	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res) {
+	public GridManager(PApplet p, InteractiveMap m, ArrayList<DataQuad> res, String ck) {
 		parent=p;
 		map=m;
 		results=res;
+		currentKey=ck;
 		pies=new Piechart[gridHLine-1][gridVLine-1][10];
 		for (int i=0;i<pies.length;i++) {
 			for (int j=0;j<pies[i].length;j++) {
 				for (int k=0;k<pies[i][j].length;k++) {
 					pies[i][j][k]=new Piechart(parent, Utilities.Converter(20), (float)(Utilities.mapOffset.x+(j+0.5)*gridHStep), (float)(Utilities.mapOffset.y+(i+0.5)*gridVStep));
-					pies[i][j][k].values=new int[]{0,0,0,0,0,0,0};
+					pies[i][j][k].initValues(currentKey);
 				}
 			}
 		}
@@ -84,8 +86,19 @@ public class GridManager {
 			if ((r!=locs.length-1)&&(c!=locs[r].length-1)) {			
 				//INCREMENT
 				gridValues[r][c][dq.getYear()-2001]++;
-				if (dq.getDOW()>=1 && dq.getDOW()<=7)
-					pies[r][c][dq.getYear()-2001].values[dq.getDOW()-1] ++ ;
+				
+				int piesIndex=0;
+				Piechart pc = pies[r][c][dq.getYear()-2001];
+				while (piesIndex<pc.values.size()) {
+					if (pc.values.get(piesIndex).key==currentKey) {
+						break;
+					}
+					piesIndex++;
+				}
+				
+				if (piesIndex==pc.values.size())piesIndex--;
+				
+				pc.values.get(piesIndex).value++;
 			}
 		}
 	}
