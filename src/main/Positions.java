@@ -3,9 +3,9 @@ package main;
 public class Positions {
 	
 	public static float histogramAreaWidth = Utilities.width/2 - Utilities.Converter(40);
-	public static float histogramAreaHeight = Utilities.height/4 + Utilities.Converter(40);
+	public static float histogramAreaHeight = Utilities.height/5 + Utilities.Converter(40);
 	public static float histogramAreaX = Utilities.width/2 + Utilities.width/4;
-	public static float histogramAreaY = Utilities.height/6 + Utilities.Converter(10); 
+	public static float histogramAreaY = Utilities.height/6; 
 	
 	public static float histographWidth = histogramAreaWidth/2 - Utilities.Converter(80);
 	public static float histographHeight = histogramAreaHeight - Utilities.Converter(60);
@@ -26,7 +26,7 @@ public class Positions {
 	public static float suggestionBoxWidth;
 	public static float suggestionBoxHeight;
 	
-	public static float circleButtonSize = Utilities.Converter(30);
+	public static float circleButtonSize = Utilities.Converter(25);
 	public static float circleButtonVSpacing = Utilities.Converter(10);
 	
 	public static float buttonProviderX = Utilities.mapOffset.x+ Utilities.mapSize.x + Utilities.Converter(10);
@@ -75,11 +75,6 @@ public class Positions {
 	public static float buttonUpdateWidth = buttonFilterWidth;
 	public static float buttonUpdateHeight = buttonFilterHeight;
 	
-	public static float timelineX = buttonDecX + buttonDecWidth + Utilities.Converter(1);
-	public static float timelineY = buttonDecY;
-	public static float timelineWidth = buttonDecWidth;
-	public static float timelineHeight = buttonDecHeight;
-	
 	public static float textBoxX = buttonKeyX + buttonKeyWidth + circleButtonVSpacing;
 	public static float textBoxY = buttonKeyY;
 	public static float textBoxWidth = Utilities.width - textBoxX - circleButtonVSpacing;
@@ -89,5 +84,10 @@ public class Positions {
 	public static float keyboardY = textBoxY+textBoxHeight+circleButtonVSpacing;
 	public static float keyboardWidth = textBoxWidth;
 	public static float keyboardHeight = Utilities.height - keyboardY - circleButtonVSpacing;
+	
+	public static float timelineX = Utilities.mapOffset.x+Utilities.mapSize.x+ buttonVSpacing;
+	public static float timelineY = histogramAreaHeight+2*buttonVSpacing;
+	public static float timelineWidth = Utilities.width - timelineX-buttonVSpacing;
+	public static float timelineHeight = buttonPlusY-circleButtonVSpacing-timelineY;
 
 }

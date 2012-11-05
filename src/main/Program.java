@@ -121,7 +121,7 @@ public class Program extends PApplet {
 				Positions.medallionY, Positions.medallionSide);
 		controls.add(ms);
 
-		timeline = new Timeline(this, 800, 200, 600, 100, gm);
+		timeline = new Timeline(this, Positions.timelineX, Positions.timelineY, Positions.timelineWidth, Positions.timelineHeight,gm);
 		timeline.updateData(gm);
 		controls.add(timeline);
 		
