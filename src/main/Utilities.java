@@ -77,4 +77,5 @@ public class Utilities {
     public static Program program;
     
     public static String[] histOptions = null;
+	public static int activeYear = 2005;
 }

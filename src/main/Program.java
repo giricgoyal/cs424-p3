@@ -39,7 +39,6 @@ public class Program extends PApplet {
 
 	QueryManager queryManager;
 	ArrayList<DataCrashInstance> results;
-	int year = 2005;
 	GridManager gm;
 
 	Button buttonPlus, buttonMinus, updateQueryButton;
@@ -189,7 +188,7 @@ public class Program extends PApplet {
 	public ArrayList <Marker> updateMarkerList() {
 		ArrayList <Marker> ret = new ArrayList<Marker>();
 		for (DataCrashInstance dci : results) {
-			if (dci.getYear()==year && Utilities.minActiveLatitude <= dci.getLatitude() && dci.getLatitude() <= Utilities.maxActiveLatitude && Utilities.minActiveLongitude <= dci.getLongitude() && dci.getLongitude() <= Utilities.maxActiveLongitude) {
+			if (dci.getYear()==Utilities.activeYear && Utilities.minActiveLatitude <= dci.getLatitude() && dci.getLatitude() <= Utilities.maxActiveLatitude && Utilities.minActiveLongitude <= dci.getLongitude() && dci.getLongitude() <= Utilities.maxActiveLongitude) {
 				//SEARCH FOR THE COLOR
 				
 				String attValue=null;
@@ -275,7 +274,7 @@ public class Program extends PApplet {
 		}
 		else {
 			gm.drawGrid();
-			gm.drawCircles(year);
+			gm.drawCircles(Utilities.activeYear);
 		}
 
 		// DRAW CONTROLS
@@ -290,7 +289,7 @@ public class Program extends PApplet {
 
 		textFont(Utilities.font, 30);
 		fill(Colors.white);
-		text(year, Utilities.width * 0.7f, Utilities.height * 0.1f);
+		text(Utilities.activeYear, Utilities.width * 0.7f, Utilities.height * 0.1f);
 	}
 
 	// INITIAL CONFIGURATION OF THE MAP
@@ -374,8 +373,8 @@ public class Program extends PApplet {
 	}
 
 	public void nextYear() {
-		if (year < maxYear) {
-			year++;
+		if (Utilities.activeYear < maxYear) {
+			Utilities.activeYear++;
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
@@ -383,8 +382,8 @@ public class Program extends PApplet {
 	}
 
 	public void prevYear() {
-		if (year > minYear) {
-			year--;
+		if (Utilities.activeYear > minYear) {
+			Utilities.activeYear--;
 			if (map.getZoom()>=zoomThreshold) {
 				markerList=updateMarkerList();
 			}
@@ -533,8 +532,8 @@ public class Program extends PApplet {
 		}
 		if (dropUpMenu.isSelected()) {
 			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
-			h1.setData(results, dropUpMenu.getSelectedName());
-			h2.setData(results, dropUpMenu.getSelectedName());
+			h1.setData(results);
+			h2.setData(results);
 		}
 		if (dropUpMenu2.isInRectangle(mx, my)) {
 			dropUpMenu2.setSelected(!dropUpMenu2.isSelected());

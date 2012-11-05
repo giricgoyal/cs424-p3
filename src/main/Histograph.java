@@ -33,14 +33,16 @@ public class Histograph extends BasicControl {
 	//private ArrayList<DataYearPair> sampleData;
 	private ArrayList<DataCrashInstance> sampleData;
 	
-	Hashtable allCrashes;
-	Hashtable specificCrashes;
+	Hashtable allYearCrashes;
+	Hashtable activeYearCrashes;
+	
 	
 	public Histograph(PApplet parent, float x, float y, float width,float height) {
 		super(parent, x, y, width, height);
 		//sampleData = new ArrayList<DataYearPair>();
 		sampleData = new ArrayList<DataCrashInstance>();
-		allCrashes = new Hashtable();
+		allYearCrashes = new Hashtable();
+		activeYearCrashes = new Hashtable();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -50,26 +52,31 @@ public class Histograph extends BasicControl {
 	}
 	*/
 	
-	public void setData(ArrayList<DataCrashInstance> sampleData,String selectedName) {
+	public void setData(ArrayList<DataCrashInstance> sampleData) {
 		this.sampleData = sampleData;
-		int optionCount = 0;
-		
 		if (Utilities.histOptions != null){
-			int index = FilterValues.attributesHasMap.get(selectedName);
-			int[] array = new int[Utilities.histOptions.length];
-			System.out.println(sampleData.size());
+			int index = FilterValues.attributesHasMap.get(Utilities.focusAttribute);
+			System.out.println(Utilities.focusAttribute);
+			int[] arrayAllYears = new int[Utilities.histOptions.length];
+			int[] arrayActiveYear = new int[Utilities.histOptions.length];
 			for (int count = 0; count < sampleData.size(); count++) {
+				int optionCount = 0;
 				while(optionCount < Utilities.histOptions.length) {
-					System.out.println(Utilities.histOptions[optionCount]);
-					System.out.println("# : " + sampleData.get(count).getByIndex(index));
-					//if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByString(Utilities.selectedName)) == 0){
-					//	array[optionCount]++;
-					//}
+					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0){
+						arrayAllYears[optionCount]++;
+					}
+					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0 && Utilities.activeYear == sampleData.get(count).getYear()){
+						arrayActiveYear[optionCount]++;
+					}
 					optionCount++;
 				}
 			}
-			for (int i=0; i<array.length; i++) 
-			System.out.println("hollA" + array[i]);
+			
+			for (int count=0; count<Utilities.histOptions.length; count++) {
+				allYearCrashes.put(Utilities.histOptions[count], arrayAllYears[count]);
+				activeYearCrashes.put(Utilities.histOptions[count], arrayActiveYear[count]);
+			}
+			
 		}
 	}
 	

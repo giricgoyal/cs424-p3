@@ -121,7 +121,6 @@ public class DropUpMenu extends BasicControl {
 		for (int i=0; i<Utilities.histOptions.length;i++) {
 			Utilities.histOptions[i] = temp[i].getToShowVaue();
 		}
-	System.out.println("AAAA : " + selectedName);	
 	}
 	
 	public String getSelectedName(){
