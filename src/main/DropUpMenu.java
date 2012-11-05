@@ -21,6 +21,7 @@ public class DropUpMenu extends BasicControl {
 		super(parent, x,y,width,height);
 
 		selectedName = Utilities.defaultFocusAttribute;
+		this.activeMedallion=activeMedallion;
 		
 		if(activeMedallion){
 		medallion = m;
@@ -91,6 +92,7 @@ public class DropUpMenu extends BasicControl {
 		selected = false;
 
 		// TODO: ADD HERE CALL TO THE MEDALLION!
+		System.out.println("Medallion is "+activeMedallion);
 		if(activeMedallion){
 		medallion.pushFilters();
 		updateMedallion();

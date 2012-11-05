@@ -3,6 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import main.Piechart.KeyValue;
+
 import omicronAPI.OmicronAPI;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -188,7 +190,36 @@ public class Program extends PApplet {
 		for (DataCrashInstance dci : results) {
 			if (dci.getYear()==year && Utilities.minActiveLatitude <= dci.getLatitude() && dci.getLatitude() <= Utilities.maxActiveLatitude && Utilities.minActiveLongitude <= dci.getLongitude() && dci.getLongitude() <= Utilities.maxActiveLongitude) {
 				//SEARCH FOR THE COLOR
-				Marker m = new Marker(this, dci.getId(), new Location (dci.getLatitude(), dci.getLongitude()), Utilities.colorCodes[(int)Math.random()*11]);
+				
+				String attValue=null;
+				if (Utilities.focusAttribute.equals("Month")) {
+					attValue=dci.getMonth();
+				} else if (Utilities.focusAttribute.equals("Day of Week")) {
+					attValue=dci.getDay_of_week();
+				} else if (Utilities.focusAttribute.equals("Age")) {
+					attValue=dci.getAge();
+				}else if (Utilities.focusAttribute.equals("Light Condition")) {
+					attValue=dci.getLight_condition();
+				} else if (Utilities.focusAttribute.equals("Alcohol Involved")) {
+					attValue=dci.getAlchol_involved();
+				} else if (Utilities.focusAttribute.equals("Sex")) {
+					attValue=dci.getSex();
+				} else if (Utilities.focusAttribute.equals("Hour")) {
+					attValue=dci.getHour();
+				} else if (Utilities.focusAttribute.equals("Weather")) {
+					attValue=dci.getWeather();
+				}
+				
+				int index = FilterValues.attributesHasMap.get(Utilities.focusAttribute);
+				int colorOfMarker=0;
+				for (int i=0;i<FilterValues.filtersValue[index].length;i++) {
+					if (FilterValues.filtersValue[index][i].getToShowVaue().equals(attValue)) {
+						colorOfMarker=Utilities.colorCodes[i]; break;
+					}
+				}
+				
+				Marker m = new Marker(this, dci.getId(), new Location (dci.getLatitude(), dci.getLongitude()), colorOfMarker);
+				
 				m.x = map.locationPoint(m.location).x;
 				m.y = map.locationPoint(m.location).y;
 				ret.add(m);
@@ -457,6 +488,12 @@ public class Program extends PApplet {
 
 			lastTouchPos.x = mx;
 			lastTouchPos.y = my;
+			float epsilon = Utilities.Converter(15);
+			for (Marker m: markerList) {
+				if (m.x-epsilon<=mx&& mx<=m.x+epsilon && m.y-epsilon <= my && my <= m.y+epsilon) {
+					m.isOpen=!m.isOpen;
+				}
+			}
 		}
 
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
