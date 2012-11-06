@@ -4,21 +4,21 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 public class Slider extends BasicControl{
-	private float knobX;
-	private float xeff;
-	private float yeff;
-	private float weff;
-	private float heff;
+	public float knobX;
+	public float xeff;
+	public float yeff;
+	public float weff;
+	public float heff;
 	private boolean selected;
 	
 	
 	public Slider(PApplet parent, float x, float y, float width, float height) {
 		super(parent, x, y, width, height);
-		xeff=x+width/10;
+		xeff=x;
 		knobX=xeff;
-		yeff=y+height/4;
-		weff=width/10*9;
-		heff=height/4*3;
+		yeff=y;
+		weff=width;
+		heff=height;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class Slider extends BasicControl{
 			parent.text(i*10,xeff+i*interval,myY+myHeight+myHeight/2);
 			parent.stroke(255);
 			parent.strokeWeight(Utilities.Converter(1));
-			parent.line(xeff+i*interval,yeff-1,xeff+i*interval,yeff+heff-1);
+			parent.line(xeff+i*interval,yeff,xeff+i*interval,yeff+heff);
 			
 		}
 	}
