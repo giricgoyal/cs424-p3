@@ -86,13 +86,15 @@ public class Histograph extends BasicControl {
 		for (int count = 0; count < sampleData.size(); count++) {
 			int optionCount = 0;
 			while(optionCount < Utilities.histOptions.length) {
-				if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0){
-					arrayAllYears[optionCount]++;
-				}
-				if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0 && Utilities.activeYear == sampleData.get(count).getYear()){
-					arrayActiveYear[optionCount]++;
-				}
-				optionCount++;	
+				if (sampleData.get(count).getLatitude() > Utilities.minActiveLatitude && sampleData.get(count).getLatitude() < Utilities.maxActiveLatitude && sampleData.get(count).getLongitude() > Utilities.minActiveLongitude && sampleData.get(count).getLongitude() < Utilities.maxActiveLongitude){
+					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0){
+						arrayAllYears[optionCount]++;
+					}
+					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0 && Utilities.activeYear == sampleData.get(count).getYear()){
+						arrayActiveYear[optionCount]++;
+					}
+				}	
+				optionCount++;
 			}
 			
 			
