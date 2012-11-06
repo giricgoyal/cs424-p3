@@ -510,89 +510,6 @@ public class Program extends PApplet {
 
 	public void myPressed(int id, float mx, float my) {
 		
-	//	System.out.println("MY PRESSED");
-		
-		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
-				Utilities.mapSize.x, Utilities.mapSize.y)) {
-
-			lastTouchPos.x = mx;
-			lastTouchPos.y = my;
-			float epsilon = Utilities.Converter(15);
-			for (Marker m: markerList) {
-				if (m.x-epsilon<=mx&& mx<=m.x+epsilon && m.y-epsilon <= my && my <= m.y+epsilon) {
-					m.isOpen=!m.isOpen;
-				}
-			}
-		}
-
-		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
-				Positions.keyboardWidth, Positions.keyboardHeight)) {
-			sb.updateTextBox(keyboard.Click(mx, my));
-		}
-
-		if (isIn(mx, my, Positions.suggestionBoxX,
-				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
-				Positions.suggestionBoxHeight)) {
-			sb.Click(mx, my);
-		}
-
-		if (buttonPlus.isInRectangle(mx, my)) {
-			buttonPlus.setSelected(!buttonPlus.isSelected());
-			zoomIn();
-			//initHistogram();
-		}
-		if (buttonMinus.isInRectangle(mx, my)) {
-			buttonMinus.setSelected(!buttonMinus.isSelected());
-			zoomOut();
-			//initHistogram();
-		}
-		if (buttonDecYear.isInRectangle(mx, my)) {
-			buttonDecYear.setSelected(!buttonDecYear.isSelected());
-			prevYear();
-			//initHistogram();
-		}
-		if (buttonIncYear.isInRectangle(mx, my)) {
-			buttonIncYear.setSelected(!buttonIncYear.isSelected());
-			nextYear();
-			//initHistogram();
-		}
-		if (dropUpMenu.isInRectangle(mx, my)) {
-			dropUpMenu.setSelected(!dropUpMenu.isSelected());
-		}
-		if (dropUpMenu.isSelected()) {
-			dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
-		}
-		if (dropUpMenu2.isInRectangle(mx, my)) {
-			dropUpMenu2.setSelected(!dropUpMenu2.isSelected());
-		}
-		if (dropUpMenu2.isSelected()) {
-			int a=dropUpMenu2.selected(mx, my);
-			dropUpMenu2.setSelectedName(a);
-			Utilities.focusAttribute=dropUpMenu2.getSelectedName();
-
-		}
-		if (updateQueryButton.isInRectangle(mx, my)) {
-			updateQueryButton.setSelected(!updateQueryButton.isSelected());
-
-			ms.pushFilters();
-			results = queryManager.getCrashesALL();
-			gm = new GridManager(this, map, results);
-			gm.computeGridValues();
-			
-			timeline.updateData(gm);
-			
-			h1.setData(results);
-			h2.setData(results);
-		}
-		if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
-				Positions.medallionSide, Positions.medallionSide)) {
-			ms.onClick(mx, my);
-		}
-		
-		if (isIn(mx, my, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth,Positions.buttonProviderHeight)) {
-			buttonProvider.setSelected(!buttonProvider.isSelected());
-			switchProvider();
-		}
 		//TODO SET 
 		if(slider.isOnKnob(mx, my)){
 			slider.setKnobSelected(true);
@@ -644,6 +561,106 @@ public class Program extends PApplet {
 			mapHasMoved=false;
 		}
 		slider.setKnobSelected(false);
+		
+
+		//	System.out.println("MY PRESSED");
+			
+			if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
+					Utilities.mapSize.x, Utilities.mapSize.y)) {
+
+				lastTouchPos.x = mx;
+				lastTouchPos.y = my;
+				float epsilon = Utilities.Converter(15);
+				for (Marker m: markerList) {
+					if (m.x-epsilon<=mx&& mx<=m.x+epsilon && m.y-epsilon <= my && my <= m.y+epsilon) {
+						m.isOpen=!m.isOpen;
+					}
+				}
+			}
+
+			if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
+					Positions.keyboardWidth, Positions.keyboardHeight)) {
+				sb.updateTextBox(keyboard.Click(mx, my));
+			}
+
+			if (isIn(mx, my, Positions.suggestionBoxX,
+					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
+					Positions.suggestionBoxHeight)) {
+				sb.Click(mx, my);
+			}
+
+			if (buttonPlus.isInRectangle(mx, my)) {
+				buttonPlus.setSelected(!buttonPlus.isSelected());
+				zoomIn();
+				//initHistogram();
+			}
+			if (buttonMinus.isInRectangle(mx, my)) {
+				buttonMinus.setSelected(!buttonMinus.isSelected());
+				zoomOut();
+				//initHistogram();
+			}
+			if (buttonDecYear.isInRectangle(mx, my)) {
+				buttonDecYear.setSelected(!buttonDecYear.isSelected());
+				prevYear();
+				//initHistogram();
+			}
+			if (buttonIncYear.isInRectangle(mx, my)) {
+				buttonIncYear.setSelected(!buttonIncYear.isSelected());
+				nextYear();
+				//initHistogram();
+			}
+			if (dropUpMenu.isInRectangle(mx, my)) {
+				dropUpMenu.setSelected(!dropUpMenu.isSelected());
+			}
+			if (dropUpMenu.isSelected()) {
+				dropUpMenu.setSelectedName(dropUpMenu.selected(mx, my));
+			}
+			if (dropUpMenu2.isInRectangle(mx, my)) {
+				dropUpMenu2.setSelected(!dropUpMenu2.isSelected());
+			}
+			if (dropUpMenu2.isSelected()) {
+				int a=dropUpMenu2.selected(mx, my);
+				dropUpMenu2.setSelectedName(a);
+				Utilities.focusAttribute=dropUpMenu2.getSelectedName();
+
+			}
+			if (updateQueryButton.isInRectangle(mx, my)) {
+				updateQueryButton.setSelected(!updateQueryButton.isSelected());
+
+				ms.pushFilters();
+				results = queryManager.getCrashesALL();
+				gm = new GridManager(this, map, results);
+				gm.computeGridValues();
+				
+				timeline.updateData(gm);
+				
+				h1.setData(results);
+				h2.setData(results);
+			}
+			if (isIn(mx, my, Positions.medallionX, Positions.medallionY,
+					Positions.medallionSide, Positions.medallionSide)) {
+				ms.onClick(mx, my);
+			}
+			
+			if (isIn(mx, my, Positions.buttonProviderX,Positions.buttonProviderY,Positions.buttonProviderWidth,Positions.buttonProviderHeight)) {
+				buttonProvider.setSelected(!buttonProvider.isSelected());
+				switchProvider();
+			}
+			
+			if (isIn(mx, my, Positions.timelineX, Positions.timelineY, Positions.timelineWidth, Positions.timelineHeight)) {
+				//CHECK IF PRESSED OF EVENTS
+				System.out.println("MX: "+mx);
+				for (int i=0;i<9;i++){
+					if (Math.abs(mx-(Positions.timelineX+Positions.timelineWidth/9*i))<Utilities.Converter(10)) {
+						for (int j=0;j<EventsManager.eventsYears.length;j++) {
+							if (2001+i==EventsManager.eventsYears[j]) {
+								EventsManager.eventsY[j] = my;
+								EventsManager.eventsShow[j] = !EventsManager.eventsShow[j];								
+							}
+						}						
+					}
+				}
+			}
 	}
 
 	public void myClicked(int id, float mx, float my) {
