@@ -6,7 +6,7 @@ import processing.core.PVector;
 
 public class Utilities {
 
-	public static boolean isWall =true;
+	public static boolean isWall =false;
 	
 	public static float Converter(float pixel) {
 		if (isWall)
@@ -140,7 +140,10 @@ public class Utilities {
 		(float) 56338.4,
 		(float) 51825.8,
 		(float) 55558.1,
-		(float) 5524.9};
+		(float) 5524.9
+		};
+	
+	
 
 	
 }

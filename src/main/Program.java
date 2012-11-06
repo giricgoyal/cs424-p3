@@ -89,6 +89,7 @@ public class Program extends PApplet {
 		// OTHER
 		Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
 		
+		
 	}
 
 	public void initHistogram() {
@@ -195,6 +196,9 @@ public class Program extends PApplet {
 		controls.add(updateQueryButton);
 		controls.add(buttonProvider);
 		controls.add(slider);
+		
+
+		slider.knobX = slider.myX + Utilities.sampleIndex *slider.myWidth / (float)100;
 	}
 
 	public ArrayList <Marker> updateMarkerList() {
@@ -339,10 +343,10 @@ public class Program extends PApplet {
 	// INIT MAP SIZE AND POSITION
 	public void initMap() {
 
-		providers = new AbstractMapProvider[3];		
-		providers[0] = new Microsoft.RoadProvider();
-		providers[1] = new Microsoft.AerialProvider();
-		providers[2] = new Microsoft.HybridProvider();
+		providers = new AbstractMapProvider[3];	
+		providers[0] = new Microsoft.HybridProvider();
+		providers[1] = new Microsoft.RoadProvider();
+		providers[2] = new Microsoft.AerialProvider();
 		/*
 		 * providers[3] = new Yahoo.AerialProvider(); providers[4] = new
 		 * Yahoo.RoadProvider(); providers[5] = new OpenStreetMapProvider();
@@ -378,8 +382,8 @@ public class Program extends PApplet {
 	public final int zoomCity = 12;
 	public final int zoomThreshold = 11;
 	public final int maxZoom = 16;
-	//final int minZoom = 6;
-	public final int minZoom = 3;
+	final int minZoom = 6;
+	//final int minZoom = 3;
 	
 	final int maxYear = 2010;
 	final int minYear = 2001;
@@ -646,7 +650,9 @@ public class Program extends PApplet {
 				updateQueryButton.setSelected(!updateQueryButton.isSelected());
 
 				ms.pushFilters();
+				
 				results = queryManager.getCrashesALL();
+				
 				gm = new GridManager(this, map, results);
 				gm.computeGridValues();
 				

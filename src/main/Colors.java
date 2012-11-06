@@ -17,6 +17,8 @@ public class Colors {
 	
 	public static int windowBackground = 0xFF223322;//0xFF202020; 
 	
+	public static int grey = 0xFF999999;
+	
 	
 	public static int map1;
 	public static int map2;
