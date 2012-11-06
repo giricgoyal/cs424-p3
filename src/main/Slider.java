@@ -14,11 +14,11 @@ public class Slider extends BasicControl{
 	
 	public Slider(PApplet parent, float x, float y, float width, float height) {
 		super(parent, x, y, width, height);
-		xeff=x+width/10;
+		xeff=x;
 		knobX=xeff;
-		yeff=y+height/4;
-		weff=width/10*9;
-		heff=height/4*3;
+		yeff=y;
+		weff=width;
+		heff=height;
 	}
 
 	@Override
