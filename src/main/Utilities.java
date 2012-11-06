@@ -72,7 +72,7 @@ public class Utilities {
     public static String focusAttribute = "Age";
 
     public static int zoomCity = 12;
-    public static int zoomState = 9;
+    public static int zoomState = 8;
     
     public static Program program;
     

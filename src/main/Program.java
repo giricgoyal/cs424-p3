@@ -88,6 +88,7 @@ public class Program extends PApplet {
 		
 		// OTHER
 		Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
+		
 	}
 
 	public void initHistogram() {
@@ -317,10 +318,15 @@ public class Program extends PApplet {
 			omicronManager.process();
 		}
 
-		textSize(Utilities.Converter(30));
+		textSize(Utilities.Converter(25));
 		textAlign(PConstants.LEFT);
 		fill(Colors.white);
-		text(Utilities.activeYear, Utilities.mapOffset.x+ Utilities.mapSize.x + Positions.circleButtonVSpacing*3, Utilities.Converter(40));
+		text("YEAR\n "+Utilities.activeYear, Utilities.mapOffset.x+ Utilities.mapSize.x + Positions.circleButtonVSpacing*4, Utilities.Converter(65));
+		
+		/*for (int w=0;w<4;w++)
+			text(("YEAR").charAt(w), Utilities.mapOffset.x+ Utilities.mapSize.x + Positions.circleButtonVSpacing*4, Utilities.Converter(40)+Utilities.Converter(30)*w);
+		for (int w=0;w<4;w++)
+			text((Utilities.activeYear+"").charAt(w), Utilities.mapOffset.x+ Utilities.mapSize.x + Positions.circleButtonVSpacing*8, Utilities.Converter(40)+Utilities.Converter(30)*w);*/
 	
 	}
 
@@ -541,8 +547,6 @@ public class Program extends PApplet {
 			mapDragHack++;
 			if (mapDragHack % 10 == 0) {
 				mapDragHack = 1;
-
-				System.out.println("OLD CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
 				
 				map.setCenter(map.pointLocation(
 						map.locationPoint(map.getCenter()).x
@@ -550,7 +554,6 @@ public class Program extends PApplet {
 						map.locationPoint(map.getCenter()).y
 								- (my - lastTouchPos.y)));
 
-				System.out.println("NEW CENTER: "+map.getCenter().lat+ " "+map.getCenter().lon);
 				
 				lastTouchPos.x = mx;
 				lastTouchPos.y = my;
