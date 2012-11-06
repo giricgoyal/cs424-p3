@@ -227,10 +227,17 @@ public class Histograph extends BasicControl {
 			parent.fill(Colors.white);
 			parent.textAlign(PConstants.CENTER, PConstants.TOP);
 			parent.textSize(Utilities.Converter(7));
-			
+			/*
 			if (field.contains("-")){
 				field = field.replaceAll("-"," ");
 			}
+			if (field.contains(" " + " ")){
+				field = field.replaceAll(" " + " ", " ");
+			}
+			if (field.contains(" ")){
+				field = field.replaceAll(" ","\n");
+			}
+			
 			if (field.contains(" ")){
 				field = field.replaceAll(" ", "\n");
 			}
@@ -240,10 +247,29 @@ public class Histograph extends BasicControl {
 			if (field.contains("\n\n\n")) {
 				field = field.replaceAll("\n\n\n" ,"\n");
 			}
-			if (this.focusAttribute.compareToIgnoreCase("Month")==0 || this.focusAttribute.compareToIgnoreCase("day of week")==0) {
-				field = field.substring(0,3);
+			if (field.contains("\n\n\n\n")){
+				field = field.replaceAll("\n\n\n\n", "\n");
+			}*/
+			field = field.trim();
+			if (this.focusAttribute.compareToIgnoreCase("Light Condition") == 0) {
+				field = field.replaceAll("-", "");
 			}
-			parent.text(field, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(5));
+			String tempField = "";
+			while(field.contains(" ")) {
+				tempField = tempField.concat(field.substring(0,field.indexOf(" ")));
+				tempField = tempField.concat("\n");
+				System.out.println(field.substring(0,field.indexOf(" ")));
+				field = field.substring(field.indexOf(" "));
+				field = field.trim();
+			}
+			
+			tempField = tempField.concat(field);
+			
+			//System.out.println("field: " + tempField);
+			if (this.focusAttribute.compareToIgnoreCase("Month")==0 || this.focusAttribute.compareToIgnoreCase("day of week")==0) {
+				tempField = tempField.substring(0,3);
+			}
+			parent.text(tempField, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(5));
 			fieldCount++;
 		}
 		
