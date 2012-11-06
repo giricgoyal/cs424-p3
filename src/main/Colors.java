@@ -1,12 +1,12 @@
 package main;
 
 public class Colors {
-
 	public static int black = 0xFF101010;
 	public static int dark;
 	public static int medium = 0xFF2E4174;
 	public static int light = 0xFFDDDDDD;	
 	public static int white = 0xFFEEEEEE;
+	public static int gray = 0xFFE5D8BD;
 	
 	public static int transparentWhite = 0x77EEEEEE;
 	public static int transparentBlack = 0x88101010;
@@ -18,6 +18,7 @@ public class Colors {
 	public static int windowBackground = 0xFF223322;//0xFF202020; 
 	
 	public static int grey = 0xFF999999;
+	
 	
 	
 	public static int map1;

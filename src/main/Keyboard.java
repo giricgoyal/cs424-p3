@@ -96,7 +96,7 @@ public class Keyboard extends BasicControl {
 		this.verticalSpacing = Utilities.Converter(5);
 
 		// Set the color of the buttons
-		this.buttonsBackgroundColor = Colors.white;
+		this.buttonsBackgroundColor = Colors.gray;
 		this.buttonsTextColor = Colors.black;
 		this.buttonsBorderColor = Colors.white;
 
