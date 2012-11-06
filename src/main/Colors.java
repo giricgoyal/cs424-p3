@@ -15,7 +15,7 @@ public class Colors {
 	
 	public static int filterColor = 0xFF987E18;
 	
-	public static int windowBackground = 0xFF202020; 
+	public static int windowBackground = 0xFF223322;//0xFF202020; 
 	
 	
 	public static int map1;
