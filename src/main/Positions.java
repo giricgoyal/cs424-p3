@@ -75,6 +75,11 @@ public class Positions {
 	public static float buttonUpdateWidth = buttonFilterWidth;
 	public static float buttonUpdateHeight = buttonFilterHeight;
 	
+	public static float sliderX = buttonUpdateX;
+	public static float sliderY = buttonUpdateY + buttonUpdateHeight+buttonVSpacing;
+	public static float sliderWidth = buttonUpdateWidth;
+	public static float sliderHeight = buttonUpdateHeight;
+	
 	public static float textBoxX = buttonKeyX + buttonKeyWidth + circleButtonVSpacing;
 	public static float textBoxY = buttonKeyY;
 	public static float textBoxWidth = Utilities.width - textBoxX - circleButtonVSpacing;

@@ -151,7 +151,7 @@ public class Program extends PApplet {
 		dropUpMenu2 = new DropUpMenu(this, Positions.buttonKeyX, Positions.buttonKeyY, Positions.buttonKeyWidth, Positions.buttonKeyHeight, ms, false);
 		controls.add(dropUpMenu2);
 
-		slider = new Slider(this,Utilities.width*2/3,Utilities.height/10*9,300,20);		
+		slider = new Slider(this,Positions.sliderX, Positions.sliderY, Positions.sliderWidth, Positions.sliderHeight);		
 
 
 		dropUpMenu = new DropUpMenu(this, Positions.buttonFilterX, Positions.buttonFilterY, Positions.buttonFilterWidth, Positions.buttonFilterHeight, ms, true);
@@ -282,6 +282,15 @@ public class Program extends PApplet {
 			for (Marker m : markerList) {
 				m.draw();
 			}
+			
+			for (Marker m : markerList) {
+				if (m.isOpen) {
+					PopUp popUp =new PopUp(this, m.x, m.y, m.color);
+					if (m.infoText == null) m.infoText=queryManager.getDataCrashes(m.id);
+					
+					popUp.draw(m.infoText);
+				}
+			}
 		}
 		else {
 			gm.drawGrid();
@@ -308,9 +317,10 @@ public class Program extends PApplet {
 			omicronManager.process();
 		}
 
-		textFont(Utilities.font, 30);
+		textSize(Utilities.Converter(30));
+		textAlign(PConstants.LEFT);
 		fill(Colors.white);
-		text(Utilities.activeYear, Utilities.width * 0.7f, Utilities.height * 0.1f);
+		text(Utilities.activeYear, Utilities.mapOffset.x+ Utilities.mapSize.x + Positions.circleButtonVSpacing*3, Utilities.Converter(40));
 	
 	}
 
@@ -509,6 +519,12 @@ public class Program extends PApplet {
 	public boolean mapHasMoved = false;
 
 	public void myPressed(int id, float mx, float my) {
+		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
+				Utilities.mapSize.x, Utilities.mapSize.y)) {
+			lastTouchPos.x = mx;
+			lastTouchPos.y = my;
+			}
+
 		
 		//TODO SET 
 		if(slider.isOnKnob(mx, my)){
@@ -560,24 +576,23 @@ public class Program extends PApplet {
 			
 			mapHasMoved=false;
 		}
+		
+		if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
+				Utilities.mapSize.x, Utilities.mapSize.y)) {
+			float epsilon = Utilities.Converter(15);
+			for (Marker m: markerList) {
+				if (m.x-epsilon<=mx&& mx<=m.x+epsilon && m.y-epsilon <= my && my <= m.y+epsilon) {
+					m.isOpen=!m.isOpen;
+				}
+			}
+		}
 		slider.setKnobSelected(false);
+		if (isIn(mx, my, Positions.sliderX, Positions.sliderY, Positions.sliderWidth, Positions.sliderHeight, 0.1f)) {
+			Utilities.sampleIndex = (int)(slider.getIntensity()*100)+1;
+		}
 		
 
 		//	System.out.println("MY PRESSED");
-			
-			if (isIn(mx, my, Utilities.mapOffset.x, Utilities.mapOffset.y,
-					Utilities.mapSize.x, Utilities.mapSize.y)) {
-
-				lastTouchPos.x = mx;
-				lastTouchPos.y = my;
-				float epsilon = Utilities.Converter(15);
-				for (Marker m: markerList) {
-					if (m.x-epsilon<=mx&& mx<=m.x+epsilon && m.y-epsilon <= my && my <= m.y+epsilon) {
-						m.isOpen=!m.isOpen;
-					}
-				}
-			}
-
 			if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 					Positions.keyboardWidth, Positions.keyboardHeight)) {
 				sb.updateTextBox(keyboard.Click(mx, my));
