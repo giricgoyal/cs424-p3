@@ -4,6 +4,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.swing.text.Position;
@@ -23,11 +24,13 @@ import types.DataYearPair;
  */
 public class Histograph extends BasicControl {
 	
-	int lowerBound;
-	int upperBound;
+	float lowerBound;
+	float upperBound;
 	String xLabel;
 	String yLabel;
 	String mainLabel;
+	String focusAttribute;
+	String defaultFocusAttribute;
 	/**
 	 * sample string to plot an example. 
 	 * add an argument in the constructor to draw histograms for different information as per the need
@@ -65,13 +68,15 @@ public class Histograph extends BasicControl {
 	
 	public void setData(ArrayList<DataCrashInstance> sampleData) {
 		this.sampleData = sampleData;
+		this.focusAttribute = Utilities.focusAttribute;
+		this.defaultFocusAttribute = Utilities.defaultFocusAttribute;
 		allYearCrashes = new Hashtable();
 		activeYearCrashes = new Hashtable();
 		
-		int index = FilterValues.attributesHasMap.get(Utilities.defaultFocusAttribute);
+		int index = FilterValues.attributesHasMap.get(this.defaultFocusAttribute);
 		
 		if (Utilities.histOptions != null){
-			index = FilterValues.attributesHasMap.get(Utilities.focusAttribute);
+			index = FilterValues.attributesHasMap.get(this.focusAttribute);
 		}
 		//System.out.println("Index : " + index);
 		DataCrash[] temp = FilterValues.filtersValue[index];
@@ -80,18 +85,20 @@ public class Histograph extends BasicControl {
 			Utilities.histOptions[i] = temp[i].getToShowVaue();
 		}
 		//System.out.println("Check");
-		int[] arrayAllYears = new int[Utilities.histOptions.length];
-		int[] arrayActiveYear = new int[Utilities.histOptions.length];
+		float[] arrayAllYears = new float[Utilities.histOptions.length];
+		float[] arrayActiveYear = new float[Utilities.histOptions.length];
+		Arrays.fill(arrayAllYears, 0);
+		Arrays.fill(arrayActiveYear, 0);
 		//System.out.println(Utilities.activeYear);
 		for (int count = 0; count < sampleData.size(); count++) {
 			int optionCount = 0;
 			while(optionCount < Utilities.histOptions.length) {
 				if (sampleData.get(count).getLatitude() > Utilities.minActiveLatitude && sampleData.get(count).getLatitude() < Utilities.maxActiveLatitude && sampleData.get(count).getLongitude() > Utilities.minActiveLongitude && sampleData.get(count).getLongitude() < Utilities.maxActiveLongitude){
 					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0){
-						arrayAllYears[optionCount]++;
+						arrayAllYears[optionCount] += 1/Utilities.perStatePopulation[sampleData.get(count).getStateFIPS()-1];
 					}
 					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0 && Utilities.activeYear == sampleData.get(count).getYear()){
-						arrayActiveYear[optionCount]++;
+						arrayActiveYear[optionCount] += 1/Utilities.perStatePopulation[sampleData.get(count).getStateFIPS()-1];
 					}
 				}	
 				optionCount++;
@@ -109,7 +116,9 @@ public class Histograph extends BasicControl {
 		setBounds();
 		
 		Utilities.barWidth = (int)((int)Positions.histographWidth/Utilities.histOptions.length - Utilities.Converter(2));
-		
+		if (Utilities.histOptions.length == 2) {
+			Utilities.barWidth = (int)((int)Positions.histographWidth/Utilities.histOptions.length - Utilities.Converter(8));
+		}
 	}
 	
 	private float getMin() {
@@ -192,20 +201,23 @@ public class Histograph extends BasicControl {
 			hashTemp = activeYearCrashes;
 			newMainLabel = mainLabel + " " + Utilities.activeYear;
 		}
-		while (enumTemp.hasMoreElements()){
-			DataPair dataPair = (DataPair)hashTemp.get(enumTemp.nextElement());
+		
+		int w=0;
+		//while (enumTemp.hasMoreElements()){
+		while(fieldCount<Utilities.histOptions.length){
+			DataPair dataPair = (DataPair)hashTemp.get(Utilities.histOptions[fieldCount]);
 			
 			float value = dataPair.getValue();
 			String field = dataPair.getField();
 			
-			float x = parent.map(fieldCount++, 0, hashTemp.size(), myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
+			float x = parent.map(fieldCount, 0, hashTemp.size(), myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
 			float y = parent.map(value, 0, this.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
 			//System.out.println(value);	
 			/**
 			 * Bars
 			 */
 			parent.noStroke();
-			parent.fill(0x800000ED);
+			parent.fill(Utilities.colorCodes[fieldCount%Utilities.colorCodes.length]);
 			parent.rectMode(PConstants.CORNERS);
 			parent.rect(x, y, x + Utilities.barWidth - Utilities.Converter(10), myY + myHeight/2);
 			
@@ -228,8 +240,11 @@ public class Histograph extends BasicControl {
 			if (field.contains("\n\n\n")) {
 				field = field.replaceAll("\n\n\n" ,"\n");
 			}
-			parent.text(field, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(8));
-			
+			if (this.focusAttribute.compareToIgnoreCase("Month")==0 || this.focusAttribute.compareToIgnoreCase("day of week")==0) {
+				field = field.substring(0,3);
+			}
+			parent.text(field, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(5));
+			fieldCount++;
 		}
 		
 		
@@ -250,9 +265,9 @@ public class Histograph extends BasicControl {
 		parent.textAlign(PConstants.CENTER, PConstants.TOP);
 		parent.textSize(Utilities.Converter(9));
 		if (Utilities.histOptions != null)
-			parent.text(Utilities.focusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
+			parent.text(this.focusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
 		else
-			parent.text(Utilities.defaultFocusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
+			parent.text(this.defaultFocusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
 		
 		/**
 		 * Main label: "Crashes/Fatalities"
@@ -266,16 +281,20 @@ public class Histograph extends BasicControl {
 	public void setBounds(){
 		float min = getMin();
 		float max = getMax();
+		
+		this.lowerBound = min;
+		this.upperBound = max;
+		/*
 		if (max > 0) {
-			this.lowerBound = (int)(min - min % 1);
-			this.upperBound = (int)(max + 1 - max % 1);
+			this.lowerBound = min;
+			this.upperBound = max;
 		}
 		if (max>10){
-			this.lowerBound = (int)(min - min % 10);
-			this.upperBound = (int)(max + 10 - max % 10);
+			this.lowerBound = min;
+			this.upperBound = max;
 		}
 		if (max > 100) {
-			this.lowerBound = (int)(min - min % 100);
+			this.lowerBound = min;
 			this.upperBound = (int)(max + 100 - max % 100);
 		}
 		if (max > 1000) {
@@ -292,10 +311,10 @@ public class Histograph extends BasicControl {
 		}
 		//if (Utilities.lowerBound > this.lowerBound) {
 			//Utilities.lowerBound = this.lowerBound;
-		//}
+		//}		 
 		//if (Utilities.upperBound < this.upperBound) {
-	
-			Utilities.upperBound = this.upperBound;
+		*/
+		//	Utilities.upperBound = this.upperBound;
 		//}	
 	}
 	
