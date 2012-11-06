@@ -81,9 +81,7 @@ public class DatabaseManager {
 		if(_pie_chart.length()>0) pie_chart = ", "+_pie_chart;
 		String query;
 		
-		int modularSample = (Utilities.program.maxZoom-Utilities.program.map.getZoom())*5;
-		if (modularSample==0) modularSample=1;
-		//modularSample=1;
+		if (Utilities.sampleIndex<1) Utilities.sampleIndex=1;
 		
 		if (msql.connect()) {
 			query = " select latitude, longitude, _year, id, month, day_of_week, " +
@@ -91,7 +89,7 @@ public class DatabaseManager {
 					"alcohol_involved, SUBSTRING_INDEX(body_type,\",\",1) ," +
 					"SUBSTRING_INDEX(SUBSTRING_INDEX(sex,\",\",1),\":\",1), hour, weather, _state " +					
 					" from krashes" +
-					" where id%"+modularSample+"=0 "
+					" where id%"+Utilities.sampleIndex+"=0 "
 					+filters;
 							//and _year=2005"+
 			System.out.println(query);

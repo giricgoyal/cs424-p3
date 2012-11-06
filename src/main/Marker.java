@@ -59,15 +59,6 @@ public class Marker{
 				parent.fill(Colors.black);
 				parent.ellipseMode(PConstants.CENTER);
 				parent.ellipse(x, y, Utilities.Converter(5), Utilities.Converter(5));
-				
-				if (isOpen) {
-					popUp = new PopUp(parent, x,y,color);
-					if (this.infoText==null) {
-						QueryManager qm=new QueryManager(parent);
-						this.infoText=qm.getDataCrashes(this.id);
-					}
-					popUp.draw(this.infoText);
-				}
 			}
 		}
 	}

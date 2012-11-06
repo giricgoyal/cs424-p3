@@ -33,6 +33,8 @@ public class Utilities {
     
     public static PFont font;
     
+    public static int sampleIndex = 10;
+    
     public static PShape markerShape;
     
     public static int yearMin = 2001;
