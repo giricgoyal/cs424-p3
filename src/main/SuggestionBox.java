@@ -42,7 +42,7 @@ public class SuggestionBox extends BasicControl {
 		// TODO Auto-generated constructor stub
 		this.textBoxText = "";
 		this.textBoxBorderColor = Colors.black;
-		this.textBoxBackgroundColor = Colors.light;
+		this.textBoxBackgroundColor = Colors.gray;
 		this.suggestionBoxBackgroundColor = Colors.light;
 		this.suggestionBoxBorderColor = Colors.dark;
 		this.textBoxTextColor = Colors.black;

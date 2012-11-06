@@ -55,9 +55,9 @@ public class DropUpMenu extends BasicControl {
 		parent.textSize(Utilities.Converter(10));
 		for (int i = 1; i <= FilterValues.attributes.length; i++) {
 			if (activeMedallion)
-				parent.fill(Colors.filterColor);
+				parent.fill(Colors.filterColor,200);
 			else
-				parent.fill(Colors.medium);
+				parent.fill(Colors.medium,200);
 			parent.rect(myX, myY - i * myHeight, myWidth, myHeight);
 			parent.fill(Colors.white);
 			parent.text(FilterValues.attributes[i - 1], (myWidth) / 2 + myX,
